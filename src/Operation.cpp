@@ -17,6 +17,9 @@ extern Pump* p_pump3;  extern Pump* p_pump4;
 extern Pump* p_pump5;  extern Pump* p_pump6;  
 extern Pump* p_pump7;
 
+extern DispenserMaterial* disp_mtrl_arr[12];
+extern PumpMaterial* pump_mtrl_arr[7];
+extern Cocktail* cocktail_arr[18];
 
 
 // *************************** 프리셋 함수들 *************************
@@ -66,124 +69,200 @@ void Operation::preset_pump_instances()
 // 정보 셋업하기 (재료들의 위치, 칵테일 레시피)
 void Operation::preset_dispenser_materials() 
 {
-	//dispenser_material_list가 배열
-	DispenserMaterial* dispenser_material_list;
-	dispenser_material_list = (DispenserMaterial*)malloc(sizeof(DispenserMaterial) * 12);
+	//dispenser_material_instance 생성
+	//DispenserMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
+	DispenserMaterial dispmaterial_instance1("Vodka", 0, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance2("Jean", 1, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance3("WhiteRum", 2, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance4("Tequila", 3, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance5("Cuentro", 4, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance6("Smynov", 5, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance7("GreenMelon", 6, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance8("Peach", 7, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance9("BlueCurasso", 8, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance10("Cassis", 9, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance11("Mohito", 10, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance12("JackDaniel", 11, 750, 200, 200, 200);
 	
-	//dispmaterial_instance 생성
-	DispenserMaterial extern dispmaterial_instance1;
-	DispenserMaterial extern dispmaterial_instance2;
-	DispenserMaterial extern dispmaterial_instance3;
-	DispenserMaterial extern dispmaterial_instance4;
-	DispenserMaterial extern dispmaterial_instance5;
-	DispenserMaterial extern dispmaterial_instance6;
-	DispenserMaterial extern dispmaterial_instance7;
-	DispenserMaterial extern dispmaterial_instance8;
-	DispenserMaterial extern dispmaterial_instance9;
-	DispenserMaterial extern dispmaterial_instance10;
-	DispenserMaterial extern dispmaterial_instance11;
-	DispenserMaterial extern dispmaterial_instance12;
-
-	//여기에도 extern을 써야겟지..?
-	p_dispmaterial_instance1 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance1));
-	p_dispmaterial_instance2 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance2));
-	p_dispmaterial_instance3 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance3));
-	p_dispmaterial_instance4 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance4));
-	p_dispmaterial_instance5 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance5));
-	p_dispmaterial_instance6 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance6));
-	p_dispmaterial_instance7 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance7));
-	p_dispmaterial_instance8 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance8));
-	p_dispmaterial_instance9 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance9));
-	p_dispmaterial_instance10 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance10));
-	p_dispmaterial_instance11 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance11));
-	p_dispmaterial_instance12 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance12));
-
-	*(p_dispmaterial_instance1) = dispenser_material_list[0];
-	*(p_dispmaterial_instance2) = dispenser_material_list[1];
-	*(p_dispmaterial_instance3) = dispenser_material_list[2];
-	*(p_dispmaterial_instance4) = dispenser_material_list[3];
-	*(p_dispmaterial_instance5) = dispenser_material_list[4];
-	*(p_dispmaterial_instance6) = dispenser_material_list[5];
-	*(p_dispmaterial_instance7) = dispenser_material_list[6];
-	*(p_dispmaterial_instance8) = dispenser_material_list[7];
-	*(p_dispmaterial_instance9) = dispenser_material_list[8];
-	*(p_dispmaterial_instance10) = dispenser_material_list[9];
-	*(p_dispmaterial_instance11) = dispenser_material_list[10];
-	*(p_dispmaterial_instance12) = dispenser_material_list[11];
-
+	
+	auto p_dispmaterial_instance1 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance1));
+	auto p_dispmaterial_instance2 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance2));
+	auto p_dispmaterial_instance3 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance3));
+	auto p_dispmaterial_instance4 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance4));
+	auto p_dispmaterial_instance5 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance5));
+	auto p_dispmaterial_instance6 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance6));
+	auto p_dispmaterial_instance7 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance7));
+	auto p_dispmaterial_instance8 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance8));
+	auto p_dispmaterial_instance9 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance9));
+	auto p_dispmaterial_instance10 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance10));
+	auto p_dispmaterial_instance11 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance11));
+	auto p_dispmaterial_instance12 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance12));
+	
+	disp_mtrl_arr[0] = *(p_dispmaterial_instance1);
+	disp_mtrl_arr[1] = *(p_dispmaterial_instance2);
+	disp_mtrl_arr[2] = *(p_dispmaterial_instance3);
+	disp_mtrl_arr[3] = *(p_dispmaterial_instance4);
+	disp_mtrl_arr[4] = *(p_dispmaterial_instance5);
+	disp_mtrl_arr[5] = *(p_dispmaterial_instance6);
+	disp_mtrl_arr[6] = *(p_dispmaterial_instance7);
+	disp_mtrl_arr[7] = *(p_dispmaterial_instance8);
+	disp_mtrl_arr[8] = *(p_dispmaterial_instance9);
+	disp_mtrl_arr[9] = *(p_dispmaterial_instance10);
+	disp_mtrl_arr[10] = *(p_dispmaterial_instance11);
+	disp_mtrl_arr[11] = *(p_dispmaterial_instance12);
 	
 }
 
 void Operation::preset_pump_materials()
 {
-	//pump_material_list가 배열
-	PumpMaterial* pump_material_list;
-	pump_material_list = (PumpMaterial*)malloc(sizeof(PumpMaterial) * 7);
-
-	//pumpmaterial_instance 생성
-	PumpMaterial extern pumpmaterial_instance1;
-	PumpMaterial extern pumpmaterial_instance2;
-	PumpMaterial extern pumpmaterial_instance3;
-	PumpMaterial extern pumpmaterial_instance4;
-	PumpMaterial extern pumpmaterial_instance5;
-	PumpMaterial extern pumpmaterial_instance6;
-	PumpMaterial extern pumpmaterial_instance7;
+	//pump_material_instance 생성
+	//PumpMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
+	PumpMaterial pumpmaterial_instance1("Rasp", 0, 750, 200, 200, 200);
+	PumpMaterial pumpmaterial_instance2("Lemon", 1, 750, 200, 200, 200);
+	PumpMaterial pumpmaterial_instance3("Lime", 2, 750, 200, 200, 200);
+	PumpMaterial pumpmaterial_instance4("Sweet", 3, 750, 200, 200, 200);
+	PumpMaterial pumpmaterial_instance5("Orange", 4, 750, 200, 200, 200);
+	PumpMaterial pumpmaterial_instance6("Grp", 5, 750, 200, 200, 200);
+	PumpMaterial pumpmaterial_instance7("Tonic", 6, 750, 200, 200, 200);
 	
 
-	p_pumpmaterial_instance1 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance1));
-	p_pumpmaterial_instance2 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance2));
-	p_pumpmaterial_instance3 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance3));
-	p_pumpmaterial_instance4 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance4));
-	p_pumpmaterial_instance5 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance5));
-	p_pumpmaterial_instance6 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance6));
-	p_pumpmaterial_instance7 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance7));
+	auto p_pumpmaterial_instance1 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance1));
+	auto p_pumpmaterial_instance2 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance2));
+	auto p_pumpmaterial_instance3 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance3));
+	auto p_pumpmaterial_instance4 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance4));
+	auto p_pumpmaterial_instance5 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance5));
+	auto p_pumpmaterial_instance6 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance6));
+	auto p_pumpmaterial_instance7 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance7));
 	
 
-	*(p_dispmaterial_instance1) = pump_material_list[0];
-	*(p_dispmaterial_instance2) = pump_material_list[1];
-	*(p_dispmaterial_instance3) = pump_material_list[2];
-	*(p_dispmaterial_instance4) = pump_material_list[3];
-	*(p_dispmaterial_instance5) = pump_material_list[4];
-	*(p_dispmaterial_instance6) = pump_material_list[5];
-	*(p_dispmaterial_instance7) = pump_material_list[6];
+	pump_mtrl_arr[0] = *(p_pumpmaterial_instance1);
+	pump_mtrl_arr[1] = *(p_pumpmaterial_instance2);
+	pump_mtrl_arr[2] = *(p_pumpmaterial_instance3);
+	pump_mtrl_arr[3] = *(p_pumpmaterial_instance4);
+	pump_mtrl_arr[4] = *(p_pumpmaterial_instance5);
+	pump_mtrl_arr[5] = *(p_pumpmaterial_instance6);
+	pump_mtrl_arr[6] = *(p_pumpmaterial_instance7);
+	
 
 }
 
 void Operation::preset_cocktail_recipes()
 {
-	//cocktail_list가 배열
-	Cocktail* cocktail_list;
-	cocktail_list = (Cocktail*)malloc(sizeof(Cocktail) * 7);//칵테일은 그럼 총 몇개인가...
-	
-
 	//cocktail_instance 생성
-	Cocktail extern cocktail_instance1;
-	Cocktail extern cocktail_instance2;
-	Cocktail extern cocktail_instance3;
-	Cocktail extern cocktail_instance4;
-	Cocktail extern cocktail_instance5;
-	Cocktail extern cocktail_instance6;
-	Cocktail extern cocktail_instance7;
+	// 이름은 "Martini" 이렇게 받고, 배열은 주소로 받음. 기법은 BUILD STIR 이렇게 써주면 됨.
+	//Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],	TechniqueMethod a_method, int a_r, int a_g, int a_b);
+	int disp_mtrl1[12] = {0,0,45,0,0,0,0,0,0,0,0,0};
+	int pump_mtrl1[7] = {};
+	Cocktail cocktail_instance1("Daiquiri",disp_mtrl1,pump_mtrl1,BUILD,50,1,5);
+
+	int disp_mtrl2[12] = {};
+	int pump_mtrl2[7] = {};
+	Cocktail cocktail_instance2("Longisland", disp_mtrl2, pump_mtrl2, BUILD, 50, 1, 5);
+
+	int disp_mtrl3[12] = {};
+	int pump_mtrl3[7] = {};
+	Cocktail cocktail_instance3("Bacardi", disp_mtrl3, pump_mtrl3, BUILD, 50, 1, 5);
+
+	int disp_mtrl4[12] = {};
+	int pump_mtrl4[7] = {};
+	Cocktail cocktail_instance4("ShiBreeze", disp_mtrl4, pump_mtrl4, BUILD, 50, 1, 5);
+
+	int disp_mtrl5[12] = {};
+	int pump_mtrl5[7] = {};
+	Cocktail cocktail_instance5("AppMartini", disp_mtrl5, pump_mtrl5, BUILD, 50, 1, 5);
+
+	int disp_mtrl6[12] = {};
+	int pump_mtrl6[7] = {};
+	Cocktail cocktail_instance6("Cosmopolitan", disp_mtrl6, pump_mtrl6, BUILD, 50, 1, 5);
+
+	int disp_mtrl7[12] = {};
+	int pump_mtrl7[7] = {};
+	Cocktail cocktail_instance7("TequilaSunrise", disp_mtrl7, pump_mtrl7, BUILD, 50, 1, 5);
+
+	int disp_mtrl8[12] = {};
+	int pump_mtrl8[7] = {};
+	Cocktail cocktail_instance8("TomCollins", disp_mtrl8, pump_mtrl8, BUILD, 50, 1, 5);
+
+	int disp_mtrl9[12] = {};
+	int pump_mtrl9[7] = {};
+	Cocktail cocktail_instance9("MelonCooler", disp_mtrl9, pump_mtrl9, BUILD, 50, 1, 5);
+
+	int disp_mtrl10[12] = {};
+	int pump_mtrl10[7] = {};
+	Cocktail cocktail_instance10("Mohito", disp_mtrl10, pump_mtrl10, BUILD, 50, 1, 5);
+
+	int disp_mtrl11[12] = {};
+	int pump_mtrl11[7] = {};
+	Cocktail cocktail_instance11("SoltiDog", disp_mtrl11, pump_mtrl11, BUILD, 50, 1, 5);
+
+	int disp_mtrl12[12] = {};
+	int pump_mtrl12[7] = {};
+	Cocktail cocktail_instance12("ScrewDriver", disp_mtrl12, pump_mtrl12, BUILD, 50, 1, 5);
+
+	int disp_mtrl13[12] = {};
+	int pump_mtrl13[7] = {};
+	Cocktail cocktail_instance13("BlueHawaii", disp_mtrl13, pump_mtrl13, BUILD, 50, 1, 5);
+
+	int disp_mtrl14[12] = {};
+	int pump_mtrl14[7] = {};
+	Cocktail cocktail_instance14("Junbuck", disp_mtrl14, pump_mtrl14, BUILD, 50, 1, 5);
+
+	int disp_mtrl15[12] = {};
+	int pump_mtrl15[7] = {};
+	Cocktail cocktail_instance15("PitchCrush", disp_mtrl15, pump_mtrl15, BUILD, 50, 1, 5);
+
+	int disp_mtrl16[12] = {};
+	int pump_mtrl16[7] = {};
+	Cocktail cocktail_instance16("BlueRomance", disp_mtrl16, pump_mtrl16, BUILD, 50, 1, 5);
+
+	int disp_mtrl17[12] = {};
+	int pump_mtrl17[7] = {};
+	Cocktail cocktail_instance17("JackHoneymong", disp_mtrl17, pump_mtrl17, BUILD, 50, 1, 5);
+
+	int disp_mtrl18[12] = {};
+	int pump_mtrl18[7] = {};
+	Cocktail cocktail_instance18("ElDiablo", disp_mtrl18, pump_mtrl18, BUILD, 50, 1, 5);
 
 
-	p_cocktail_instance1 = (Cocktail*)malloc(sizeof(extern cocktail_instance1));
-	p_cocktail_instance2 = (Cocktail*)malloc(sizeof(extern cocktail_instance2));
-	p_cocktail_instance3 = (Cocktail*)malloc(sizeof(extern cocktail_instance3));
-	p_cocktail_instance4 = (Cocktail*)malloc(sizeof(extern cocktail_instance4));
-	p_cocktail_instance5 = (Cocktail*)malloc(sizeof(extern cocktail_instance5));
-	p_cocktail_instance6 = (Cocktail*)malloc(sizeof(extern cocktail_instance6));
-	p_cocktail_instance7 = (Cocktail*)malloc(sizeof(extern cocktail_instance7));
+	auto p_cocktail_instance1 = (Cocktail*)malloc(sizeof(cocktail_instance1));
+	auto p_cocktail_instance2 = (Cocktail*)malloc(sizeof(cocktail_instance2));
+	auto p_cocktail_instance3 = (Cocktail*)malloc(sizeof(cocktail_instance3));
+	auto p_cocktail_instance4 = (Cocktail*)malloc(sizeof(cocktail_instance4));
+	auto p_cocktail_instance5 = (Cocktail*)malloc(sizeof(cocktail_instance5));
+	auto p_cocktail_instance6 = (Cocktail*)malloc(sizeof(cocktail_instance6));
+	auto p_cocktail_instance7 = (Cocktail*)malloc(sizeof(cocktail_instance7));
+	auto p_cocktail_instance8 = (Cocktail*)malloc(sizeof(cocktail_instance8));
+	auto p_cocktail_instance9 = (Cocktail*)malloc(sizeof(cocktail_instance9));
+	auto p_cocktail_instance10 = (Cocktail*)malloc(sizeof(cocktail_instance10));
+	auto p_cocktail_instance11 = (Cocktail*)malloc(sizeof(cocktail_instance11));
+	auto p_cocktail_instance12 = (Cocktail*)malloc(sizeof(cocktail_instance12));
+	auto p_cocktail_instance13 = (Cocktail*)malloc(sizeof(cocktail_instance13));
+	auto p_cocktail_instance14 = (Cocktail*)malloc(sizeof(cocktail_instance14));
+	auto p_cocktail_instance15 = (Cocktail*)malloc(sizeof(cocktail_instance15));
+	auto p_cocktail_instance16 = (Cocktail*)malloc(sizeof(cocktail_instance16));
+	auto p_cocktail_instance17 = (Cocktail*)malloc(sizeof(cocktail_instance17));
+	auto p_cocktail_instance18 = (Cocktail*)malloc(sizeof(cocktail_instance18));
 
 
-	*(p_cocktail_instance1) = cocktail_list[0];
-	*(p_cocktail_instance2) = cocktail_list[1];
-	*(p_cocktail_instance3) = cocktail_list[2];
-	*(p_cocktail_instance4) = cocktail_list[3];
-	*(p_cocktail_instance5) = cocktail_list[4];
-	*(p_cocktail_instance6) = cocktail_list[5];
-	*(p_cocktail_instance7) = cocktail_list[6];
+	cocktail_arr[0] = *(p_cocktail_instance1);
+	cocktail_arr[1] = *(p_cocktail_instance2);
+	cocktail_arr[2] = *(p_cocktail_instance3);
+	cocktail_arr[3] = *(p_cocktail_instance4);
+	cocktail_arr[4] = *(p_cocktail_instance5);
+	cocktail_arr[5] = *(p_cocktail_instance6);
+	cocktail_arr[6] = *(p_cocktail_instance7);
+	cocktail_arr[7] = *(p_cocktail_instance8);
+	cocktail_arr[8] = *(p_cocktail_instance9);
+	cocktail_arr[9] = *(p_cocktail_instance10);
+	cocktail_arr[10] = *(p_cocktail_instance11);
+	cocktail_arr[11] = *(p_cocktail_instance12);
+	cocktail_arr[12] = *(p_cocktail_instance13);
+	cocktail_arr[13] = *(p_cocktail_instance14);
+	cocktail_arr[14] = *(p_cocktail_instance15);
+	cocktail_arr[15] = *(p_cocktail_instance16);
+	cocktail_arr[16] = *(p_cocktail_instance17);
+	cocktail_arr[17] = *(p_cocktail_instance18);
 
-	
 }
 
 
@@ -203,57 +282,18 @@ Operation::~Operation() // 동적으로 할당해준 주소들을 해제해 준다.
 	free(p_pump7);
 }
 
-
-
 // ********************** 작동을 위한 함수들 *********************
-
-/*************이걸 이렇게 만들까 아님 메인에다가 할까 함수들*********************/
-//블루투스 연결 확인+첫번째 선택(샘플/나만의 레시피/시그니쳐)
 void Operation::bluetooth_connect()//preset_bluetooth()로 할까
 {
 	if (blueToothSerial.available()) {
 		char message = blueToothSerial.read();
-		if (message <= '0' && message <= '15') {//어플에서 char형으로 보내야됨, 이 숫자는 Sample_list의 index
-			material_instance = Sample_list[message];
-			return material_instance;
-		}		
-	}
-}
-
-//recipe를 선택할 때(귀찮으니까 재료3개 입력 제한)
-void Operation::select_makerecipe()
-{
-	char* material_list[3][2];
-	for (int i = 0; i < 3; i++) {
-		if (blueToothSerial.available()) {
-			char* my_material = blueToothSerial.read();
-			material_list[i][1] = my_material;
-			char* my_materialvol = blueToothSerial.read();
-			material_list[i][2] = my_materialvol;
+		if (message <= '0' && message <= '15') {//어플에서 char형으로 보내야됨
+		   //OLED 문자 출력 "Bluetooth is connected"
+			delay(3000);
+			//LED 스트립 on
+			delay(3000);
 		}
 	}
-	//return material_list;
-	//ㄴ여기서 잘라서 잘라서 material_list return해줄까..
-
-	//{char형 material(숫자),양}이 3개있는 material_list만들어짐----여기서 숫자는 Material_list[]의 index랑 맞춰야함
-	//저장된 Material들이 모여있는 array를 Material_list[]라 한다
-	//ㄴdisp, pump랑 구별하기 쉽도록 먼저 disp_material쓰고 나중에 pump_material쓰는 식으로 해서 쉽게 가자..(숫자로 구별하자는 말)
-	//하나씩 접근해서 Material instance 생성
-	//근데 이거 이름밖에 없어서 material이름만 저장된 list에서 찾아줘야 할까
-	//이렇게 만들어진 material_list에서 하나씩접근해서 Material instance 만들어서 반복하는게 best일듯->이거는 그냥 main에다가??
-
-	for (int i = 0; i < 3; i++) {
-		Material material_instance = Material_list[i];
-		//Mateirl 변수 하나 만들어짐
-		//ㄴmain에다가 위에걸쓸거면 만들어진 Mateirial instance의 member?를 바로 oled,plate,led,actuator에 넣어준다
-		//ㄴ이걸 operation class의 함수로 만들거면 return Material material_instance;해서 진행	
-	}
-}
-
-//저장된 레시피를 material instance로 분리하는 함수(material.cpp에 넣어도 괜찮을듯)
-void Operation::change_to_materialclass(int i) {
-	
-
 }
 
 
