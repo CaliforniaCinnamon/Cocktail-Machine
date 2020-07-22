@@ -4,7 +4,7 @@
 
 #if 0
 
-
+#include "Material.h"
 #include "Operation.h"
 #include <SoftwareSerial.h>
 
@@ -66,17 +66,124 @@ void Operation::preset_pump_instances()
 // 정보 셋업하기 (재료들의 위치, 칵테일 레시피)
 void Operation::preset_dispenser_materials() 
 {
+	//dispenser_material_list가 배열
+	DispenserMaterial* dispenser_material_list;
+	dispenser_material_list = (DispenserMaterial*)malloc(sizeof(DispenserMaterial) * 12);
+	
+	//dispmaterial_instance 생성
+	DispenserMaterial extern dispmaterial_instance1;
+	DispenserMaterial extern dispmaterial_instance2;
+	DispenserMaterial extern dispmaterial_instance3;
+	DispenserMaterial extern dispmaterial_instance4;
+	DispenserMaterial extern dispmaterial_instance5;
+	DispenserMaterial extern dispmaterial_instance6;
+	DispenserMaterial extern dispmaterial_instance7;
+	DispenserMaterial extern dispmaterial_instance8;
+	DispenserMaterial extern dispmaterial_instance9;
+	DispenserMaterial extern dispmaterial_instance10;
+	DispenserMaterial extern dispmaterial_instance11;
+	DispenserMaterial extern dispmaterial_instance12;
 
+	//여기에도 extern을 써야겟지..?
+	p_dispmaterial_instance1 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance1));
+	p_dispmaterial_instance2 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance2));
+	p_dispmaterial_instance3 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance3));
+	p_dispmaterial_instance4 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance4));
+	p_dispmaterial_instance5 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance5));
+	p_dispmaterial_instance6 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance6));
+	p_dispmaterial_instance7 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance7));
+	p_dispmaterial_instance8 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance8));
+	p_dispmaterial_instance9 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance9));
+	p_dispmaterial_instance10 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance10));
+	p_dispmaterial_instance11 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance11));
+	p_dispmaterial_instance12 = (DispenserMaterial*)malloc(sizeof(extern dispmaterial_instance12));
+
+	*(p_dispmaterial_instance1) = dispenser_material_list[0];
+	*(p_dispmaterial_instance2) = dispenser_material_list[1];
+	*(p_dispmaterial_instance3) = dispenser_material_list[2];
+	*(p_dispmaterial_instance4) = dispenser_material_list[3];
+	*(p_dispmaterial_instance5) = dispenser_material_list[4];
+	*(p_dispmaterial_instance6) = dispenser_material_list[5];
+	*(p_dispmaterial_instance7) = dispenser_material_list[6];
+	*(p_dispmaterial_instance8) = dispenser_material_list[7];
+	*(p_dispmaterial_instance9) = dispenser_material_list[8];
+	*(p_dispmaterial_instance10) = dispenser_material_list[9];
+	*(p_dispmaterial_instance11) = dispenser_material_list[10];
+	*(p_dispmaterial_instance12) = dispenser_material_list[11];
+
+	
 }
 
 void Operation::preset_pump_materials()
 {
+	//pump_material_list가 배열
+	PumpMaterial* pump_material_list;
+	pump_material_list = (PumpMaterial*)malloc(sizeof(PumpMaterial) * 7);
+
+	//pumpmaterial_instance 생성
+	PumpMaterial extern pumpmaterial_instance1;
+	PumpMaterial extern pumpmaterial_instance2;
+	PumpMaterial extern pumpmaterial_instance3;
+	PumpMaterial extern pumpmaterial_instance4;
+	PumpMaterial extern pumpmaterial_instance5;
+	PumpMaterial extern pumpmaterial_instance6;
+	PumpMaterial extern pumpmaterial_instance7;
+	
+
+	p_pumpmaterial_instance1 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance1));
+	p_pumpmaterial_instance2 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance2));
+	p_pumpmaterial_instance3 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance3));
+	p_pumpmaterial_instance4 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance4));
+	p_pumpmaterial_instance5 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance5));
+	p_pumpmaterial_instance6 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance6));
+	p_pumpmaterial_instance7 = (PumpMaterial*)malloc(sizeof(extern pumpmaterial_instance7));
+	
+
+	*(p_dispmaterial_instance1) = pump_material_list[0];
+	*(p_dispmaterial_instance2) = pump_material_list[1];
+	*(p_dispmaterial_instance3) = pump_material_list[2];
+	*(p_dispmaterial_instance4) = pump_material_list[3];
+	*(p_dispmaterial_instance5) = pump_material_list[4];
+	*(p_dispmaterial_instance6) = pump_material_list[5];
+	*(p_dispmaterial_instance7) = pump_material_list[6];
 
 }
 
 void Operation::preset_cocktail_recipes()
 {
+	//cocktail_list가 배열
+	Cocktail* cocktail_list;
+	cocktail_list = (Cocktail*)malloc(sizeof(Cocktail) * 7);//칵테일은 그럼 총 몇개인가...
+	
 
+	//cocktail_instance 생성
+	Cocktail extern cocktail_instance1;
+	Cocktail extern cocktail_instance2;
+	Cocktail extern cocktail_instance3;
+	Cocktail extern cocktail_instance4;
+	Cocktail extern cocktail_instance5;
+	Cocktail extern cocktail_instance6;
+	Cocktail extern cocktail_instance7;
+
+
+	p_cocktail_instance1 = (Cocktail*)malloc(sizeof(extern cocktail_instance1));
+	p_cocktail_instance2 = (Cocktail*)malloc(sizeof(extern cocktail_instance2));
+	p_cocktail_instance3 = (Cocktail*)malloc(sizeof(extern cocktail_instance3));
+	p_cocktail_instance4 = (Cocktail*)malloc(sizeof(extern cocktail_instance4));
+	p_cocktail_instance5 = (Cocktail*)malloc(sizeof(extern cocktail_instance5));
+	p_cocktail_instance6 = (Cocktail*)malloc(sizeof(extern cocktail_instance6));
+	p_cocktail_instance7 = (Cocktail*)malloc(sizeof(extern cocktail_instance7));
+
+
+	*(p_cocktail_instance1) = cocktail_list[0];
+	*(p_cocktail_instance2) = cocktail_list[1];
+	*(p_cocktail_instance3) = cocktail_list[2];
+	*(p_cocktail_instance4) = cocktail_list[3];
+	*(p_cocktail_instance5) = cocktail_list[4];
+	*(p_cocktail_instance6) = cocktail_list[5];
+	*(p_cocktail_instance7) = cocktail_list[6];
+
+	
 }
 
 
@@ -143,13 +250,13 @@ Material Operation::select_sample()//클래스 객체를 return해주는 함수인데 이렇게 
 //recipe를 선택할 때(귀찮으니까 재료3개 입력 제한)
 void Operation::select_makerecipe()
 {
-	char* material_list[3][2];
+	char* mymaterial_list[3][2];
 	for (int i = 0; i < 3; i++) {
 		if (blueToothSerial.available()) {
 			char* my_material = blueToothSerial.read();
-			material_list[i][1] = my_material;
+			mymaterial_list[i][1] = my_material;
 			char* my_materialvol = blueToothSerial.read();
-			material_list[i][2] = my_materialvol;
+			mymaterial_list[i][2] = my_materialvol;
 		}
 	}
 	//return material_list;
@@ -175,7 +282,7 @@ void Operation::change_to_materialclass(int i) {
 	
 
 }
-
+/***********************************************************************************************/
 
 // 함수 여러개로 분할할까...-> 분할하는게 좋을거라 생각했는데 좀 애매하네..(인스턴스 생성함수/디스펜서+펌프/
 int Operation::make_cocktail(Cocktail ct)
