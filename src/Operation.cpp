@@ -12,10 +12,7 @@
 // ******************** main의 전역 포인터 가져오기 ******************
 extern Led* p_ledstrip1;  extern Led* p_ledstrip2;  
 extern Led* p_ledpanel;
-extern Pump* p_pump1;  extern Pump* p_pump2;  
-extern Pump* p_pump3;  extern Pump* p_pump4;
-extern Pump* p_pump5;  extern Pump* p_pump6;  
-extern Pump* p_pump7;
+extern Pump* pump_arr[7];
 
 extern DispenserMaterial* disp_mtrl_arr[12];
 extern PumpMaterial* pump_mtrl_arr[7];
@@ -48,22 +45,21 @@ void Operation::preset_pump_instances()
 	Pump pump6(33, 34);
 	Pump pump7(35, 36);
 
-	p_pump1 = (Pump*)malloc(sizeof(pump1));
-	p_pump2 = (Pump*)malloc(sizeof(pump2));
-	p_pump3 = (Pump*)malloc(sizeof(pump3));
-	p_pump4 = (Pump*)malloc(sizeof(pump4));
-	p_pump5 = (Pump*)malloc(sizeof(pump5));
-	p_pump6 = (Pump*)malloc(sizeof(pump6));
-	p_pump7 = (Pump*)malloc(sizeof(pump7));
+	pump_arr[0] = (Pump*)malloc(sizeof(pump1));
+	pump_arr[1] = (Pump*)malloc(sizeof(pump2));
+	pump_arr[2] = (Pump*)malloc(sizeof(pump3));
+	pump_arr[3] = (Pump*)malloc(sizeof(pump4));
+	pump_arr[4] = (Pump*)malloc(sizeof(pump5));
+	pump_arr[5] = (Pump*)malloc(sizeof(pump6));
+	pump_arr[6] = (Pump*)malloc(sizeof(pump7));
 
-
-	*(p_pump1) = pump1;
-	*(p_pump2) = pump2;
-	*(p_pump3) = pump3;
-	*(p_pump4) = pump4;
-	*(p_pump5) = pump5;
-	*(p_pump6) = pump6;
-	*(p_pump7) = pump7;
+	*(pump_arr[0]) = pump1;
+	*(pump_arr[1]) = pump2;
+	*(pump_arr[2]) = pump3;
+	*(pump_arr[3]) = pump4;
+	*(pump_arr[4]) = pump5;
+	*(pump_arr[5]) = pump6;
+	*(pump_arr[6]) = pump7;
 }
 
 // 정보 셋업하기 (재료들의 위치, 칵테일 레시피)
@@ -84,32 +80,31 @@ void Operation::preset_dispenser_materials()
 	DispenserMaterial dispmaterial_instance11("Mohito", 10, 750, 200, 200, 200);
 	DispenserMaterial dispmaterial_instance12("JackDaniel", 11, 750, 200, 200, 200);
 	
+	disp_mtrl_arr[0] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance1));
+	disp_mtrl_arr[1] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance2));
+	disp_mtrl_arr[2] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance3));
+	disp_mtrl_arr[3] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance4));
+	disp_mtrl_arr[4] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance5));
+	disp_mtrl_arr[5] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance6));
+	disp_mtrl_arr[6] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance7));
+	disp_mtrl_arr[7] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance8));
+	disp_mtrl_arr[8] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance9));
+	disp_mtrl_arr[9] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance10));
+	disp_mtrl_arr[10] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance11));
+	disp_mtrl_arr[11] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance12));
 	
-	auto p_dispmaterial_instance1 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance1));
-	auto p_dispmaterial_instance2 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance2));
-	auto p_dispmaterial_instance3 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance3));
-	auto p_dispmaterial_instance4 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance4));
-	auto p_dispmaterial_instance5 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance5));
-	auto p_dispmaterial_instance6 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance6));
-	auto p_dispmaterial_instance7 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance7));
-	auto p_dispmaterial_instance8 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance8));
-	auto p_dispmaterial_instance9 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance9));
-	auto p_dispmaterial_instance10 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance10));
-	auto p_dispmaterial_instance11 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance11));
-	auto p_dispmaterial_instance12 = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance12));
-	
-	disp_mtrl_arr[0] = *(p_dispmaterial_instance1);
-	disp_mtrl_arr[1] = *(p_dispmaterial_instance2);
-	disp_mtrl_arr[2] = *(p_dispmaterial_instance3);
-	disp_mtrl_arr[3] = *(p_dispmaterial_instance4);
-	disp_mtrl_arr[4] = *(p_dispmaterial_instance5);
-	disp_mtrl_arr[5] = *(p_dispmaterial_instance6);
-	disp_mtrl_arr[6] = *(p_dispmaterial_instance7);
-	disp_mtrl_arr[7] = *(p_dispmaterial_instance8);
-	disp_mtrl_arr[8] = *(p_dispmaterial_instance9);
-	disp_mtrl_arr[9] = *(p_dispmaterial_instance10);
-	disp_mtrl_arr[10] = *(p_dispmaterial_instance11);
-	disp_mtrl_arr[11] = *(p_dispmaterial_instance12);
+	*(disp_mtrl_arr[0]) = dispmaterial_instance1;
+	*(disp_mtrl_arr[1]) = dispmaterial_instance2;
+	*(disp_mtrl_arr[2]) = dispmaterial_instance3;
+	*(disp_mtrl_arr[3]) = dispmaterial_instance4;
+	*(disp_mtrl_arr[4]) = dispmaterial_instance5;
+	*(disp_mtrl_arr[5]) = dispmaterial_instance6;
+	*(disp_mtrl_arr[6]) = dispmaterial_instance7;
+	*(disp_mtrl_arr[7]) = dispmaterial_instance8;
+	*(disp_mtrl_arr[8]) = dispmaterial_instance9;
+	*(disp_mtrl_arr[9]) = dispmaterial_instance10;
+	*(disp_mtrl_arr[10]) = dispmaterial_instance11;
+	*(disp_mtrl_arr[11]) = dispmaterial_instance12;
 	
 }
 
@@ -124,26 +119,23 @@ void Operation::preset_pump_materials()
 	PumpMaterial pumpmaterial_instance5("Orange", 4, 750, 200, 200, 200);
 	PumpMaterial pumpmaterial_instance6("Grp", 5, 750, 200, 200, 200);
 	PumpMaterial pumpmaterial_instance7("Tonic", 6, 750, 200, 200, 200);
-	
 
-	auto p_pumpmaterial_instance1 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance1));
-	auto p_pumpmaterial_instance2 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance2));
-	auto p_pumpmaterial_instance3 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance3));
-	auto p_pumpmaterial_instance4 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance4));
-	auto p_pumpmaterial_instance5 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance5));
-	auto p_pumpmaterial_instance6 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance6));
-	auto p_pumpmaterial_instance7 = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance7));
+	pump_mtrl_arr[0] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance1));
+	pump_mtrl_arr[1] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance2));
+	pump_mtrl_arr[2] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance3));
+	pump_mtrl_arr[3] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance4));
+	pump_mtrl_arr[4] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance5));
+	pump_mtrl_arr[5] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance6));
+	pump_mtrl_arr[6] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance7));
 	
-
-	pump_mtrl_arr[0] = *(p_pumpmaterial_instance1);
-	pump_mtrl_arr[1] = *(p_pumpmaterial_instance2);
-	pump_mtrl_arr[2] = *(p_pumpmaterial_instance3);
-	pump_mtrl_arr[3] = *(p_pumpmaterial_instance4);
-	pump_mtrl_arr[4] = *(p_pumpmaterial_instance5);
-	pump_mtrl_arr[5] = *(p_pumpmaterial_instance6);
-	pump_mtrl_arr[6] = *(p_pumpmaterial_instance7);
+	*(pump_mtrl_arr[0]) = pumpmaterial_instance1;
+	*(pump_mtrl_arr[1]) = pumpmaterial_instance2;
+	*(pump_mtrl_arr[2]) = pumpmaterial_instance3;
+	*(pump_mtrl_arr[3]) = pumpmaterial_instance4;
+	*(pump_mtrl_arr[4]) = pumpmaterial_instance5;
+	*(pump_mtrl_arr[5]) = pumpmaterial_instance6;
+	*(pump_mtrl_arr[6]) = pumpmaterial_instance7;
 	
-
 }
 
 void Operation::preset_cocktail_recipes()
@@ -224,45 +216,44 @@ void Operation::preset_cocktail_recipes()
 	Cocktail cocktail_instance18("ElDiablo", disp_mtrl18, pump_mtrl18, BUILD, 50, 1, 5);
 
 
-	auto p_cocktail_instance1 = (Cocktail*)malloc(sizeof(cocktail_instance1));
-	auto p_cocktail_instance2 = (Cocktail*)malloc(sizeof(cocktail_instance2));
-	auto p_cocktail_instance3 = (Cocktail*)malloc(sizeof(cocktail_instance3));
-	auto p_cocktail_instance4 = (Cocktail*)malloc(sizeof(cocktail_instance4));
-	auto p_cocktail_instance5 = (Cocktail*)malloc(sizeof(cocktail_instance5));
-	auto p_cocktail_instance6 = (Cocktail*)malloc(sizeof(cocktail_instance6));
-	auto p_cocktail_instance7 = (Cocktail*)malloc(sizeof(cocktail_instance7));
-	auto p_cocktail_instance8 = (Cocktail*)malloc(sizeof(cocktail_instance8));
-	auto p_cocktail_instance9 = (Cocktail*)malloc(sizeof(cocktail_instance9));
-	auto p_cocktail_instance10 = (Cocktail*)malloc(sizeof(cocktail_instance10));
-	auto p_cocktail_instance11 = (Cocktail*)malloc(sizeof(cocktail_instance11));
-	auto p_cocktail_instance12 = (Cocktail*)malloc(sizeof(cocktail_instance12));
-	auto p_cocktail_instance13 = (Cocktail*)malloc(sizeof(cocktail_instance13));
-	auto p_cocktail_instance14 = (Cocktail*)malloc(sizeof(cocktail_instance14));
-	auto p_cocktail_instance15 = (Cocktail*)malloc(sizeof(cocktail_instance15));
-	auto p_cocktail_instance16 = (Cocktail*)malloc(sizeof(cocktail_instance16));
-	auto p_cocktail_instance17 = (Cocktail*)malloc(sizeof(cocktail_instance17));
-	auto p_cocktail_instance18 = (Cocktail*)malloc(sizeof(cocktail_instance18));
+	cocktail_arr[0] = (Cocktail*)malloc(sizeof(cocktail_instance1));
+	cocktail_arr[1] = (Cocktail*)malloc(sizeof(cocktail_instance2));
+	cocktail_arr[2] = (Cocktail*)malloc(sizeof(cocktail_instance3));
+	cocktail_arr[3] = (Cocktail*)malloc(sizeof(cocktail_instance4));
+	cocktail_arr[4] = (Cocktail*)malloc(sizeof(cocktail_instance5));
+	cocktail_arr[5] = (Cocktail*)malloc(sizeof(cocktail_instance6));
+	cocktail_arr[6] = (Cocktail*)malloc(sizeof(cocktail_instance7));
+	cocktail_arr[7] = (Cocktail*)malloc(sizeof(cocktail_instance8));
+	cocktail_arr[8] = (Cocktail*)malloc(sizeof(cocktail_instance9));
+	cocktail_arr[9] = (Cocktail*)malloc(sizeof(cocktail_instance10));
+	cocktail_arr[10] = (Cocktail*)malloc(sizeof(cocktail_instance11));
+	cocktail_arr[11] = (Cocktail*)malloc(sizeof(cocktail_instance12));
+	cocktail_arr[12] = (Cocktail*)malloc(sizeof(cocktail_instance13));
+	cocktail_arr[13] = (Cocktail*)malloc(sizeof(cocktail_instance14));
+	cocktail_arr[14] = (Cocktail*)malloc(sizeof(cocktail_instance15));
+	cocktail_arr[15] = (Cocktail*)malloc(sizeof(cocktail_instance16));
+	cocktail_arr[16] = (Cocktail*)malloc(sizeof(cocktail_instance17));
+	cocktail_arr[17] = (Cocktail*)malloc(sizeof(cocktail_instance18));
 
 
-	cocktail_arr[0] = *(p_cocktail_instance1);
-	cocktail_arr[1] = *(p_cocktail_instance2);
-	cocktail_arr[2] = *(p_cocktail_instance3);
-	cocktail_arr[3] = *(p_cocktail_instance4);
-	cocktail_arr[4] = *(p_cocktail_instance5);
-	cocktail_arr[5] = *(p_cocktail_instance6);
-	cocktail_arr[6] = *(p_cocktail_instance7);
-	cocktail_arr[7] = *(p_cocktail_instance8);
-	cocktail_arr[8] = *(p_cocktail_instance9);
-	cocktail_arr[9] = *(p_cocktail_instance10);
-	cocktail_arr[10] = *(p_cocktail_instance11);
-	cocktail_arr[11] = *(p_cocktail_instance12);
-	cocktail_arr[12] = *(p_cocktail_instance13);
-	cocktail_arr[13] = *(p_cocktail_instance14);
-	cocktail_arr[14] = *(p_cocktail_instance15);
-	cocktail_arr[15] = *(p_cocktail_instance16);
-	cocktail_arr[16] = *(p_cocktail_instance17);
-	cocktail_arr[17] = *(p_cocktail_instance18);
-
+	*(cocktail_arr[0]) = cocktail_instance1;
+	*(cocktail_arr[1]) = cocktail_instance2;
+	*(cocktail_arr[2]) = cocktail_instance3;
+	*(cocktail_arr[3]) = cocktail_instance4;
+	*(cocktail_arr[4]) = cocktail_instance5;
+	*(cocktail_arr[5]) = cocktail_instance6;
+	*(cocktail_arr[6]) = cocktail_instance7;
+	*(cocktail_arr[7]) = cocktail_instance8;
+	*(cocktail_arr[8]) = cocktail_instance9;
+	*(cocktail_arr[9]) = cocktail_instance10;
+	*(cocktail_arr[10]) = cocktail_instance11;
+	*(cocktail_arr[11]) = cocktail_instance12;
+	*(cocktail_arr[12]) = cocktail_instance13;
+	*(cocktail_arr[13]) = cocktail_instance14;
+	*(cocktail_arr[14]) = cocktail_instance15;
+	*(cocktail_arr[15]) = cocktail_instance16;
+	*(cocktail_arr[16]) = cocktail_instance17;
+	*(cocktail_arr[17]) = cocktail_instance18;
 }
 
 
@@ -273,13 +264,11 @@ Operation::~Operation() // 동적으로 할당해준 주소들을 해제해 준다.
 	free(p_ledstrip1);
 	free(p_ledstrip2);
 	free(p_ledpanel);
-	free(p_pump1);
-	free(p_pump2);
-	free(p_pump3);
-	free(p_pump4);
-	free(p_pump5);
-	free(p_pump6);
-	free(p_pump7);
+
+	for (int i = 0; i < 7; i++) free(pump_arr[i]);
+    for (int i = 0; i < 12; i++) free(disp_mtrl_arr[i]);
+	for (int i = 0; i < 8; i++) free(pump_mtrl_arr[i]);
+	for (int i = 0; i < 18; i++) free(cocktail_arr[i]);
 }
 
 // ********************** 작동을 위한 함수들 *********************
@@ -297,86 +286,119 @@ void Operation::bluetooth_connect()//preset_bluetooth()로 할까
 }
 
 
-// 함수 여러개로 분할할까...-> 분할하는게 좋을거라 생각했는데 좀 애매하네..(인스턴스 생성함수/디스펜서+펌프/
+// 칵테일을 만드는 함수
 int Operation::make_cocktail(Cocktail ct)
 {
-	// creating temp instances
-	// 얘네들을 어떻게 처리할까? 
-	// 그냥 인스턴스 생성해서 쓰는거면 프리셋도 필요 없겠는데...->led,oled 프리셋 함수는 화면 비우는 걸 생각하신건가요??
-	Oled oled_instance;
-	LedStrip led_instance;
-	Coord coord_instance;
-	Plate plate_instance;
-	Pump pump_instance;
+	// 컨트롤을 위한 인스턴스 생성;
+	// Led, Pump 인스턴스는 전역의 포인터 변수를 사용
+	Oled oled;
+	Coord coord;
+	Plate plate;
 
+	// 사용하기 쉽게 칵테일 정보들을 미리 선언해준다.
+	int* disp_recipe = ct.get_disp_recipe(); // 원소 12개 배열
+	int* pump_recipe = ct.get_pump_recipe(); // 원소 7개 배열
+	String ct_name = ct.get_name();
+	int* ct_color = ct.get_cocktail_color(); // 원소 3개 배열
+	TechniqueMethod method = ct.get_technique();
 
-	// checking remains...
+	// 만들기 전, OLED로 칵테일 이름을 표시하고 Led로 칵테일 고유 불빛을 비춤
+	oled.display_cocktail(ct_name);
+	p_ledpanel->color(ct_color);
+	delay(5000);
 
-
-	// OLED display name of the cocktail
-	string name = ct.get_name();
-	oled_instance.display_character(name); // 함수 이름은 바뀔 수 있음.
-
-
-	/*
-	중간에 몇 초 동안 기다리는 함수 아직 안 넣음!!
-	*/
-	// loop; num of alcohol; 디스펜서 개수만큼 반복...
-	auto disp_recipe = ct.get_disp_recipe();
-	for (auto it = disp_recipe.begin(); it != disp_recipe.end(); it++)
-	{
-		DispenserMaterial material = it->first;
-
-		// OLED display alcohol
-		oled_instance.display_charcater(material.get_name());
-
-		// LedStrip set color
-		int* p_rgb = material.get_rgb();
-		led_instance.set_color(p_rgb[0], p_rgb[1], p_rgb[2]); // 함수 이름 달라질 수 있음
-
-		// move plate
-		coord_instance.set(material.get_pos_x(), material.get_pos_y());
-		plate_instance.move_horizontally(coord_instance);
-
-		// move plate z-axis (push dispenser)
-		plate_instance.push_dispenser(it->second);
+	// 잔량 확인하고, 잔량 없으면 OLED에 표시하고 함수 종료
+	for (int i = 0; i < 12; i++) { // disp material 잔량체크
+		if (disp_recipe[i]) { // 칵테일에 특정 재료를 사용하는지 검사
+			// (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
+			if (disp_recipe[i] > (disp_mtrl_arr[i])->get_amount()) {
+				oled.display_lack_of_amount(); // 부족하다고 oled 출력, 함수 정의 필요
+				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
+			}
+		}
 	}
 
-
-	// loop; num of non-alcohol material; 디스펜서 개수만큼 반복...
-	auto pump_recipe = ct.get_pump_recipe();
-	for (auto it = pump_recipe.begin(); it != pump_recipe.end(); it++)
-	{
-		PumpMaterial material = it->first;
-
-		// OLED display non-alcohol material
-		oled_instance.display_charcater(material.get_name());
-
-		// LedStrip set color
-		int* p_rgb = material.get_rgb();
-		led_instance.set_color(p_rgb[0], p_rgb[1], p_rgb[2]); // 함수 이름 달라질 수 있음
-
-		// move plate
-		coord_instance.set(material.get_pos_x(), material.get_pos_y());
-		plate_instance.move_horizontally(coord_instance);
-
-		// activate pump
-		pump_instance.work_pump(it->second); // 이것 역시 함수 이름 달라질 수 있음
+	for (int i = 0; i < 7; i++) { // pump material 잔량체크
+		if (pump_recipe[i]) { // 칵테일에 특정 재료를 사용하는지 검사
+			// (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
+			if (pump_recipe[i] > (pump_mtrl_arr[i])->get_amount()) {
+				oled.display_lack_of_amount(); // 부족하다고 oled 출력, 함수 정의 필요
+				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
+			}
+		}
 	}
 
+	// 잔량 체크 했으면 칵테일 만들기 시작
+	// 디스펜서를 사용하는 재료부터 시작
+	for (int i = 0; i < 12; i++) {
+		if (disp_recipe[i]) { // 만약 해당 재료의 레시피가 0이면 그 재료는 무시함
+			// 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
+			DispenserMaterial material = *(disp_mtrl_arr[i]);
+
+			// OLED 표시
+			oled.display_cocktail(ct_name);
+
+			// Led 색깔 재료 고유의 색으로 바꾸기
+			p_ledpanel->color(material.get_rgb());
+			delay(1000); // 색 바꾸고 1초동안 기다려
+
+			// 좌표 설정하고, plate 움직이기
+			coord.set(material.get_pos_x(), material.get_pos_y());
+			plate.move_to(coord);
+			delay(2000);
+
+			// 좌표로 이동했으면 액츄에이터 작동 (해당 레시피의 양에 해당하는 시간만큼)
+			plate.push_dispenser(disp_recipe[i]);
+
+			// 액츄에이터가 다 따르고 내려오면, 해당 재료의 잔량을 뺌
+			int remain = material.get_amount() - disp_recipe[i];
+			material.set_amount(remain);
+			delay(1000);
+		} // 재료 하나의 루프가 끝났으면, 다시 다른 재료로 이 루프를 또 실행
+	}
+
+	// 디스펜서 다음 펌프를 사용하는 재료 담기
+	for (int i = 0; i < 7; i++) {
+		if (pump_recipe[i]) { // 만약 해당 재료의 레시피가 0이면 그 재료는 무시함
+			// 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
+			PumpMaterial material = *(pump_mtrl_arr[i]);
+
+			// OLED 표시
+			oled.display_cocktail(ct_name);
+
+			// Led 색깔 재료 고유의 색으로 바꾸기
+			p_ledpanel->color(material.get_rgb());
+			delay(1000); // 색 바꾸고 1초동안 기다려
+
+			// 좌표 설정하고, plate 움직이기
+			coord.set(material.get_pos_x(), material.get_pos_y());
+			plate.move_to(coord);
+			delay(2000);
+
+			// 좌표로 이동했으면 !펌프! 작동 (해당 레시피의 양에 해당하는 시간만큼)
+			pump_arr[i]->work_pump(pump_recipe[i]);
+
+			// 펌프 작동을 완료하면, 해당 재료의 잔량을 뺌
+			int remain = material.get_amount() - pump_recipe[i];
+			material.set_amount(remain);
+			delay(1000);
+		} // 재료 하나의 루프가 끝났으면, 다시 다른 재료로 이 루프를 또 실행
+	}
+
+	delay(3000);
 
 	// 주조 기법에 따라 주조하기
-	Technique ct_technique;
-	ct_technique.f(ct.get_craft_method());
+	oled.display_technique(); // 함수 만들기 필요, 해당 기법을 OLED에 표시
+	p_ledpanel->color(ct_color); // 해당 칵테일의 고유 색 표현
+	// 함수 실행을 위한 인스턴스 선언, 위에서 선언해준 method를 전달해 그 명령 수행
+	Technique t;
+	t.f(method);
 
+	// 칵테일 완성!!
+	oled_instance.display_complete(); 	// OLED에 완료했다고 표시
+	plate_instance.move_to_initial_position(); 	// move to init pos
 
-	// move to init pos
-	plate_instance.move_to_initial_position();
-
-	// OLED display 'complete'
-	oled_instance.display_character("complete!"); // 완료 문구 달라질 수 있음
-
-	return 0;
+	return 1; // 리턴 코드 1: 칵테일 완성
 }
 
 
@@ -384,7 +406,7 @@ int Operation::emergency_stop()
 {
 	print("emergency stop!");
 	exit;
-	return 0;
+	return 2; // 리턴 코드 2: 긴급 정지
 }
 
 

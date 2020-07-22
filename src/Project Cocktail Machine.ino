@@ -7,10 +7,8 @@
 
 
 // ========= user-installed headers ==========
-// 여기 있는 것들 옮겨 ㅅㅂ
 
 #include <Stepper.h>
-//#include <ArduinoSTL.h>
 
 #include <splash.h>
 #include <Adafruit_SSD1306.h>
@@ -41,8 +39,11 @@
 
 // ============ global pointers ==============
 /*Led* p_ledstrip1;  Led* p_ledstrip2;  Led* p_ledpanel;
-Pump* p_pump1;  Pump* p_pump2;  Pump* p_pump3;  Pump* p_pump4;
-Pump* p_pump5;  Pump* p_pump6;  Pump* p_pump7;*/
+Pump* pump_arr[7];
+DispenserMaterial* disp_mtrl_arr[12];
+PumpMaterial* pump_mtrl_arr[7];
+Cocktail* cocktail_arr[18];
+*/
 
 
 void setup() {
@@ -59,9 +60,3 @@ void loop() {
 
 
 // =============== user-defined functions =================
-
-
-void preset_pump_instances()
-{
-
-}
