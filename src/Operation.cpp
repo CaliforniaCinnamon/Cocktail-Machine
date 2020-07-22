@@ -212,33 +212,6 @@ Operation::~Operation() // 동적으로 할당해준 주소들을 해제해 준다.
 void Operation::bluetooth_connect()//preset_bluetooth()로 할까
 {
 	if (blueToothSerial.available()) {
-		int message = blueToothSerial.read();
-		switch (message) {
-		case 0:
-			//select_sample();
-			break;
-		case 1:
-			//select_makerecipe();
-			break;
-		case 2:
-			//select_signature();
-			break;
-		}
-	}
-}
-
-/***********************************************************/
-/*이해를 위해...
-Material_list는 material class로 이루어진 array, 앞에는 disp_material, 뒤에는 pump_material하면 하면서 숫자로도 구별할 수 있어서 쉬울 듯 합니다(나중에 pump_material이랑 disp_material만들어줄때, 근데 생각해보면 만들필요 없지않을까)
-Sample_list는 cocktail class로 이루어진 array
-material_instance는 전역에다가 선언
-Material *material_instance;
-*/
-
-//샘플을 선택할 때
-Material Operation::select_sample()//클래스 객체를 return해주는 함수인데 이렇게 쓰면 되나 아님 어차피 material_instance class 포인터라서 void로 하고 값 바로 바꿔줘도 될듯
-{
-	if (blueToothSerial.available()) {
 		char message = blueToothSerial.read();
 		if (message <= '0' && message <= '15') {//어플에서 char형으로 보내야됨, 이 숫자는 Sample_list의 index
 			material_instance = Sample_list[message];
@@ -250,13 +223,13 @@ Material Operation::select_sample()//클래스 객체를 return해주는 함수인데 이렇게 
 //recipe를 선택할 때(귀찮으니까 재료3개 입력 제한)
 void Operation::select_makerecipe()
 {
-	char* mymaterial_list[3][2];
+	char* material_list[3][2];
 	for (int i = 0; i < 3; i++) {
 		if (blueToothSerial.available()) {
 			char* my_material = blueToothSerial.read();
-			mymaterial_list[i][1] = my_material;
+			material_list[i][1] = my_material;
 			char* my_materialvol = blueToothSerial.read();
-			mymaterial_list[i][2] = my_materialvol;
+			material_list[i][2] = my_materialvol;
 		}
 	}
 	//return material_list;
@@ -282,7 +255,7 @@ void Operation::change_to_materialclass(int i) {
 	
 
 }
-/***********************************************************************************************/
+
 
 // 함수 여러개로 분할할까...-> 분할하는게 좋을거라 생각했는데 좀 애매하네..(인스턴스 생성함수/디스펜서+펌프/
 int Operation::make_cocktail(Cocktail ct)
