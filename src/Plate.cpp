@@ -29,15 +29,13 @@ Plate::Plate()
     // 엔드스탑의 핀모드 설정
     pinMode(PIN_ENDSTOP_X, INPUT);
     pinMode(PIN_ENDSTOP_Y, INPUT);
+    pinMode(PIN_ENDSTOP_Z, INPUT);
 }
 
 Plate::~Plate()
-{
-    // 동적으로 할당해 준 Stepper 의 해제를 위해 존재
+{ // 동적으로 할당해 준 Stepper 의 해제를 위해 존재  
     free(p_stepper_x);
     free(p_stepper_y);
-    // 만약 Actuator 클래스를 상속받았다면 그거 고려해!
-    // 우선은 스텝모터 테스트 용이므로 단순히 해제만 해주겠음.
 }
 //******************************************************//
 
@@ -133,7 +131,7 @@ void Plate::move_to_initial_position()
 void Plate::push_dispenser(int a_amount)
 {
     // 선언 및 초기화, 딜레이 타임
-    Actuator a(PIN_ACTUATOR_A, PIN_ACTUATOR_B);
+    Actuator a(12345, 67890); // 액츄에이터 핀 넘버 A, B
     const int SECONDS_PER_AMOUNT = 10;  // ************* 설정 필요!
     int delay_time = a_amount * 1000 / SECONDS_PER_AMOUNT;
     bool z_touch = false;
@@ -143,7 +141,7 @@ void Plate::push_dispenser(int a_amount)
     delay(delay_time);
     a.down();
 
-    // 맨 끝에 도달하면 액츄에이터 인가 전압 해제
+    // 맨 끝에 도달하면 액츄에이터 인가 전압 해제 (idle)
     while (!z_touch) {
         if (digitalRead(PIN_ENDSTOP_Z)) {
             a.idle();
