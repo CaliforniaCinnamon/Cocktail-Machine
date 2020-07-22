@@ -1,6 +1,6 @@
 // Cocktail.h
 
-#if 0
+#if 1
 #pragma once
 
 #if defined(ARDUINO) && ARDUINO >= 100
@@ -17,33 +17,48 @@
 class Cocktail
 {
 private:
-
-	/* pseudo code
-
-	name
-	disp material : amount (array)
-	pump material : amount (array)
-	technique method
-
-	*/
-
-	// TechniqueMethod method; // 지금은 빨간 줄 이지만 Technique 헤더 인클루드 하면 됨 ㅇㅇ
-
-
+    String cocktail_name; // 칵테일 이름
+  // {0, 0, 50, 60, 0, 0, 0, ...} 이런 식으로 필요한 재료와 양 정보를 저장함.
+    int disp_material_amount[12];
+    int pump_material_amount[7];
+    TechniqueMethod method; // 기법
+    int cocktail_rgb[3]; // 완성됐을 때 Led 색깔 정보
 
 public:
+    // 이름은 "Martini" 이렇게 받고, 배열은 주소로 받음. 기법은 BUILD STIR 이렇게 써주면 됨.
+    Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],
+        TechniqueMethod a_method, int a_r, int a_g, int a_b);
 
-
-	/* pseudo code
-
-	constructor
-	get disp recipe
-	get pump recipe
-	get name
-	get technique
-
-	*/
-
+    String get_name() { return cocktail_name; }
+    int* get_disp_recipe() { return disp_material_amount; }
+    int* get_pump_recipe() { return pump_material_amount; }
+    TechniqueMethod get_technique() { return method; }
+    int* get_cocktail_color() { return cocktail_rgb; }
 };
 
+
+Cocktail::Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],
+    TechniqueMethod a_method, int a_r, int a_g, int a_b)
+{
+    cocktail_name = name;
+
+    for (int i = 0; i < 12; i++) { // 디스펜서 재료 종류와 양 정보 깊은복사
+        disp_material_amount[i] = a_disp_mtrl[i];
+    }
+
+    for (int i = 0; i < 7; i++) { // 펌프 재료 종류와 양 정보 깊은복사
+        pump_material_amount[i] = a_pump_mtrl[i];
+    }
+
+    cocktail_rgb[0] = a_r;
+    cocktail_rgb[1] = a_g;
+    cocktail_rgb[2] = a_b;
+
+    method = a_method;
+}
+
+
 #endif
+
+
+
