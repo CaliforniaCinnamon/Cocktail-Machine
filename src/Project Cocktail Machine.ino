@@ -67,28 +67,28 @@ void loop() {
 
 	// 전원 연결이 되면, oled는 로고를 출력해 입력을 기다리고 있음을 나타냄
 	Oled oled;
-	oled.waiting(); // 함수필요!!
+	oled.display_center("trame"); // 함수필요!!
 
 	while (flag) { // flag 1: 명령 기다림 | flag 0: 명령 받아 while 탈출
 	// LED 레인보우를 동시에 표현하기 위한 코드
 		int time_marker = millis();
-		p_ledstrip1->random(time_marker);
-		p_ledstrip2->random(time_marker + 0);
-		p_ledpanel->random(time_marker + 0);
+		p_ledstrip1->random_color(time_marker);
+		p_ledstrip2->random_color(time_marker + 0);
+		p_ledpanel->random_color(time_marker + 0);
 
 		res_index = ctrl.bluetooth_connect();
 		// res_index notation:
 		// 0~17: 미리 정의해놓은 칵테일
 		// 18: 시그니쳐 | 19: 나만의 레시피
 		// 20: 에러 | -1: 응답없음
-		if (res_index == 20)
-		if (res_index >= 0 && res_index <= 20) {
+		if (res_index == 20) ctrl.emergency_stop();
+		else if (res_index >= 0 && res_index <= 19) {
 			flag = 0;
 		}
 	} // end of while
 
 	// LED 스트립 보라색으로 바꿈
-	int purple[3] = { 1,2,3 }; // 보라색 rgb
+	int purple[3] = { 186,85,211 }; // 보라색 rgb
 	p_ledstrip1->color(purple);
 	p_ledstrip2->color(purple);
 

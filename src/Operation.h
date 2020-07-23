@@ -10,16 +10,17 @@
 #endif
 
 
+#include "Material.h"
 #include "Plate.h"
 #include "Cocktail.h"
 #include "Technique.h"
 #include "Pump.h"
-#include <array>
-#include <vector>
 
 
 class Operation {
 private:
+	// bluetooth_connect 함수에 내장됨
+	int select_make_recipe(String message);
 
 public:
 	// 프리셋 함수 (setup)
@@ -39,7 +40,6 @@ public:
 	int bluetooth_connect();
 	int make_cocktail(int res_index);
 	int emergency_stop();
-	int select_make_recipe(String message);
 };
 
 

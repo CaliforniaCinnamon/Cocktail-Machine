@@ -34,8 +34,7 @@ private:
     int STEPPER_SPEED = 30;
 
     Coord position; // 현재 자기의 위치
-
-    // 핀 넘버는 생성자 함수에서 직접 전달하는거 어떻습니까? - 논의 필요
+    
     const int PIN_ENDSTOP_X = 12;
     const int PIN_ENDSTOP_Y = 13;
     const int PIN_ENDSTOP_Z = 14;

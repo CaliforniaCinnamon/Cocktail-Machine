@@ -4,10 +4,14 @@
 
 #if 1
 
-#include "Material.h"
+
 #include "Operation.h"
 #include <SoftwareSerial.h>
-SoftwareSerial bluetooth = SoftwareSerial(7, 8);
+
+#define RXD 10;
+#define TXD 11;
+
+SoftwareSerial bluetooth(RXD, TXD);
 
 // ******************** main의 전역 포인터 가져오기 ******************
 extern Led * p_ledstrip1;  extern Led* p_ledstrip2;
@@ -145,79 +149,79 @@ void Operation::preset_cocktail_recipes()
 	//Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],   TechniqueMethod a_method, int a_r, int a_g, int a_b);
 	int disp_mtrl1[12] = { 0,0,45,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl1[7] = {0,0,20,0,0,0,0};
-	Cocktail cocktail_instance1("Daiquiri", disp_mtrl1, pump_mtrl1, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance1("Daiquiri", disp_mtrl1, pump_mtrl1, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl2[12] = {15,15,15,15,15,0,0,0,0,0,0,0};
 	int pump_mtrl2[7] = {0,30,0,0,0,0,0};
-	Cocktail cocktail_instance2("Longisland", disp_mtrl2, pump_mtrl2, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance2("Longisland", disp_mtrl2, pump_mtrl2, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl3[12] = {0,0,30,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl3[7] = {15,0,15,0,0,0,0};
-	Cocktail cocktail_instance3("Bacardi", disp_mtrl3, pump_mtrl3, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance3("Bacardi", disp_mtrl3, pump_mtrl3, TechniqueMethod::BUILD, 50, 1, 5);
 
-	int disp_mtrl4[12] = {30,0,0,0,0,0,0,0,0,0,0,0,0};
+	int disp_mtrl4[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl4[7] = {60,0,0,0,0,15,0};
-	Cocktail cocktail_instance4("ShiBreeze", disp_mtrl4, pump_mtrl4, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance4("ShiBreeze", disp_mtrl4, pump_mtrl4, TechniqueMethod::BUILD, 50, 1, 5);
 
-	int disp_mtrl5[12] = {0,0,0,0,0,45,0,0,0,0,0,0,0};
+	int disp_mtrl5[12] = {0,0,0,0,0,45,0,0,0,0,0,0};
 	int pump_mtrl5[7] = {0,0,0,60,0,0,0};
-	Cocktail cocktail_instance5("AppMartini", disp_mtrl5, pump_mtrl5, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance5("AppMartini", disp_mtrl5, pump_mtrl5, TechniqueMethod::BUILD, 50, 1, 5);
 
-	int disp_mtrl6[12] = {30,0,0,0,15,0,0,0,0,0,0,0,0};
+	int disp_mtrl6[12] = {30,0,0,0,15,0,0,0,0,0,0,0};
 	int pump_mtrl6[7] = {15,0,15,0,0,0,0};
-	Cocktail cocktail_instance6("Cosmopolitan", disp_mtrl6, pump_mtrl6, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance6("Cosmopolitan", disp_mtrl6, pump_mtrl6, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl7[12] = {0,0,0,30,0,0,0,0,0,0,0,0};
 	int pump_mtrl7[7] = {15,0,0,0,90,0,0};
-	Cocktail cocktail_instance7("TequilaSunrise", disp_mtrl7, pump_mtrl7, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance7("TequilaSunrise", disp_mtrl7, pump_mtrl7, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl8[12] = {0,45,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl8[7] = {0,15,0,0,0,0,15};
-	Cocktail cocktail_instance8("TomCollins", disp_mtrl8, pump_mtrl8, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance8("TomCollins", disp_mtrl8, pump_mtrl8, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl9[12] = {0,0,0,0,0,0,30,30,0,0,0,0};
 	int pump_mtrl9[7] = {0,0,0,30,0,0,30};
-	Cocktail cocktail_instance9("MelonCooler", disp_mtrl9, pump_mtrl9, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance9("MelonCooler", disp_mtrl9, pump_mtrl9, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl10[12] = {0,0,45,0,0,0,0,0,0,0,30,0};
 	int pump_mtrl10[7] = {0,0,0,0,0,0,30};
-	Cocktail cocktail_instance10("Mohito", disp_mtrl10, pump_mtrl10, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance10("Mohito", disp_mtrl10, pump_mtrl10, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl11[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl11[7] = {0,0,0,0,0,120,0};
-	Cocktail cocktail_instance11("SoltiDog", disp_mtrl11, pump_mtrl11, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance11("SoltiDog", disp_mtrl11, pump_mtrl11, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl12[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl12[7] = {0,0,0,0,120,0,0};
-	Cocktail cocktail_instance12("ScrewDriver", disp_mtrl12, pump_mtrl12, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance12("ScrewDriver", disp_mtrl12, pump_mtrl12, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl13[12] = { 0,0,0,30,15,0,0,0,0,0,0,0 };
 	int pump_mtrl13[7] = { 0,0,15,0,0,0,0 };
-	Cocktail cocktail_instance13("Margarita", disp_mtrl13, pump_mtrl13, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance13("Margarita", disp_mtrl13, pump_mtrl13, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl13[12] = {0,0,30,0,0,0,0,0,15,0,0,0};
 	int pump_mtrl13[7] = {0,15,0,15,0,0,0};
-	Cocktail cocktail_instance1("BlueHawaii", disp_mtrl13, pump_mtrl13, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance14("BlueHawaii", disp_mtrl13, pump_mtrl13, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl14[12] = {0,0,15,0,0,0,30,0,0,0,0,0};
 	int pump_mtrl14[7] = {0,30,0,30,0,0,0};
-	Cocktail cocktail_instance15("Junbuck", disp_mtrl14, pump_mtrl14, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance15("Junbuck", disp_mtrl14, pump_mtrl14, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl15[12] = {0,0,0,0,0,0,0,30,0,0,0,0};
 	int pump_mtrl15[7] = {60,0,0,60,0,0,0};
-	Cocktail cocktail_instance16("PitchCrush", disp_mtrl15, pump_mtrl15, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance16("PitchCrush", disp_mtrl15, pump_mtrl15, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl16[12] = {30,0,0,0,0,0,0,0,35,0,0,0};
 	int pump_mtrl16[7] = {0,0,0,0,100,0,0};
-	Cocktail cocktail_instance17("BlueRomance", disp_mtrl16, pump_mtrl16, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance17("BlueRomance", disp_mtrl16, pump_mtrl16, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl17[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl17[7] = {0,0,0,0,0,90,0};
-	Cocktail cocktail_instance18("JackHoneymong", disp_mtrl17, pump_mtrl17, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance18("JackHoneymong", disp_mtrl17, pump_mtrl17, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl18[12] = {0,0,0,60,0,0,0,0,0,30,0,0};
 	int pump_mtrl18[7] = {0,0,15,0,0,0,0};
-	Cocktail cocktail_instance19("ElDiablo", disp_mtrl18, pump_mtrl18, BUILD, 50, 1, 5);
+	Cocktail cocktail_instance19("ElDiablo", disp_mtrl18, pump_mtrl18, TechniqueMethod::BUILD, 50, 1, 5);
 
 
 	cocktail_arr[0] = (Cocktail*)malloc(sizeof(cocktail_instance1));
@@ -271,7 +275,7 @@ Operation::~Operation() // 동적으로 할당해준 주소들을 해제해 준다.
 
 	for (int i = 0; i < 7; i++) free(pump_arr[i]);
 	for (int i = 0; i < 12; i++) free(disp_mtrl_arr[i]);
-	for (int i = 0; i < 8; i++) free(pump_mtrl_arr[i]);
+	for (int i = 0; i < 7; i++) free(pump_mtrl_arr[i]);
 	for (int i = 0; i < 20; i++) free(cocktail_arr[i]);
 }
 
@@ -380,11 +384,13 @@ int Operation::make_cocktail(int result_index)
 	int* disp_recipe = ct.get_disp_recipe(); // 원소 12개 배열
 	int* pump_recipe = ct.get_pump_recipe(); // 원소 7개 배열
 	String ct_name = ct.get_name();
+	char* name;
+	ct_name.toCharArray(name, ct_name.length() + 1);
 	int* ct_color = ct.get_cocktail_color(); // 원소 3개 배열
 	TechniqueMethod method = ct.get_technique();
 
 	// 만들기 전, OLED로 칵테일 이름을 표시하고 Led로 칵테일 고유 불빛을 비춤
-	oled.display_cocktail(ct_name);
+	oled.display_right(name);
 	p_ledpanel->color(ct_color);
 	delay(5000);
 
@@ -393,7 +399,8 @@ int Operation::make_cocktail(int result_index)
 		if (disp_recipe[i]) { // 칵테일에 특정 재료를 사용하는지 검사
 		   // (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
 			if (disp_recipe[i] > (disp_mtrl_arr[i])->get_amount()) {
-				oled.display_lack_of_amount(); // 부족하다고 oled 출력, 함수 정의 필요
+				char* msg = "please refill!";
+				oled.display_center(msg); // 부족하다고 oled 출력, 함수 정의 필요
 				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
 			}
 		}
@@ -403,7 +410,8 @@ int Operation::make_cocktail(int result_index)
 		if (pump_recipe[i]) { // 칵테일에 특정 재료를 사용하는지 검사
 		   // (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
 			if (pump_recipe[i] > (pump_mtrl_arr[i])->get_amount()) {
-				oled.display_lack_of_amount(); // 부족하다고 oled 출력, 함수 정의 필요
+				char* msg = "please refill!";
+				oled.display_center(msg); // 부족하다고 oled 출력, 함수 정의 필요
 				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
 			}
 		}
@@ -417,7 +425,7 @@ int Operation::make_cocktail(int result_index)
 			DispenserMaterial material = *(disp_mtrl_arr[i]);
 
 			// OLED 표시
-			oled.display_cocktail(ct_name);
+			oled.display_right(name);
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			p_ledpanel->color(material.get_rgb());
@@ -445,7 +453,7 @@ int Operation::make_cocktail(int result_index)
 			PumpMaterial material = *(pump_mtrl_arr[i]);
 
 			// OLED 표시
-			oled.display_cocktail(ct_name);
+			oled.display_right(name);
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			p_ledpanel->color(material.get_rgb());
@@ -469,7 +477,6 @@ int Operation::make_cocktail(int result_index)
 	delay(3000);
 
 	// 주조 기법에 따라 주조하기
-	oled.display_technique(); // 함수 만들기 필요, 해당 기법을 OLED에 표시
 	p_ledpanel->color(ct_color); // 해당 칵테일의 고유 색 표현
 	// 함수 실행을 위한 인스턴스 선언, 위에서 선언해준 method를 전달해 그 명령 수행
 	Technique t;
@@ -486,7 +493,7 @@ int Operation::make_cocktail(int result_index)
 int Operation::emergency_stop()
 {
 	Oled o;
-	o.display_cocktail("emergency stop!");
+	o.display_center("emergency stop!");
 	exit;
 	return 20; // 리턴 코드 20: 긴급 정지
 }
