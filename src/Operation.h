@@ -1,6 +1,6 @@
 // Operation.h
 
-#if 0
+#if 1
 #pragma once
 
 #if defined(ARDUINO) && ARDUINO >= 100
@@ -36,9 +36,10 @@ public:
 	~Operation();
 
 	// 작동 함수
-	void bluetooth_connect();
-	int make_cocktail(Cocktail ct);
+	int bluetooth_connect();
+	int make_cocktail(int res_index);
 	int emergency_stop();
+	int select_make_recipe(String message);
 };
 
 

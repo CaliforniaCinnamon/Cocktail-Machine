@@ -2,7 +2,7 @@
 // 수정 필요
 // 
 
-#if 0
+#if 1
 
 #include "Oled.h"
 Oled::Oled() {

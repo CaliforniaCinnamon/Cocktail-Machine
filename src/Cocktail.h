@@ -35,6 +35,7 @@ public:
     TechniqueMethod get_technique() { return method; }
     int* get_cocktail_color() { return cocktail_rgb; }
 
+
 };
 
 

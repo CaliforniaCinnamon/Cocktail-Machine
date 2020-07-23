@@ -2,12 +2,12 @@
 // 임포트 한 클래스들이 많이 바뀌어서, 어차피 얘도 많이 바꿔야함.
 // 
 
-#if 0
+#if 1
 
 #include "Material.h"
 #include "Operation.h"
 #include <SoftwareSerial.h>
-
+SoftwareSerial bluetooth = SoftwareSerial(7, 8);
 
 // ******************** main의 전역 포인터 가져오기 ******************
 extern Led * p_ledstrip1;  extern Led* p_ledstrip2;
@@ -16,7 +16,7 @@ extern Pump* pump_arr[7];
 
 extern DispenserMaterial* disp_mtrl_arr[12];
 extern PumpMaterial* pump_mtrl_arr[7];
-extern Cocktail* cocktail_arr[18];
+extern Cocktail* cocktail_arr[20];
 
 
 // *************************** 프리셋 함수들 *************************
@@ -272,12 +272,12 @@ Operation::~Operation() // 동적으로 할당해준 주소들을 해제해 준다.
 	for (int i = 0; i < 7; i++) free(pump_arr[i]);
 	for (int i = 0; i < 12; i++) free(disp_mtrl_arr[i]);
 	for (int i = 0; i < 8; i++) free(pump_mtrl_arr[i]);
-	for (int i = 0; i < 18; i++) free(cocktail_arr[i]);
+	for (int i = 0; i < 20; i++) free(cocktail_arr[i]);
 }
 
 // ********************** 작동을 위한 함수들 *********************
 
-int select_make_recipe(String message)
+int Operation::select_make_recipe(String message)
 {
 	// 우선 message 양 끝에 & 가 있는지 검사, 없으면 20을 반환
 
@@ -285,7 +285,7 @@ int select_make_recipe(String message)
 	int disp_mtrl_amount[12] = { 0, };
 	int pump_mtrl_amount[7] = { 0, };
 
-	int i = 1; // message의 인덱스
+	int i = 2; // message의 인덱스
 
 	while (message[i] != '&') {
 		String index = "";
@@ -295,8 +295,9 @@ int select_make_recipe(String message)
 			index += message[i];
 			i++;
 		} // end of internal while, %를 만나면 빠져나옴
+		i++;
 
-		while (message[i] != '%') { // amount 정보 받아오기
+		while (message[i] != '%' && message[i] != '&') { // amount 정보 받아오기
 			amount += message[i];
 			i++;
 		} // end of internal while, %를 만나면 빠져나옴
@@ -310,18 +311,18 @@ int select_make_recipe(String message)
 			disp_mtrl_amount[index_int] = amount_int;
 		}
 		else if (12 <= index_int && index_int <= 18) {
-			pump_mtlr_amount[index_int] = amount_int;
+			pump_mtrl_amount[index_int] = amount_int;
 		}
 
 		// 마지막 검사 메세지는 char로 끝났으므로 message의 인덱스 하나 증가
-		i++;
 	} // end of while: disp_mtrl_amount 와 pump_mtrl_amount 배열 설정 완료
-
+	Serial.println("hi");
 	// 칵테일 인스턴스 생성
-	Cocktail my_cocktail("my_cocktail", disp_mtrl_amount, pump_mtrl_amount)
+	Cocktail my_cocktail("my_cocktail", disp_mtrl_amount, pump_mtrl_amount, 
+		TechniqueMethod::BUILD, 123, 123, 123);
 
 		// 동적할당 및 주소 대입
-		cocktail_arr[19] = (Cocktail*)malloc(sizeof(my_cocktail));
+	cocktail_arr[19] = (Cocktail*)malloc(sizeof(my_cocktail));
 	*(cocktail_arr[19]) = my_cocktail;
 
 	// 리턴
@@ -329,30 +330,37 @@ int select_make_recipe(String message)
 }
 
 
-int bluetooth_connect() {
-	while (bluetooth.available()) {
-		char ch = bluetooth.read();
-		str.concat(ch);
-	}
-	Serial.println(str);
-	
-	//select_sample
-	if (str.charAt(0) == '$') {
-		String res = ""; int i = 1;
-		while (str.charAt(i) != '$') {
-			char ch = str.charAt(i);
-			res.concat(ch);
-			i++;
+int Operation::bluetooth_connect() {
+	bluetooth.begin(9600);
+	if (bluetooth.available()) {
+		String str = "";
+		while (bluetooth.available()) {
+			char ch = bluetooth.read();
+			delay(50);
+			str.concat(ch);
 		}
-		return (res.toInt());
+
+		//select_sample
+		if (str.charAt(0) == '$') {
+			String res = "";
+			int i = 1;
+			while (str.charAt(i) != '$') {
+				char ch = str.charAt(i);
+				res.concat(ch);
+				i++;
+			}
+			return (res.toInt()); // 0~18
+		}
+
+		//make_recipe
+		else if (str.charAt(0) == '&') {
+			return select_make_recipe(str); // 19
+		}
+		else
+			return 20;
 	}
 
-	//make_recipe
-	else if (str.charAt(0) == '&') {
-		return select_make_recipe(str);
-	}
-
-	else return 20;
+	return -1;
 }
 
 
@@ -360,6 +368,8 @@ int bluetooth_connect() {
 // 칵테일을 만드는 함수
 int Operation::make_cocktail(int result_index)
 {
+	Cocktail ct = *(cocktail_arr[result_index]);
+
 	// 컨트롤을 위한 인스턴스 생성;
 	// Led, Pump 인스턴스는 전역의 포인터 변수를 사용
 	Oled oled;
@@ -466,8 +476,8 @@ int Operation::make_cocktail(int result_index)
 	t.f(method);
 
 	// 칵테일 완성!!
-	oled_instance.display_complete();    // OLED에 완료했다고 표시
-	plate_instance.move_to_initial_position();    // move to init pos
+	oled.display_complete();    // OLED에 완료했다고 표시
+	plate.move_to_initial_position();    // move to init pos
 
 	return 1; // 리턴 코드 1: 칵테일 완성
 }
@@ -475,9 +485,10 @@ int Operation::make_cocktail(int result_index)
 
 int Operation::emergency_stop()
 {
-	print("emergency stop!");
+	Oled o;
+	o.display_cocktail("emergency stop!");
 	exit;
-	return 2; // 리턴 코드 2: 긴급 정지
+	return 20; // 리턴 코드 20: 긴급 정지
 }
 
 
