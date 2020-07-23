@@ -144,23 +144,23 @@ void Operation::preset_cocktail_recipes()
 	// 이름은 "Martini" 이렇게 받고, 배열은 주소로 받음. 기법은 BUILD STIR 이렇게 써주면 됨.
 	//Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],   TechniqueMethod a_method, int a_r, int a_g, int a_b);
 	int disp_mtrl1[12] = { 0,0,45,0,0,0,0,0,0,0,0,0 };
-	int pump_mtrl1[7] = {};
+	int pump_mtrl1[7] = {0,0,20,0,0,0,0};
 	Cocktail cocktail_instance1("Daiquiri", disp_mtrl1, pump_mtrl1, BUILD, 50, 1, 5);
 
-	int disp_mtrl2[12] = {};
-	int pump_mtrl2[7] = {};
+	int disp_mtrl2[12] = {15,15,15,15,15,0,0,0,0,0,0,0};
+	int pump_mtrl2[7] = {0,30,0,0,0,0,0};
 	Cocktail cocktail_instance2("Longisland", disp_mtrl2, pump_mtrl2, BUILD, 50, 1, 5);
 
-	int disp_mtrl3[12] = {};
-	int pump_mtrl3[7] = {};
+	int disp_mtrl3[12] = {0,0,30,0,0,0,0,0,0,0,0,0};
+	int pump_mtrl3[7] = {15,0,15,0,0,0,0};
 	Cocktail cocktail_instance3("Bacardi", disp_mtrl3, pump_mtrl3, BUILD, 50, 1, 5);
 
-	int disp_mtrl4[12] = {};
-	int pump_mtrl4[7] = {};
+	int disp_mtrl4[12] = {30,0,0,0,0,0,0,0,0,0,0,0,0};
+	int pump_mtrl4[7] = {60,0,0,0,0,15,0};
 	Cocktail cocktail_instance4("ShiBreeze", disp_mtrl4, pump_mtrl4, BUILD, 50, 1, 5);
 
-	int disp_mtrl5[12] = {};
-	int pump_mtrl5[7] = {};
+	int disp_mtrl5[12] = {0,0,0,0,0,45,0,0,0,0,0,0,0};
+	int pump_mtrl5[7] = {0,0,0,};
 	Cocktail cocktail_instance5("AppMartini", disp_mtrl5, pump_mtrl5, BUILD, 50, 1, 5);
 
 	int disp_mtrl6[12] = {};
@@ -272,66 +272,89 @@ Operation::~Operation() // 동적으로 할당해준 주소들을 해제해 준다.
 }
 
 // ********************** 작동을 위한 함수들 *********************
-void Operation::bluetooth_connect()//preset_bluetooth()로 할까
+
+int select_make_recipe(String message)
 {
-	if (blueToothSerial.available()) {
-		char message = blueToothSerial.read();
-		if (message <= '0' && message <= '15') {//어플에서 char형으로 보내야됨
-		   //OLED 문자 출력 "Bluetooth is connected"
-			delay(3000);
-			//LED 스트립 on
-			delay(3000);
+	// 우선 message 양 끝에 & 가 있는지 검사, 없으면 20을 반환
+
+	 // 주어진 정보 -> 양 데이터 배열 선언
+	int disp_mtrl_amount[12] = { 0, };
+	int pump_mtrl_amount[7] = { 0, };
+
+	int i = 1; // message의 인덱스
+
+	while (message[i] != '&') {
+		String index = "";
+		String amount = "";
+
+		while (message[i] != '%') { // index 정보 받아오기
+			index += message[i];
+			i++;
+		} // end of internal while, %를 만나면 빠져나옴
+
+		while (message[i] != '%') { // amount 정보 받아오기
+			amount += message[i];
+			i++;
+		} // end of internal while, %를 만나면 빠져나옴
+
+		// String 자료형의 index와 amount를 int 자료형으로 바꿈
+		int index_int = index.toInt();
+		int amount_int = amount.toInt();
+
+		// index가 0~11이면 disp mtrl, 12~18이면 pump mtrl
+		if (0 <= index_int && index_int <= 11) {
+			disp_mtrl_amount[index_int] = amount_int;
 		}
-	}
+		else if (12 <= index_int && index_int <= 18) {
+			pump_mtlr_amount[index_int] = amount_int;
+		}
+
+		// 마지막 검사 메세지는 char로 끝났으므로 message의 인덱스 하나 증가
+		i++;
+	} // end of while: disp_mtrl_amount 와 pump_mtrl_amount 배열 설정 완료
+
+	// 칵테일 인스턴스 생성
+	Cocktail my_cocktail("my_cocktail", disp_mtrl_amount, pump_mtrl_amount)
+
+		// 동적할당 및 주소 대입
+		cocktail_arr[19] = (Cocktail*)malloc(sizeof(my_cocktail));
+	*(cocktail_arr[19]) = my_cocktail;
+
+	// 리턴
+	return 19;
 }
 
 
-// 기존에 있는 레시피에서 선택하는 함수
-Material Operation::select_sample()//클래스 객체를 return해주는 함수인데 이렇게 쓰면 되나 아님 어차피 material_instance class 포인터라서 void로 하고 값 바로 바꿔줘도 될듯
-{
-	if (blueToothSerial.available()) {
-		char message = blueToothSerial.read();
-		if (message <= '0' && message <= '15') {//어플에서 char형으로 보내야됨, 이 숫자는 Sample_list의 index
-			material_instance = Sample_list[message];
-			return material_instance;
+int bluetooth_connect() {
+	while (bluetooth.available()) {
+		char ch = bluetooth.read();
+		str.concat(ch);
+	}
+	Serial.println(str);
+	
+	//select_sample
+	if (str.charAt(0) == '$') {
+		String res = ""; int i = 1;
+		while (str.charAt(i) != '$') {
+			char ch = str.charAt(i);
+			res.concat(ch);
+			i++;
 		}
+		return (res.toInt());
 	}
+
+	//make_recipe
+	else if (str.charAt(0) == '&') {
+		return select_make_recipe(str);
+	}
+
+	else return 20;
 }
-
-
-// 나만의 레시피 명령을 받았을 때 그 레시피대로 칵테일 인스턴스를 만드는 함수
-void Operation::select_makerecipe()
-{
-	char* material_list[3][2];
-	for (int i = 0; i < 3; i++) {
-		if (blueToothSerial.available()) {
-			char* my_material = blueToothSerial.read();
-			material_list[i][1] = my_material;
-			char* my_materialvol = blueToothSerial.read();
-			material_list[i][2] = my_materialvol;
-		}
-	}
-	//return material_list;
-	//ㄴ여기서 잘라서 잘라서 material_list return해줄까..
-	//{char형 material(숫자),양}이 3개있는 material_list만들어짐----여기서 숫자는 Material_list[]의 index랑 맞춰야함
-	//저장된 Material들이 모여있는 array를 Material_list[]라 한다
-	//ㄴdisp, pump랑 구별하기 쉽도록 먼저 disp_material쓰고 나중에 pump_material쓰는 식으로 해서 쉽게 가자..(숫자로 구별하자는 말)
-	//하나씩 접근해서 Material instance 생성
-	//근데 이거 이름밖에 없어서 material이름만 저장된 list에서 찾아줘야 할까
-	//이렇게 만들어진 material_list에서 하나씩접근해서 Material instance 만들어서 반복하는게 best일듯->이거는 그냥 main에다가??
-	for (int i = 0; i < 3; i++) {
-		Material material_instance = Material_list[i];
-		//Mateirl 변수 하나 만들어짐
-		//ㄴmain에다가 위에걸쓸거면 만들어진 Mateirial instance의 member?를 바로 oled,plate,led,actuator에 넣어준다
-		//ㄴ이걸 operation class의 함수로 만들거면 return Material material_instance;해서 진행	
-	}
-}
-
 
 
 
 // 칵테일을 만드는 함수
-int Operation::make_cocktail(Cocktail ct)
+int Operation::make_cocktail(int result_index)
 {
 	// 컨트롤을 위한 인스턴스 생성;
 	// Led, Pump 인스턴스는 전역의 포인터 변수를 사용
