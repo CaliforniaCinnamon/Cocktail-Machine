@@ -76,6 +76,34 @@ void loop() {
 	p_ledpanel->random(time_marker + 0);
 
 	res_index = ctrl.bluetooth_connect();
+	int bluetooth_connect() {
+		while (bluetooth.available()) {
+			char ch = bluetooth.read();
+			str.concat(ch);
+		}
+		Serial.println(str);
+
+		//select_sample
+		if (str.charAt(0) == '$') {
+			String res = ""; int i = 1;
+			while (str.charAt(i) != '$') {
+				char ch = str.charAt(i);
+				res.concat(ch);
+				i++;
+			}
+			return (res.toInt());
+		}
+
+		//make_recipe
+		else if (str.charAt(0) == '&') {
+			return select_make_recipe(str);
+		}
+
+		else return 20;
+	}
+
+
+
 	//제대로 된 값 입력
 	if (res_index >= 0 && res_index <= 20) {
 		int flag = 0;

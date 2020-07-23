@@ -67,18 +67,18 @@ void Operation::preset_dispenser_materials()
 {
 	//dispenser_material_instance 持失
 	//DispenserMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
-	DispenserMaterial dispmaterial_instance1("Vodka", 0, 750, 200, 200, 200);
-	DispenserMaterial dispmaterial_instance2("Jean", 1, 750, 200, 200, 200);
-	DispenserMaterial dispmaterial_instance3("WhiteRum", 2, 750, 200, 200, 200);
-	DispenserMaterial dispmaterial_instance4("Tequila", 3, 750, 200, 200, 200);
-	DispenserMaterial dispmaterial_instance5("Cuentro", 4, 750, 200, 200, 200);
-	DispenserMaterial dispmaterial_instance6("Smynov", 5, 750, 200, 200, 200);
-	DispenserMaterial dispmaterial_instance7("GreenMelon", 6, 750, 200, 200, 200);
-	DispenserMaterial dispmaterial_instance8("Peach", 7, 750, 200, 200, 200);
-	DispenserMaterial dispmaterial_instance9("BlueCurasso", 8, 750, 200, 200, 200);
-	DispenserMaterial dispmaterial_instance10("Cassis", 9, 750, 200, 200, 200);
-	DispenserMaterial dispmaterial_instance11("Mohito", 10, 750, 200, 200, 200);
-	DispenserMaterial dispmaterial_instance12("JackDaniel", 11, 750, 200, 200, 200);
+	DispenserMaterial dispmaterial_instance1("Vodka", 0, 750, 250, 250, 250);
+	DispenserMaterial dispmaterial_instance2("Jean", 1, 750, 180, 220, 220);
+	DispenserMaterial dispmaterial_instance3("WhiteRum", 2, 750, 250, 250, 250);
+	DispenserMaterial dispmaterial_instance4("Tequila", 3, 750, 240, 240, 95);
+	DispenserMaterial dispmaterial_instance5("Cuentro", 4, 750, 210, 145, 45);
+	DispenserMaterial dispmaterial_instance6("Smynov", 5, 750, 130, 225, 120);
+	DispenserMaterial dispmaterial_instance7("GreenMelon", 6, 750, 130, 225, 120);
+	DispenserMaterial dispmaterial_instance8("Peach", 7, 750, 250, 160, 205);
+	DispenserMaterial dispmaterial_instance9("BlueCurasso", 8, 750, 60, 60, 210);
+	DispenserMaterial dispmaterial_instance10("Cassis", 9, 750, 110, 65, 100);
+	DispenserMaterial dispmaterial_instance11("Mohito", 10, 750, 130, 215, 125);
+	DispenserMaterial dispmaterial_instance12("JackDaniel", 11, 750, 210, 140, 60);
 
 	disp_mtrl_arr[0] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance1));
 	disp_mtrl_arr[1] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance2));
@@ -112,13 +112,13 @@ void Operation::preset_pump_materials()
 {
 	//pump_material_instance 持失
 	//PumpMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
-	PumpMaterial pumpmaterial_instance1("Rasp", 0, 750, 200, 200, 200);
-	PumpMaterial pumpmaterial_instance2("Lemon", 1, 750, 200, 200, 200);
-	PumpMaterial pumpmaterial_instance3("Lime", 2, 750, 200, 200, 200);
-	PumpMaterial pumpmaterial_instance4("Sweet", 3, 750, 200, 200, 200);
-	PumpMaterial pumpmaterial_instance5("Orange", 4, 750, 200, 200, 200);
-	PumpMaterial pumpmaterial_instance6("Grp", 5, 750, 200, 200, 200);
-	PumpMaterial pumpmaterial_instance7("Tonic", 6, 750, 200, 200, 200);
+	PumpMaterial pumpmaterial_instance1("Rasp", 0, 750, 200, 50, 40);
+	PumpMaterial pumpmaterial_instance2("Lemon", 1, 750, 255, 255, 10);
+	PumpMaterial pumpmaterial_instance3("Lime", 2, 750, 120, 210, 100);
+	PumpMaterial pumpmaterial_instance4("Sweet", 3, 750, 230, 230, 100);
+	PumpMaterial pumpmaterial_instance5("Orange", 4, 750, 255, 130, 0);
+	PumpMaterial pumpmaterial_instance6("Grp", 5, 750, 255, 185, 115);
+	PumpMaterial pumpmaterial_instance7("Tonic", 6, 750, 255, 255, 255);
 
 	pump_mtrl_arr[0] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance1));
 	pump_mtrl_arr[1] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance2));
@@ -160,60 +160,64 @@ void Operation::preset_cocktail_recipes()
 	Cocktail cocktail_instance4("ShiBreeze", disp_mtrl4, pump_mtrl4, BUILD, 50, 1, 5);
 
 	int disp_mtrl5[12] = {0,0,0,0,0,45,0,0,0,0,0,0,0};
-	int pump_mtrl5[7] = {0,0,0,};
+	int pump_mtrl5[7] = {0,0,0,60,0,0,0};
 	Cocktail cocktail_instance5("AppMartini", disp_mtrl5, pump_mtrl5, BUILD, 50, 1, 5);
 
-	int disp_mtrl6[12] = {};
-	int pump_mtrl6[7] = {};
+	int disp_mtrl6[12] = {30,0,0,0,15,0,0,0,0,0,0,0,0};
+	int pump_mtrl6[7] = {15,0,15,0,0,0,0};
 	Cocktail cocktail_instance6("Cosmopolitan", disp_mtrl6, pump_mtrl6, BUILD, 50, 1, 5);
 
-	int disp_mtrl7[12] = {};
-	int pump_mtrl7[7] = {};
+	int disp_mtrl7[12] = {0,0,0,30,0,0,0,0,0,0,0,0};
+	int pump_mtrl7[7] = {15,0,0,0,90,0,0};
 	Cocktail cocktail_instance7("TequilaSunrise", disp_mtrl7, pump_mtrl7, BUILD, 50, 1, 5);
 
-	int disp_mtrl8[12] = {};
-	int pump_mtrl8[7] = {};
+	int disp_mtrl8[12] = {0,45,0,0,0,0,0,0,0,0,0,0};
+	int pump_mtrl8[7] = {0,15,0,0,0,0,15};
 	Cocktail cocktail_instance8("TomCollins", disp_mtrl8, pump_mtrl8, BUILD, 50, 1, 5);
 
-	int disp_mtrl9[12] = {};
-	int pump_mtrl9[7] = {};
+	int disp_mtrl9[12] = {0,0,0,0,0,0,30,30,0,0,0,0};
+	int pump_mtrl9[7] = {0,0,0,30,0,0,30};
 	Cocktail cocktail_instance9("MelonCooler", disp_mtrl9, pump_mtrl9, BUILD, 50, 1, 5);
 
-	int disp_mtrl10[12] = {};
-	int pump_mtrl10[7] = {};
+	int disp_mtrl10[12] = {0,0,45,0,0,0,0,0,0,0,30,0};
+	int pump_mtrl10[7] = {0,0,0,0,0,0,30};
 	Cocktail cocktail_instance10("Mohito", disp_mtrl10, pump_mtrl10, BUILD, 50, 1, 5);
 
-	int disp_mtrl11[12] = {};
-	int pump_mtrl11[7] = {};
+	int disp_mtrl11[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
+	int pump_mtrl11[7] = {0,0,0,0,0,120,0};
 	Cocktail cocktail_instance11("SoltiDog", disp_mtrl11, pump_mtrl11, BUILD, 50, 1, 5);
 
-	int disp_mtrl12[12] = {};
-	int pump_mtrl12[7] = {};
+	int disp_mtrl12[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
+	int pump_mtrl12[7] = {0,0,0,0,120,0,0};
 	Cocktail cocktail_instance12("ScrewDriver", disp_mtrl12, pump_mtrl12, BUILD, 50, 1, 5);
 
-	int disp_mtrl13[12] = {};
-	int pump_mtrl13[7] = {};
-	Cocktail cocktail_instance13("BlueHawaii", disp_mtrl13, pump_mtrl13, BUILD, 50, 1, 5);
+	int disp_mtrl13[12] = { 0,0,0,30,15,0,0,0,0,0,0,0 };
+	int pump_mtrl13[7] = { 0,0,15,0,0,0,0 };
+	Cocktail cocktail_instance13("Margarita", disp_mtrl13, pump_mtrl13, BUILD, 50, 1, 5);
 
-	int disp_mtrl14[12] = {};
-	int pump_mtrl14[7] = {};
-	Cocktail cocktail_instance14("Junbuck", disp_mtrl14, pump_mtrl14, BUILD, 50, 1, 5);
+	int disp_mtrl13[12] = {0,0,30,0,0,0,0,0,15,0,0,0};
+	int pump_mtrl13[7] = {0,15,0,15,0,0,0};
+	Cocktail cocktail_instance1("BlueHawaii", disp_mtrl13, pump_mtrl13, BUILD, 50, 1, 5);
 
-	int disp_mtrl15[12] = {};
-	int pump_mtrl15[7] = {};
-	Cocktail cocktail_instance15("PitchCrush", disp_mtrl15, pump_mtrl15, BUILD, 50, 1, 5);
+	int disp_mtrl14[12] = {0,0,15,0,0,0,30,0,0,0,0,0};
+	int pump_mtrl14[7] = {0,30,0,30,0,0,0};
+	Cocktail cocktail_instance15("Junbuck", disp_mtrl14, pump_mtrl14, BUILD, 50, 1, 5);
 
-	int disp_mtrl16[12] = {};
-	int pump_mtrl16[7] = {};
-	Cocktail cocktail_instance16("BlueRomance", disp_mtrl16, pump_mtrl16, BUILD, 50, 1, 5);
+	int disp_mtrl15[12] = {0,0,0,0,0,0,0,30,0,0,0,0};
+	int pump_mtrl15[7] = {60,0,0,60,0,0,0};
+	Cocktail cocktail_instance16("PitchCrush", disp_mtrl15, pump_mtrl15, BUILD, 50, 1, 5);
 
-	int disp_mtrl17[12] = {};
-	int pump_mtrl17[7] = {};
-	Cocktail cocktail_instance17("JackHoneymong", disp_mtrl17, pump_mtrl17, BUILD, 50, 1, 5);
+	int disp_mtrl16[12] = {30,0,0,0,0,0,0,0,35,0,0,0};
+	int pump_mtrl16[7] = {0,0,0,0,100,0,0};
+	Cocktail cocktail_instance17("BlueRomance", disp_mtrl16, pump_mtrl16, BUILD, 50, 1, 5);
 
-	int disp_mtrl18[12] = {};
-	int pump_mtrl18[7] = {};
-	Cocktail cocktail_instance18("ElDiablo", disp_mtrl18, pump_mtrl18, BUILD, 50, 1, 5);
+	int disp_mtrl17[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
+	int pump_mtrl17[7] = {0,0,0,0,0,90,0};
+	Cocktail cocktail_instance18("JackHoneymong", disp_mtrl17, pump_mtrl17, BUILD, 50, 1, 5);
+
+	int disp_mtrl18[12] = {0,0,0,60,0,0,0,0,0,30,0,0};
+	int pump_mtrl18[7] = {0,0,15,0,0,0,0};
+	Cocktail cocktail_instance19("ElDiablo", disp_mtrl18, pump_mtrl18, BUILD, 50, 1, 5);
 
 
 	cocktail_arr[0] = (Cocktail*)malloc(sizeof(cocktail_instance1));
