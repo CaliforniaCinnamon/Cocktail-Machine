@@ -286,6 +286,50 @@ void Operation::bluetooth_connect()//preset_bluetooth()로 할까
 }
 
 
+// 기존에 있는 레시피에서 선택하는 함수
+Material Operation::select_sample()//클래스 객체를 return해주는 함수인데 이렇게 쓰면 되나 아님 어차피 material_instance class 포인터라서 void로 하고 값 바로 바꿔줘도 될듯
+{
+	if (blueToothSerial.available()) {
+		char message = blueToothSerial.read();
+		if (message <= '0' && message <= '15') {//어플에서 char형으로 보내야됨, 이 숫자는 Sample_list의 index
+			material_instance = Sample_list[message];
+			return material_instance;
+		}
+	}
+}
+
+
+// 나만의 레시피 명령을 받았을 때 그 레시피대로 칵테일 인스턴스를 만드는 함수
+void Operation::select_makerecipe()
+{
+	char* material_list[3][2];
+	for (int i = 0; i < 3; i++) {
+		if (blueToothSerial.available()) {
+			char* my_material = blueToothSerial.read();
+			material_list[i][1] = my_material;
+			char* my_materialvol = blueToothSerial.read();
+			material_list[i][2] = my_materialvol;
+		}
+	}
+	//return material_list;
+	//ㄴ여기서 잘라서 잘라서 material_list return해줄까..
+	//{char형 material(숫자),양}이 3개있는 material_list만들어짐----여기서 숫자는 Material_list[]의 index랑 맞춰야함
+	//저장된 Material들이 모여있는 array를 Material_list[]라 한다
+	//ㄴdisp, pump랑 구별하기 쉽도록 먼저 disp_material쓰고 나중에 pump_material쓰는 식으로 해서 쉽게 가자..(숫자로 구별하자는 말)
+	//하나씩 접근해서 Material instance 생성
+	//근데 이거 이름밖에 없어서 material이름만 저장된 list에서 찾아줘야 할까
+	//이렇게 만들어진 material_list에서 하나씩접근해서 Material instance 만들어서 반복하는게 best일듯->이거는 그냥 main에다가??
+	for (int i = 0; i < 3; i++) {
+		Material material_instance = Material_list[i];
+		//Mateirl 변수 하나 만들어짐
+		//ㄴmain에다가 위에걸쓸거면 만들어진 Mateirial instance의 member?를 바로 oled,plate,led,actuator에 넣어준다
+		//ㄴ이걸 operation class의 함수로 만들거면 return Material material_instance;해서 진행	
+	}
+}
+
+
+
+
 // 칵테일을 만드는 함수
 int Operation::make_cocktail(Cocktail ct)
 {
