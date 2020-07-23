@@ -10,7 +10,7 @@
 
 
 // ******************** main의 전역 포인터 가져오기 ******************
-extern Led* p_ledstrip1;  extern Led* p_ledstrip2;  
+extern Led * p_ledstrip1;  extern Led* p_ledstrip2;
 extern Led* p_ledpanel;
 extern Pump* pump_arr[7];
 
@@ -35,7 +35,7 @@ void Operation::preset_led_instances()
 	*(p_ledpanel) = ledpanel;
 }
 
-void Operation::preset_pump_instances() 
+void Operation::preset_pump_instances()
 {
 	Pump pump1(23, 24); // 핀A, 핀B
 	Pump pump2(25, 26);
@@ -63,7 +63,7 @@ void Operation::preset_pump_instances()
 }
 
 // 정보 셋업하기 (재료들의 위치, 칵테일 레시피)
-void Operation::preset_dispenser_materials() 
+void Operation::preset_dispenser_materials()
 {
 	//dispenser_material_instance 생성
 	//DispenserMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
@@ -79,7 +79,7 @@ void Operation::preset_dispenser_materials()
 	DispenserMaterial dispmaterial_instance10("Cassis", 9, 750, 200, 200, 200);
 	DispenserMaterial dispmaterial_instance11("Mohito", 10, 750, 200, 200, 200);
 	DispenserMaterial dispmaterial_instance12("JackDaniel", 11, 750, 200, 200, 200);
-	
+
 	disp_mtrl_arr[0] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance1));
 	disp_mtrl_arr[1] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance2));
 	disp_mtrl_arr[2] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance3));
@@ -92,7 +92,7 @@ void Operation::preset_dispenser_materials()
 	disp_mtrl_arr[9] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance10));
 	disp_mtrl_arr[10] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance11));
 	disp_mtrl_arr[11] = (DispenserMaterial*)malloc(sizeof(dispmaterial_instance12));
-	
+
 	*(disp_mtrl_arr[0]) = dispmaterial_instance1;
 	*(disp_mtrl_arr[1]) = dispmaterial_instance2;
 	*(disp_mtrl_arr[2]) = dispmaterial_instance3;
@@ -105,7 +105,7 @@ void Operation::preset_dispenser_materials()
 	*(disp_mtrl_arr[9]) = dispmaterial_instance10;
 	*(disp_mtrl_arr[10]) = dispmaterial_instance11;
 	*(disp_mtrl_arr[11]) = dispmaterial_instance12;
-	
+
 }
 
 void Operation::preset_pump_materials()
@@ -127,7 +127,7 @@ void Operation::preset_pump_materials()
 	pump_mtrl_arr[4] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance5));
 	pump_mtrl_arr[5] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance6));
 	pump_mtrl_arr[6] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance7));
-	
+
 	*(pump_mtrl_arr[0]) = pumpmaterial_instance1;
 	*(pump_mtrl_arr[1]) = pumpmaterial_instance2;
 	*(pump_mtrl_arr[2]) = pumpmaterial_instance3;
@@ -135,17 +135,17 @@ void Operation::preset_pump_materials()
 	*(pump_mtrl_arr[4]) = pumpmaterial_instance5;
 	*(pump_mtrl_arr[5]) = pumpmaterial_instance6;
 	*(pump_mtrl_arr[6]) = pumpmaterial_instance7;
-	
+
 }
 
 void Operation::preset_cocktail_recipes()
 {
 	//cocktail_instance 생성
 	// 이름은 "Martini" 이렇게 받고, 배열은 주소로 받음. 기법은 BUILD STIR 이렇게 써주면 됨.
-	//Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],	TechniqueMethod a_method, int a_r, int a_g, int a_b);
-	int disp_mtrl1[12] = {0,0,45,0,0,0,0,0,0,0,0,0};
+	//Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],   TechniqueMethod a_method, int a_r, int a_g, int a_b);
+	int disp_mtrl1[12] = { 0,0,45,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl1[7] = {};
-	Cocktail cocktail_instance1("Daiquiri",disp_mtrl1,pump_mtrl1,BUILD,50,1,5);
+	Cocktail cocktail_instance1("Daiquiri", disp_mtrl1, pump_mtrl1, BUILD, 50, 1, 5);
 
 	int disp_mtrl2[12] = {};
 	int pump_mtrl2[7] = {};
@@ -266,7 +266,7 @@ Operation::~Operation() // 동적으로 할당해준 주소들을 해제해 준다.
 	free(p_ledpanel);
 
 	for (int i = 0; i < 7; i++) free(pump_arr[i]);
-    for (int i = 0; i < 12; i++) free(disp_mtrl_arr[i]);
+	for (int i = 0; i < 12; i++) free(disp_mtrl_arr[i]);
 	for (int i = 0; i < 8; i++) free(pump_mtrl_arr[i]);
 	for (int i = 0; i < 18; i++) free(cocktail_arr[i]);
 }
@@ -310,7 +310,7 @@ int Operation::make_cocktail(Cocktail ct)
 	// 잔량 확인하고, 잔량 없으면 OLED에 표시하고 함수 종료
 	for (int i = 0; i < 12; i++) { // disp material 잔량체크
 		if (disp_recipe[i]) { // 칵테일에 특정 재료를 사용하는지 검사
-			// (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
+		   // (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
 			if (disp_recipe[i] > (disp_mtrl_arr[i])->get_amount()) {
 				oled.display_lack_of_amount(); // 부족하다고 oled 출력, 함수 정의 필요
 				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
@@ -320,7 +320,7 @@ int Operation::make_cocktail(Cocktail ct)
 
 	for (int i = 0; i < 7; i++) { // pump material 잔량체크
 		if (pump_recipe[i]) { // 칵테일에 특정 재료를 사용하는지 검사
-			// (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
+		   // (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
 			if (pump_recipe[i] > (pump_mtrl_arr[i])->get_amount()) {
 				oled.display_lack_of_amount(); // 부족하다고 oled 출력, 함수 정의 필요
 				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
@@ -332,7 +332,7 @@ int Operation::make_cocktail(Cocktail ct)
 	// 디스펜서를 사용하는 재료부터 시작
 	for (int i = 0; i < 12; i++) {
 		if (disp_recipe[i]) { // 만약 해당 재료의 레시피가 0이면 그 재료는 무시함
-			// 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
+		   // 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
 			DispenserMaterial material = *(disp_mtrl_arr[i]);
 
 			// OLED 표시
@@ -360,7 +360,7 @@ int Operation::make_cocktail(Cocktail ct)
 	// 디스펜서 다음 펌프를 사용하는 재료 담기
 	for (int i = 0; i < 7; i++) {
 		if (pump_recipe[i]) { // 만약 해당 재료의 레시피가 0이면 그 재료는 무시함
-			// 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
+		   // 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
 			PumpMaterial material = *(pump_mtrl_arr[i]);
 
 			// OLED 표시
@@ -395,8 +395,8 @@ int Operation::make_cocktail(Cocktail ct)
 	t.f(method);
 
 	// 칵테일 완성!!
-	oled_instance.display_complete(); 	// OLED에 완료했다고 표시
-	plate_instance.move_to_initial_position(); 	// move to init pos
+	oled_instance.display_complete();    // OLED에 완료했다고 표시
+	plate_instance.move_to_initial_position();    // move to init pos
 
 	return 1; // 리턴 코드 1: 칵테일 완성
 }
