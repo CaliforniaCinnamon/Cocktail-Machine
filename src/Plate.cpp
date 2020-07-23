@@ -9,9 +9,9 @@
 //************* 생성자 및 소멸자 함수 ****************//
 Plate::Plate()
 {
-    position = Coord(0, 0, 0);
+    position = Coord(0, 0);
 
-    Stepper stepper_x(STEPS_PER_REVOLUTION, 2, 3, 4, 5);
+    Stepper stepper_x(STEPS_PER_REVOLUTION, 40, 41, 42, 43);
     Stepper stepper_y(STEPS_PER_REVOLUTION, 6, 7, 8, 9);
 
     stepper_x.setSpeed(STEPPER_SPEED);
@@ -131,7 +131,7 @@ void Plate::move_to_initial_position()
 void Plate::push_dispenser(int a_amount)
 {
     // 선언 및 초기화, 딜레이 타임
-    Actuator a(12345, 67890); // 액츄에이터 핀 넘버 A, B
+    Actuator a(30, 31); // 액츄에이터 핀 넘버 A, B
     const int SECONDS_PER_AMOUNT = 10;  // ************* 설정 필요!
     int delay_time = a_amount * 1000 / SECONDS_PER_AMOUNT;
     bool z_touch = false;

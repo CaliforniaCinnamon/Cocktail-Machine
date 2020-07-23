@@ -40,7 +40,7 @@ inline Material::Material(String aname, int a_num, int a_remain, int ar, int ag,
 
 
 // 생성할 때 번호를 지정해 주면 알아서 위치를 지정해줌.
-void Material::num_to_pos(int a_num) {
+inline void Material::num_to_pos(int a_num) {
 	switch (a_num)
 	{
 	case 1:

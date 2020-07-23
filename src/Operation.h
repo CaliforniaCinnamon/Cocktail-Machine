@@ -15,6 +15,7 @@
 #include "Cocktail.h"
 #include "Technique.h"
 #include "Pump.h"
+#include <SoftwareSerial.h>
 
 
 class Operation {

@@ -6,12 +6,6 @@
 
 
 #include "Operation.h"
-#include <SoftwareSerial.h>
-
-#define RXD 10;
-#define TXD 11;
-
-SoftwareSerial bluetooth(RXD, TXD);
 
 // ******************** main의 전역 포인터 가져오기 ******************
 extern Led * p_ledstrip1;  extern Led* p_ledstrip2;
@@ -26,9 +20,9 @@ extern Cocktail* cocktail_arr[20];
 // *************************** 프리셋 함수들 *************************
 void Operation::preset_led_instances()
 {
-	Led ledstrip1(50, 31); // led 개수, 핀넘버
+	Led ledstrip1(50, 50); // led 개수, 핀넘버
 	Led ledstrip2(50, 32);
-	Led ledpanel(256, 33);
+	Led ledpanel(256, 24);
 
 	p_ledstrip1 = (Led*)malloc(sizeof(ledstrip1));
 	p_ledstrip2 = (Led*)malloc(sizeof(ledstrip2));
@@ -199,29 +193,27 @@ void Operation::preset_cocktail_recipes()
 	int pump_mtrl13[7] = { 0,0,15,0,0,0,0 };
 	Cocktail cocktail_instance13("Margarita", disp_mtrl13, pump_mtrl13, TechniqueMethod::BUILD, 50, 1, 5);
 
-	int disp_mtrl13[12] = {0,0,30,0,0,0,0,0,15,0,0,0};
-	int pump_mtrl13[7] = {0,15,0,15,0,0,0};
-	Cocktail cocktail_instance14("BlueHawaii", disp_mtrl13, pump_mtrl13, TechniqueMethod::BUILD, 50, 1, 5);
+	// 14번째로 블루하와이 들어와야 함
 
 	int disp_mtrl14[12] = {0,0,15,0,0,0,30,0,0,0,0,0};
 	int pump_mtrl14[7] = {0,30,0,30,0,0,0};
-	Cocktail cocktail_instance15("Junbuck", disp_mtrl14, pump_mtrl14, TechniqueMethod::BUILD, 50, 1, 5);
+	Cocktail cocktail_instance14("Junbuck", disp_mtrl14, pump_mtrl14, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl15[12] = {0,0,0,0,0,0,0,30,0,0,0,0};
 	int pump_mtrl15[7] = {60,0,0,60,0,0,0};
-	Cocktail cocktail_instance16("PitchCrush", disp_mtrl15, pump_mtrl15, TechniqueMethod::BUILD, 50, 1, 5);
+	Cocktail cocktail_instance15("PitchCrush", disp_mtrl15, pump_mtrl15, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl16[12] = {30,0,0,0,0,0,0,0,35,0,0,0};
 	int pump_mtrl16[7] = {0,0,0,0,100,0,0};
-	Cocktail cocktail_instance17("BlueRomance", disp_mtrl16, pump_mtrl16, TechniqueMethod::BUILD, 50, 1, 5);
+	Cocktail cocktail_instance16("BlueRomance", disp_mtrl16, pump_mtrl16, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl17[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl17[7] = {0,0,0,0,0,90,0};
-	Cocktail cocktail_instance18("JackHoneymong", disp_mtrl17, pump_mtrl17, TechniqueMethod::BUILD, 50, 1, 5);
+	Cocktail cocktail_instance17("JackHoneymong", disp_mtrl17, pump_mtrl17, TechniqueMethod::BUILD, 50, 1, 5);
 
 	int disp_mtrl18[12] = {0,0,0,60,0,0,0,0,0,30,0,0};
 	int pump_mtrl18[7] = {0,0,15,0,0,0,0};
-	Cocktail cocktail_instance19("ElDiablo", disp_mtrl18, pump_mtrl18, TechniqueMethod::BUILD, 50, 1, 5);
+	Cocktail cocktail_instance18("ElDiablo", disp_mtrl18, pump_mtrl18, TechniqueMethod::BUILD, 50, 1, 5);
 
 
 	cocktail_arr[0] = (Cocktail*)malloc(sizeof(cocktail_instance1));
@@ -335,7 +327,9 @@ int Operation::select_make_recipe(String message)
 
 
 int Operation::bluetooth_connect() {
+	SoftwareSerial bluetooth(10, 11);
 	bluetooth.begin(9600);
+
 	if (bluetooth.available()) {
 		String str = "";
 		while (bluetooth.available()) {
@@ -390,7 +384,7 @@ int Operation::make_cocktail(int result_index)
 	TechniqueMethod method = ct.get_technique();
 
 	// 만들기 전, OLED로 칵테일 이름을 표시하고 Led로 칵테일 고유 불빛을 비춤
-	oled.display_right(name);
+	// oled.display_right(name); ********************************************************
 	p_ledpanel->color(ct_color);
 	delay(5000);
 
@@ -400,7 +394,7 @@ int Operation::make_cocktail(int result_index)
 		   // (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
 			if (disp_recipe[i] > (disp_mtrl_arr[i])->get_amount()) {
 				char* msg = "please refill!";
-				oled.display_center(msg); // 부족하다고 oled 출력, 함수 정의 필요
+				//oled.display_center(msg); // 부족하다고 oled 출력, 함수 정의 필요 ********************************************************
 				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
 			}
 		}
@@ -411,7 +405,7 @@ int Operation::make_cocktail(int result_index)
 		   // (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
 			if (pump_recipe[i] > (pump_mtrl_arr[i])->get_amount()) {
 				char* msg = "please refill!";
-				oled.display_center(msg); // 부족하다고 oled 출력, 함수 정의 필요
+				//oled.display_center(msg); // 부족하다고 oled 출력, 함수 정의 필요
 				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
 			}
 		}
@@ -425,7 +419,7 @@ int Operation::make_cocktail(int result_index)
 			DispenserMaterial material = *(disp_mtrl_arr[i]);
 
 			// OLED 표시
-			oled.display_right(name);
+			//oled.display_right(name); ********************************************************
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			p_ledpanel->color(material.get_rgb());
@@ -453,7 +447,7 @@ int Operation::make_cocktail(int result_index)
 			PumpMaterial material = *(pump_mtrl_arr[i]);
 
 			// OLED 표시
-			oled.display_right(name);
+			//oled.display_right(name); ********************************************************
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			p_ledpanel->color(material.get_rgb());
@@ -493,7 +487,7 @@ int Operation::make_cocktail(int result_index)
 int Operation::emergency_stop()
 {
 	Oled o;
-	o.display_center("emergency stop!");
+	// o.display_center("emergency stop!"); ********************************************************
 	exit;
 	return 20; // 리턴 코드 20: 긴급 정지
 }

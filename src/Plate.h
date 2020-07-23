@@ -36,7 +36,7 @@ private:
     Coord position; // 현재 자기의 위치
     
     const int PIN_ENDSTOP_X = 12;
-    const int PIN_ENDSTOP_Y = 13;
+    const int PIN_ENDSTOP_Y = 22;
     const int PIN_ENDSTOP_Z = 14;
 
     // 포인터를 사용해서, Steper를 생성하고 그 주소를 여기다 할당합시다.

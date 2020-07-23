@@ -67,7 +67,7 @@ void loop() {
 
 	// 전원 연결이 되면, oled는 로고를 출력해 입력을 기다리고 있음을 나타냄
 	Oled oled;
-	oled.display_center("trame"); // 함수필요!!
+	//oled.display_center("trame"); // 함수필요!! ********************************************************
 
 	while (flag) { // flag 1: 명령 기다림 | flag 0: 명령 받아 while 탈출
 	// LED 레인보우를 동시에 표현하기 위한 코드

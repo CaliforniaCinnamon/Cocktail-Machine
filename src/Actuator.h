@@ -23,24 +23,24 @@ public:
 };
 
 
-Actuator::Actuator(int a, int b) {
+inline Actuator::Actuator(int a, int b) {
     PIN_A = a;
     PIN_B = b;
     pinMode(PIN_A, OUTPUT);
     pinMode(PIN_B, OUTPUT);
 }
 
-void Actuator::up() {
+inline void Actuator::up() {
     digitalWrite(PIN_A, HIGH);
     digitalWrite(PIN_B, LOW);
 }
 
-void Actuator::down() {
+inline void Actuator::down() {
     digitalWrite(PIN_A, LOW);
     digitalWrite(PIN_B, HIGH);
 }
 
-void Actuator::idle() {
+inline void Actuator::idle() {
     digitalWrite(PIN_A, LOW);
     digitalWrite(PIN_B, LOW);
 };

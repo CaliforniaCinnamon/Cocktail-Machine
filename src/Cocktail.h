@@ -39,7 +39,7 @@ public:
 };
 
 
-Cocktail::Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],
+inline Cocktail::Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],
     TechniqueMethod a_method, int a_r, int a_g, int a_b)
 {
     cocktail_name = name;
