@@ -384,7 +384,7 @@ int Operation::make_cocktail(int result_index)
 	TechniqueMethod method = ct.get_technique();
 
 	// 만들기 전, OLED로 칵테일 이름을 표시하고 Led로 칵테일 고유 불빛을 비춤
-	// oled.display_right(name); ********************************************************
+	oled.display_right(name);
 	p_ledpanel->color(ct_color);
 	delay(5000);
 
@@ -394,7 +394,7 @@ int Operation::make_cocktail(int result_index)
 		   // (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
 			if (disp_recipe[i] > (disp_mtrl_arr[i])->get_amount()) {
 				char* msg = "please refill!";
-				//oled.display_center(msg); // 부족하다고 oled 출력, 함수 정의 필요 ********************************************************
+				oled.display_center(msg); // 부족하다고 oled 출력
 				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
 			}
 		}
@@ -405,7 +405,7 @@ int Operation::make_cocktail(int result_index)
 		   // (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
 			if (pump_recipe[i] > (pump_mtrl_arr[i])->get_amount()) {
 				char* msg = "please refill!";
-				//oled.display_center(msg); // 부족하다고 oled 출력, 함수 정의 필요
+				oled.display_center(msg); // 부족하다고 oled 출력, 함수 정의 필요
 				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
 			}
 		}
@@ -419,7 +419,7 @@ int Operation::make_cocktail(int result_index)
 			DispenserMaterial material = *(disp_mtrl_arr[i]);
 
 			// OLED 표시
-			//oled.display_right(name); ********************************************************
+			oled.display_right(name);
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			p_ledpanel->color(material.get_rgb());
@@ -447,7 +447,7 @@ int Operation::make_cocktail(int result_index)
 			PumpMaterial material = *(pump_mtrl_arr[i]);
 
 			// OLED 표시
-			//oled.display_right(name); ********************************************************
+			oled.display_right(name);
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			p_ledpanel->color(material.get_rgb());
@@ -487,7 +487,7 @@ int Operation::make_cocktail(int result_index)
 int Operation::emergency_stop()
 {
 	Oled o;
-	// o.display_center("emergency stop!"); ********************************************************
+	o.display_center("emergency stop!");
 	exit;
 	return 20; // 리턴 코드 20: 긴급 정지
 }

@@ -24,7 +24,9 @@ public:
 	void display_complete();
 	void display_process(int i);
 	void clear();
-	void display_cocktail(char* msg);
+	void display_right(char* msg);
+	void display_center(char* msg);
+	void show();
 };
 
 #endif

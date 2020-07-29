@@ -32,9 +32,8 @@ void Oled::display_complete() {
 	delay(2000);
 }
 
-/*이거 여기 안에서 for문 반복시키면 안되던데 왜 안되는건지
-  그래서 어쩔 수 없이 인자 숫자로 받고 main함수에서 for 문 돌리니까 됨
-  ㄴ 일단 뭐를 어떻게 표시할지 다시 정하는게 좋겠어요! ㅠㅠ 저도 헷갈리네요*/
+
+// 인자로 5(full) ~ 30(empty) 값 받음
 void Oled::display_process(int i) 
 {
 	// 잔 레이아웃을 그리는 코드
@@ -49,7 +48,7 @@ void Oled::display_process(int i)
 
 	// 걍 내가 추가한 코드. 이렇게 쓸거 맞지? 여기다 재료의 이름을 출력?
 	char msg[] = "making cocktail...";
-	this->display_cocktail(msg);
+	this->display_right(msg);
 	idisplay.display();
 
 	/* 코드의 의도를 모르겠다... 테스트용?
@@ -60,7 +59,7 @@ void Oled::display_process(int i)
 }
 
 //칵테일 이름 출력(이름 긴 거는 띄어쓰기 기준으로 줄바꿈)
-void Oled::display_cocktail(char* msg) {
+void Oled::display_right(char* msg) {
 	idisplay.setTextColor(WHITE);
 	idisplay.setTextSize(1);
 	char* result = strtok(msg, " ");
@@ -81,5 +80,24 @@ void Oled::clear() {
 	idisplay.display();
 }
 
+void Oled::display_center(char* msg) {
+	idisplay.setTextColor(WHITE);
+	idisplay.setTextSize(1);
+	char* result = strtok(msg, " ");
+	//i 초기 값이랑 증가값 조정 필요
+	int i = 30;
+	while (result != NULL) {
+		idisplay.setCursor(30, i); // display right 함수에서 여기만 바꿈
+		idisplay.println(result);
+		result = strtok(NULL, " ");
+		i += 10;
+	}
+	idisplay.display();
+	delay(2000);
+}
+
+void Oled::show() {
+	idisplay.display();
+}
 
 #endif
