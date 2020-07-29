@@ -133,16 +133,30 @@ void Plate::push_dispenser(int a_amount)
     // 선언 및 초기화, 딜레이 타임
     Actuator a(30, 31);
     const int WAIT_TIME = 3000;
-    const int PUSH_TIME = 4000;
-    int num_push = a_amount / 30;
+    const int FULL_PUSH_TIME = 4000;
+    const int HALF_PUSH_TIME = 2000; // **************************** 상수들은 지정 해줘야함
+    int num_full_push = a_amount / 30;
+    int num_half_push = (a_amount % 30) / 15;
 
     // 작동 코드 (한번 실행 될 때마다 30mL씩 나옴)
-    for (int i = 0; i < num_push; i++) {
+    for (int i = 0; i < num_full_push; i++) {
         a.up();
         delay(WAIT_TIME);
         a.idle();
 
-        delay(PUSH_TIME);
+        delay(FULL_PUSH_TIME);
+
+        a.down();
+        delay(WAIT_TIME);
+        a.idle();
+    }
+
+    if (num_half_push) {
+        a.up();
+        delay(WAIT_TIME);
+        a.idle();
+
+        delay(HALF_PUSH_TIME);
 
         a.down();
         delay(WAIT_TIME);
