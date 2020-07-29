@@ -131,23 +131,33 @@ void Plate::move_to_initial_position()
 void Plate::push_dispenser(int a_amount)
 {
     // 선언 및 초기화, 딜레이 타임
-    Actuator a(30, 31); // 액츄에이터 핀 넘버 A, B
-    const int SECONDS_PER_AMOUNT = 10;  // ************* 설정 필요!
-    int delay_time = a_amount * 1000 / SECONDS_PER_AMOUNT;
-    bool z_touch = false;
+    Actuator a(30, 31);
+    const int WAIT_TIME = 3000;
+    const int PUSH_TIME = 4000;
+    int num_push = a_amount / 30;
 
-    // 작동 코드
-    a.up();
-    delay(delay_time);
-    a.down();
+    // 작동 코드 (한번 실행 될 때마다 30mL씩 나옴)
+    for (int i = 0; i < num_push; i++) {
+        a.up();
+        delay(WAIT_TIME);
+        a.idle();
+
+        delay(PUSH_TIME);
+
+        a.down();
+        delay(WAIT_TIME);
+        a.idle();
+    }
+    
 
     // 맨 끝에 도달하면 액츄에이터 인가 전압 해제 (idle)
+    /* 엔드스탑 관련 코드 없앰
     while (!z_touch) {
         if (digitalRead(PIN_ENDSTOP_Z)) {
             a.idle();
             z_touch = true;
         }
-    }
+    }*/
 
 }
 
