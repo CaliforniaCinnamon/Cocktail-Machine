@@ -56,6 +56,26 @@ void setup() {
 	Actuator a(30,31);
 	a.up();
 	delay(2500);
+
+	Pump pump1(23, 24); //****************************************************핀넘버 설정필요
+	Pump pump2(25, 26); 
+	Pump pump3(27, 28);
+	Pump pump4(29, 30);
+	Pump pump5(31, 32);
+	Pump pump6(33, 34);
+	Pump pump7(35, 36);
+	Pump pump8(35, 36);
+	Pump pump9(35, 36);
+	pump1.stop_pump();//stop_pump()가 좀 이상해서 확인 후 수정
+	pump2.stop_pump();
+	pump3.stop_pump();
+	pump4.stop_pump();
+	pump5.stop_pump();
+	pump6.stop_pump();
+	pump7.stop_pump();
+	pump8.stop_pump();
+	pump9.stop_pump();
+
 }
 
 

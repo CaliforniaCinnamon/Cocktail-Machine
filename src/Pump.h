@@ -12,7 +12,6 @@
 class Pump {
 private:
 	void start_pump();
-	void stop_pump();
 	int cal_pump(int amount);
 	int PIN_PUMP_1;  int PIN_PUMP_2;
 
@@ -21,6 +20,7 @@ public:
 	Pump(int a, int b) {
 		PIN_PUMP_1 = a;  PIN_PUMP_2 = b;
 	}
+	void stop_pump();
 };
 
 
