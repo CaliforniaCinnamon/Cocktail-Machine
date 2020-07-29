@@ -273,7 +273,7 @@ Operation::~Operation() // 동적으로 할당해준 주소들을 해제해 준다.
 
 int Operation::select_make_recipe(String message)
 {
-	// 우선 message 양 끝에 & 가 있는지 검사, 없으면 20을 반환
+	// 우선 message 양 끝에 & 가 있는지 검사, 없으면 18을 반환
 
 	 // 주어진 정보 -> 양 데이터 배열 선언
 	int disp_mtrl_amount[12] = { 0, };
@@ -332,7 +332,7 @@ int Operation::bluetooth_connect() {
 		String str = "";
 		while (bluetooth.available()) {
 			char ch = bluetooth.read();
-			delay(50);
+			delay(50); // 버퍼에 쌓인 데이터를 가져오고 삭제하는 것을 기다리는 시간
 			str.concat(ch);
 		}
 
@@ -345,18 +345,18 @@ int Operation::bluetooth_connect() {
 				res.concat(ch);
 				i++;
 			}
-			return (res.toInt()); // 0~18
+			return (res.toInt()); // 0~16 (원래 레시피 16개 + 시그니쳐 1개)
 		}
 
 		//make_recipe
 		else if (str.charAt(0) == '&') {
-			return select_make_recipe(str); // 19
+			return select_make_recipe(str); // 17 (나만의 레피시 or 랜덤 레시피)
 		}
 		else
-			return 20;
+			return 18; // 블루투스 신호를 받았지만 유효한 값이 아님 (에러)
 	}
 
-	return -1;
+	return -1; // 블루투스 신호를 받지 못함 -> main에서 루프 반복
 }
 
 
@@ -386,6 +386,7 @@ int Operation::make_cocktail(int result_index)
 	p_ledpanel->color(ct_color);
 	delay(5000);
 
+	/*잔량 확인하는 코드 없앰
 	// 잔량 확인하고, 잔량 없으면 OLED에 표시하고 함수 종료
 	for (int i = 0; i < 12; i++) { // disp material 잔량체크
 		if (disp_recipe[i]) { // 칵테일에 특정 재료를 사용하는지 검사
@@ -408,6 +409,7 @@ int Operation::make_cocktail(int result_index)
 			}
 		}
 	}
+	*/
 
 	// 잔량 체크 했으면 칵테일 만들기 시작
 	// 디스펜서를 사용하는 재료부터 시작
