@@ -29,7 +29,6 @@ Plate::Plate()
     // 엔드스탑의 핀모드 설정
     pinMode(PIN_ENDSTOP_X, INPUT);
     pinMode(PIN_ENDSTOP_Y, INPUT);
-    pinMode(PIN_ENDSTOP_Z, INPUT);
 }
 
 Plate::~Plate()
@@ -110,19 +109,25 @@ void Plate::move_to_initial_position()
 
     // x 방향의 초기화
     while (!x_touch) {
-        (p_stepper_x)->step(move_speed);
-        if (digitalRead(PIN_ENDSTOP_X))
+        if (digitalRead(PIN_ENDSTOP_X)) {
             x_touch = true;
-        this->position.pos_x -= move_speed;
-    }
+        }
+        else {
+            this->position.pos_x -= move_speed;
+            (p_stepper_x)->step(move_speed);
+        }
+    } // end of while (x)
 
     // y 방향의 초기화
     while (!y_touch) {
-        (p_stepper_y)->step(move_speed);
-        if (digitalRead(PIN_ENDSTOP_Y))
+        if (digitalRead(PIN_ENDSTOP_Y)) {
             y_touch = true;
-        this->position.pos_y -= move_speed;
-    }
+        }
+        else {
+            this->position.pos_y -= move_speed;
+            (p_stepper_y)->step(move_speed);
+        }
+    } // end of while (y)
 
 }
 
@@ -130,48 +135,41 @@ void Plate::move_to_initial_position()
 // 양을 건네주면서 호출하면, 액츄에이터가 올라가고 해당 시간만큼 기다렸다가 액츄에이터가 내려옴.
 void Plate::push_dispenser(int a_amount)
 {
-    // 선언 및 초기화, 딜레이 타임
+    // 선언 및 초기화, 딜레이 타임 & 4개 상수 측정 완료
     Actuator a(30, 31);
-    const int WAIT_TIME = 3000;
-    const int FULL_PUSH_TIME = 4000;
-    const int HALF_PUSH_TIME = 2000; // **************************** 상수들은 지정 해줘야함
+    const int UP_TIME = 1800;
+    const int DOWN_TIME = 1520;
+    const int FULL_WAIT_TIME = 3000;
+    const int HALF_WAIT_TIME = 800;
     int num_full_push = a_amount / 30;
     int num_half_push = (a_amount % 30) / 15;
 
     // 작동 코드 (한번 실행 될 때마다 30mL씩 나옴)
     for (int i = 0; i < num_full_push; i++) {
         a.up();
-        delay(WAIT_TIME);
-        a.idle();
+        delay(UP_TIME);
 
-        delay(FULL_PUSH_TIME);
+        a.idle();
+        delay(FULL_WAIT_TIME);
 
         a.down();
-        delay(WAIT_TIME);
+        delay(DOWN_TIME);
+
         a.idle();
     }
 
     if (num_half_push) {
         a.up();
-        delay(WAIT_TIME);
-        a.idle();
+        delay(UP_TIME);
 
-        delay(HALF_PUSH_TIME);
+        a.idle();
+        delay(HALF_WAIT_TIME);
 
         a.down();
-        delay(WAIT_TIME);
+        delay(DOWN_TIME);
+
         a.idle();
     }
-    
-
-    // 맨 끝에 도달하면 액츄에이터 인가 전압 해제 (idle)
-    /* 엔드스탑 관련 코드 없앰
-    while (!z_touch) {
-        if (digitalRead(PIN_ENDSTOP_Z)) {
-            a.idle();
-            z_touch = true;
-        }
-    }*/
 
 }
 

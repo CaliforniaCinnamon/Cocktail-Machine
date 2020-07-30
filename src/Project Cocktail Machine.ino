@@ -7,6 +7,7 @@
 
 
 // ========= user-installed headers ==========
+// (이것들 클래스의 헤더로 옮겨야함)
 
 #include <SoftwareSerial.h>
 #include <Stepper.h>
@@ -31,10 +32,10 @@
 
 // ============ global pointers ==============
 Led* p_ledstrip1;  Led* p_ledstrip2;  Led* p_ledpanel;
-Pump* pump_arr[7];
+Pump* pump_arr[9];
 DispenserMaterial* disp_mtrl_arr[12];
-PumpMaterial* pump_mtrl_arr[7];
-Cocktail* cocktail_arr[20];
+PumpMaterial* pump_mtrl_arr[9];
+Cocktail* cocktail_arr[17];
 
 
 // ============ global variables ============
@@ -52,10 +53,6 @@ void setup() {
 
 	Plate p;
 	p.move_to_initial_position(); // 혹시 모르니 처음 포지션으로 가
-	
-	Actuator a(30,31);
-	a.up();
-	delay(2500);
 
 	Pump pump1(23, 24); //****************************************************핀넘버 설정필요
 	Pump pump2(25, 26); 
@@ -75,6 +72,14 @@ void setup() {
 	pump7.stop_pump();
 	pump8.stop_pump();
 	pump9.stop_pump();
+
+	// 액츄에이터 초기 위치로 가!
+	Actuator a(30, 31);
+	a.down();
+	delay(6000);
+	a.up();
+	delay(2300);
+	a.idle();
 
 }
 
