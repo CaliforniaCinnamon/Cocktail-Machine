@@ -63,7 +63,7 @@ void setup() {
 	Pump pump7(35, 36);
 	Pump pump8(35, 36);
 	Pump pump9(35, 36);
-	pump1.stop_pump();//stop_pump()가 좀 이상해서 확인 후 수정
+	pump1.stop_pump();
 	pump2.stop_pump();
 	pump3.stop_pump();
 	pump4.stop_pump();

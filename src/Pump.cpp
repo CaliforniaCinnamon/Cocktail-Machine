@@ -26,7 +26,7 @@ void Pump::start_pump()
 
 void Pump::stop_pump() 
 {
-	digitalWrite(PIN_PUMP_1, HIGH);
+	digitalWrite(PIN_PUMP_1, LOW);
 	digitalWrite(PIN_PUMP_2, LOW);
 	
 }
