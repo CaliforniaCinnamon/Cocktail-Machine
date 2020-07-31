@@ -119,8 +119,7 @@ void loop() {
 
 	// 칵테일 만들기
 	ctrl.make_cocktail(res_index);
-
-
+	
 
 }
 

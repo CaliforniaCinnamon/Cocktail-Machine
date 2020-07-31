@@ -16,27 +16,35 @@ inline int Pump::cal_pump(int amount)
 }
 
 
-void Pump::start_pump() 
+void Pump::start_pump(int pump_num) 
 {
-	digitalWrite(PIN_PUMP_1, HIGH);
-	digitalWrite(PIN_PUMP_2, LOW);
+	if (pump_num != 8) {
+		digitalWrite(PIN_PUMP_1, LOW);//LOW가 작동
+	}
+	else {
+		digitalWrite(PIN_PUMP_1, HIGH);//서로 값이 달라야 정방향, 약하면 1,2 바꾸기
+		digitalWrite(PIN_PUMP_2, LOW);
+	}
 	
 }
 
 
-void Pump::stop_pump() 
+void Pump::stop_pump(int pump_num) 
 {
-	digitalWrite(PIN_PUMP_1, LOW);
-	digitalWrite(PIN_PUMP_2, LOW);
-	
+	if (pump_num != 8) {
+		digitalWrite(PIN_PUMP_1, HIGH);//HIGH가 멈춤
+	}
+	else {
+		digitalWrite(PIN_PUMP_1, LOW);
+		digitalWrite(PIN_PUMP_2, LOW);
+	}
 }
-// 왜 같지?? - 모터드라이브 스펙시트 보고 바꿔야 할 듯..!
 
-void Pump::work_pump(int amount) {
-	start_pump();
+
+void Pump::work_pump(int pump_num, int amount) {
+	start_pump(pump_num);
 	delay(cal_pump(amount));//변환 시간 입력
-	stop_pump();
+	stop_pump(pump_num);
 }
-
 
 #endif

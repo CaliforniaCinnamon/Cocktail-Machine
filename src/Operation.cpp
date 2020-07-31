@@ -35,14 +35,14 @@ void Operation::preset_led_instances()
 
 void Operation::preset_pump_instances()
 {
-	Pump pump1(23, 24); // 핀A, 핀B
-	Pump pump2(25, 26); //****************************************************핀넘버 설정필요
-	Pump pump3(27, 28);
-	Pump pump4(29, 30);
-	Pump pump5(31, 32);
-	Pump pump6(33, 34);
-	Pump pump7(35, 36);
-	Pump pump8(35, 36);
+	Pump pump1(23); // 핀A
+	Pump pump2(25); //****************************************************핀넘버 설정필요
+	Pump pump3(27);
+	Pump pump4(29);
+	Pump pump5(31);
+	Pump pump6(33);
+	Pump pump7(35);
+	Pump pump8(35);
 	Pump pump9(35, 36);
 
 	pump_arr[0] = (Pump*)malloc(sizeof(pump1));
@@ -459,7 +459,7 @@ int Operation::make_cocktail(int result_index)
 			delay(2000);
 
 			// 좌표로 이동했으면 !펌프! 작동 (해당 레시피의 양에 해당하는 시간만큼)
-			pump_arr[i]->work_pump(pump_recipe[i]);
+			pump_arr[i]->work_pump(i,pump_recipe[i]);
 
 			// 펌프 작동을 완료하면, 해당 재료의 잔량을 뺌
 			int remain = material.get_amount() - pump_recipe[i];
