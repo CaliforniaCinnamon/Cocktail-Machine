@@ -34,6 +34,9 @@ public:
 	void preset_pump_materials();
 	void preset_cocktail_recipes();
 
+	    // 초기화하기
+	void initialize();
+
 	// 소멸자 함수
 	~Operation();
 

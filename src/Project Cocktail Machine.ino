@@ -51,41 +51,12 @@ void setup() {
 	ctrl.preset_pump_materials();
 	ctrl.preset_cocktail_recipes();
 
-	Plate p;
-	p.move_to_initial_position(); // 혹시 모르니 처음 포지션으로 가
-
-	Pump pump1(23, 24); //****************************************************핀넘버 설정필요
-	Pump pump2(25, 26); 
-	Pump pump3(27, 28);
-	Pump pump4(29, 30);
-	Pump pump5(31, 32);
-	Pump pump6(33, 34);
-	Pump pump7(35, 36);
-	Pump pump8(35, 36);
-	Pump pump9(35, 36);
-	pump1.stop_pump();
-	pump2.stop_pump();
-	pump3.stop_pump();
-	pump4.stop_pump();
-	pump5.stop_pump();
-	pump6.stop_pump();
-	pump7.stop_pump();
-	pump8.stop_pump();
-	pump9.stop_pump();
-
-	// 액츄에이터 초기 위치로 가!
-	Actuator a(30, 31);
-	a.down();
-	delay(6000);
-	a.up();
-	delay(2300);
-	a.idle();
+	ctrl.initialize();
 
 }
 
 
 void loop() {
-	Operation ctrl;
 	int flag = 1;  // 1이면 명령 기다림, 0이면 명령 탈출
 	int res_index = -1;
 

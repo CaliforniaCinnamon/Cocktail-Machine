@@ -255,6 +255,62 @@ void Operation::preset_cocktail_recipes()
 }
 
 
+// ************************* 초기화 함수 *************************
+// 현재 상태와 상관 없이 초기화를 하여 사용가능한 상태로 만들어야함
+
+void Operation::initialize() 
+{
+	// 펌프 작동 중지
+	for (int i = 0; i < 8; i++) {
+		pump_arr[i]->stop_pump(i);
+	}
+
+	// 플레이트 위치 (0,0)으로 초기화
+	Plate p;
+	p.move_to_initial_position(); // 혹시 모르니 처음 포지션으로 가
+
+	// 디스펜서용 액츄에이터 초기 위치로 가!
+	Actuator a(30, 31);
+	a.down();
+	delay(6000);
+	a.up();
+	delay(2300);
+	a.idle();
+
+	// led 스트립, 매트릭스 끄기
+	p_ledstrip1->off();
+	p_ledstrip2->off();
+	p_ledpanel->off();
+
+	// oled 화면 전부 지우기
+	Oled o;
+	o.clear();
+
+	// 스터러
+	pinMode(30, OUTPUT);
+	pinMode(31, OUTPUT);
+	digitalWrite(30, LOW);
+	digitalWrite(31, LOW);
+
+	Actuator a(30, 31);
+	a.down();
+	delay(6000);
+
+	// 아이스
+	pinMode(50, OUTPUT); // 모터 드라이브 핀
+	pinMode(51, OUTPUT);
+	pinMode(10, INPUT); // 적외선 센서 핀
+
+	while (digitalRead(10)) { // 감지되면(닫히면) digitalRead가 0 
+		digitalWrite(50, HIGH);
+		digitalWrite(51, LOW);
+	}
+
+	digitalWrite(50, HIGH); // 브레이크
+	digitalWrite(51, HIGH);
+
+}
+
 
 // ************************* 소멸자 함수 **************************
 Operation::~Operation() // 동적으로 할당해준 주소들을 해제해 준다.
