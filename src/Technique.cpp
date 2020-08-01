@@ -56,4 +56,35 @@ void Technique::f(TechniqueMethod method) {
 }
 
 
+void Technique::add_ice(int num) 
+{
+	// 모터 드라이버 핀 번호 설정
+	const int PIN_MOTOR_1 = 50;
+	const int PIN_MOTOR_2 = 52;
+
+	pinMode(11, INPUT);  //***************** 적외선 센서 핀 번호 설정 필요
+
+	pinMode(PIN_MOTOR_1, OUTPUT);
+	pinMode(PIN_MOTOR_2, OUTPUT);
+
+	// num 횟수만큼 얼음을 투하. (얼음 양 조절)
+
+	for (int i = 0; i < num; i++) {
+		digitalWrite(PIN_MOTOR_1, HIGH); // 모터 작동
+		digitalWrite(PIN_MOTOR_2, LOW);
+
+		// 작동하자마자 바로 닫힌 것으로 인식하여 종료할 수 있기 때문에 잠깐 딜레이를 걸어줌
+		delay(100);
+
+		// 뚜껑을 감지하면 digitalRead가 0이되어 신호를 빠져나옴
+		while (digitalRead(11)) {}
+
+		// 뚜껑을 감지해서 while을 빠져나오면 (뚜껑이 닫히면) 브레이크 걸어줌
+		digitalWrite(PIN_MOTOR_2, HIGH);
+		digitalWrite(PIN_MOTOR_2, HIGH);
+		delay(1000);
+	}
+}
+
+
 #endif

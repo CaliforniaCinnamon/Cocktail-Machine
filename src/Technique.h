@@ -30,6 +30,7 @@ private:
 public:
 	void f(TechniqueMethod method);
 	void set_technique(TechniqueMethod tm) { method = tm; }
+	void add_ice(int num);
 
 };
 
