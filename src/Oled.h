@@ -17,13 +17,15 @@
 class Oled {
 private:
 	Adafruit_SSD1306 idisplay; // 그래픽 출력용 인스턴스
+	void display_process(int i);
 
 public:
 	Oled();
 	void display_bluetooth();
 	void display_complete();
-	void display_process(int i);
 	void clear();
+	void display_progress(int now, int amount, char* ct_name);
+	void display_progress(int now, int amount, String ct_name);
 	void display_right(char* msg);
 	void display_center(char* msg);
 	void show();

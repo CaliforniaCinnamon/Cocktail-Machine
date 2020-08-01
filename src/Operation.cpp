@@ -442,40 +442,28 @@ int Operation::make_cocktail(int result_index)
 	p_ledpanel->color(ct_color);
 	delay(5000);
 
-	/*잔량 확인하는 코드 없앰
-	// 잔량 확인하고, 잔량 없으면 OLED에 표시하고 함수 종료
-	for (int i = 0; i < 12; i++) { // disp material 잔량체크
-		if (disp_recipe[i]) { // 칵테일에 특정 재료를 사용하는지 검사
-		   // (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
-			if (disp_recipe[i] > (disp_mtrl_arr[i])->get_amount()) {
-				char* msg = "please refill!";
-				oled.display_center(msg); // 부족하다고 oled 출력
-				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
-			}
-		}
-	}
+	// 전체 양이 얼마나 되는지 체크
+	int total_amount = 0;
+	int now_amount = 0;
 
-	for (int i = 0; i < 9; i++) { // pump material 잔량체크
-		if (pump_recipe[i]) { // 칵테일에 특정 재료를 사용하는지 검사
-		   // (레시피(요구량) > 디스펜서에 남아있는 양) 이면 만들지 못하므로
-			if (pump_recipe[i] > (pump_mtrl_arr[i])->get_amount()) {
-				char* msg = "please refill!";
-				oled.display_center(msg); // 부족하다고 oled 출력, 함수 정의 필요
-				return 0; // 바로 함수를 빠져나온다. 리턴코드 0: 잔량부족
-			}
-		}
+	for (int i = 0; i < 12; i++) {
+		total_amount += disp_recipe[i];
 	}
-	*/
+	for (int i = 0; i < 9; i++) {
+		total_amount += pump_recipe[i];
+	} // 스터나 아이스와 관련하여 코드 수정될 수 있음 **************************
 
-	// 잔량 체크 했으면 칵테일 만들기 시작
+	// 잔량 체크 코드를 지우고 전체 양을 계산하는 코드를 넣음. OLED에 진행도를 표시하기 위함
 	// 디스펜서를 사용하는 재료부터 시작
 	for (int i = 0; i < 12; i++) {
 		if (disp_recipe[i]) { // 만약 해당 재료의 레시피가 0이면 그 재료는 무시함
 		   // 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
 			DispenserMaterial material = *(disp_mtrl_arr[i]);
+			String mtrl_name = material.get_name();
 
 			// OLED 표시
-			oled.display_right(name);
+			oled.display_progress(now_amount, total_amount, mtrl_name);
+			total_amount += disp_recipe[i];
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			p_ledpanel->color(material.get_rgb());
@@ -489,9 +477,6 @@ int Operation::make_cocktail(int result_index)
 			// 좌표로 이동했으면 액츄에이터 작동 (해당 레시피의 양에 해당하는 시간만큼)
 			plate.push_dispenser(disp_recipe[i]);
 
-			// 액츄에이터가 다 따르고 내려오면, 해당 재료의 잔량을 뺌
-			int remain = material.get_amount() - disp_recipe[i];
-			material.set_amount(remain);
 			delay(1000);
 		} // 재료 하나의 루프가 끝났으면, 다시 다른 재료로 이 루프를 또 실행
 	}
@@ -501,9 +486,11 @@ int Operation::make_cocktail(int result_index)
 		if (pump_recipe[i]) { // 만약 해당 재료의 레시피가 0이면 그 재료는 무시함
 		   // 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
 			PumpMaterial material = *(pump_mtrl_arr[i]);
+			String mtrl_name = material.get_name();
 
 			// OLED 표시
-			oled.display_right(name);
+			oled.display_progress(now_amount, total_amount, mtrl_name);
+			total_amount += pump_recipe[i];
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			p_ledpanel->color(material.get_rgb());
@@ -516,14 +503,11 @@ int Operation::make_cocktail(int result_index)
 
 			// 좌표로 이동했으면 !펌프! 작동 (해당 레시피의 양에 해당하는 시간만큼)
 			pump_arr[i]->work_pump(i,pump_recipe[i]);
-
-			// 펌프 작동을 완료하면, 해당 재료의 잔량을 뺌
-			int remain = material.get_amount() - pump_recipe[i];
-			material.set_amount(remain);
 			delay(1000);
 		} // 재료 하나의 루프가 끝났으면, 다시 다른 재료로 이 루프를 또 실행
 	}
 
+	oled.display_progress(now_amount, total_amount, name);
 	delay(3000);
 
 	// 주조 기법에 따라 주조하기

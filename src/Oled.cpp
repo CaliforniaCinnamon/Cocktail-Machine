@@ -19,7 +19,6 @@ void Oled::display_bluetooth() {
 	idisplay.setCursor(20, 35);
 	idisplay.println("is connected");
 	idisplay.display();
-	delay(2000);
 }
 
 
@@ -29,7 +28,6 @@ void Oled::display_complete() {
 	idisplay.setCursor(30, 30);
 	idisplay.println("Complete!");
 	idisplay.display();
-	delay(2000);
 }
 
 
@@ -50,12 +48,6 @@ void Oled::display_process(int i)
 	char msg[] = "making cocktail...";
 	this->display_right(msg);
 	idisplay.display();
-
-	/* 코드의 의도를 모르겠다... 테스트용?
-	  ㄴ 위에서 말했듯 무엇을 표현할지 명확하게 정하기가 1순위 목표
-	delay(2000);
-	idisplay.clearDisplay();
-	delay(2000);*/
 }
 
 //칵테일 이름 출력(이름 긴 거는 띄어쓰기 기준으로 줄바꿈)
@@ -72,7 +64,6 @@ void Oled::display_right(char* msg) {
 		i += 10;
 	}
 	idisplay.display();
-	delay(2000);
 }
 
 void Oled::clear() {
@@ -93,11 +84,33 @@ void Oled::display_center(char* msg) {
 		i += 10;
 	}
 	idisplay.display();
-	delay(2000);
 }
 
 void Oled::show() {
 	idisplay.display();
+}
+
+
+void Oled::display_progress(int now, int amount, char* ct_name)
+{
+	// 현재 따른 양 now와 전체 양 amount 비율에 따라 스케일링
+	int how_much = (0 - 25) * now / amount + 30;
+	
+	// display_process의 인자; 5 (full) ~ 30 (empty)
+	this->display_process(how_much);
+
+	// 진행도 그림 옆에 칵테일 이름을 표시해 준다
+
+	this->display_right(ct_name);
+
+}
+
+// 함수 오버라이딩
+void Oled::display_progress(int now, int amount, String ct_name)
+{
+	char* name;
+	ct_name.toCharArray(name, ct_name.length() + 1);
+	this->display_progress(now, amount, name);
 }
 
 #endif
