@@ -25,6 +25,11 @@ struct Coord {
 };
 //***************************************************//
 
+//stir를 사이에 둔 디스펜서_1의 x위치 y위치
+Coord disp_stir1(1,2);//*************************직접 확인후수정
+//stir를 사이에 둔 디스펜서_2의 x위치 y위치
+Coord disp_stir2(3,4);
+//확인 후 추가
 
 
 
@@ -41,6 +46,8 @@ private:
     // 포인터를 사용해서, Steper를 생성하고 그 주소를 여기다 할당합시다.
     Stepper* p_stepper_x;
     Stepper* p_stepper_y;
+
+
 
 public:
     Plate();
