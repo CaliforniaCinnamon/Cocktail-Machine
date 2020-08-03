@@ -25,7 +25,9 @@ void Technique::stir()
 	a.down();
 	
 	pinMode(30, OUTPUT); // DC모터 출력 핀
+	pinMode(31, OUTPUT);
 	analogWrite(30, 200); // 0~255 속도조절 원래 12V지만 5V해도 ㄱㅊ
+	analogWrite(31, 100);//********************확인해보고 둘이 조절
 
 	a.up();
 	delay(5000); // 다 올라가기까지 기다려
