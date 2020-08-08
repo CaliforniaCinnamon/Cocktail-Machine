@@ -31,11 +31,6 @@ private:
     const int STEPS_PER_REVOLUTION = 200;
     int STEPPER_SPEED = 30;
 
-	//******************************************
-	const int dirPin = 7;
-	const int stepPin = 8;
-
-
     Coord position; // 현재 자기의 위치
     
     const int PIN_ENDSTOP_X = 12;

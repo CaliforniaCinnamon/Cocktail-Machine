@@ -38,6 +38,7 @@ void Led::off_gradually() {
 // 한꺼번에 끄는 함수
 void Led::off() {
     strip.clear();
+    strip.show();
 }
 
 //재료색 나타나는 함수
