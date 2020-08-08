@@ -455,7 +455,7 @@ int Operation::make_cocktail(int result_index)
 
 	
 	//얼음은그냥 다 넣는걸로!?
-	plate.move_to(5, 6);//*******************위치 그냥 바로 넣어줌_직접확인 후 수정
+	plate.moveto(5, 6);//*******************위치 그냥 바로 넣어줌_직접확인 후 수정
 	Technique t;
 	t.add_ice(3);//*************실제로 나오는 얼음 양보고 수정
 	

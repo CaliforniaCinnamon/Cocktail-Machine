@@ -14,6 +14,11 @@ extern Led* ledpanel;
 // 스터:
 void Technique::stir() 
 {
+	//잔 종류에 따라 높이 다르게
+	//낮은것부터 1,2,3,4,5
+	//5->2000
+	//
+
 	// 이동: 여러번 해야함
 	Plate p;
 	p.moveto(3015, 1800);
