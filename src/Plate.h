@@ -32,8 +32,8 @@ private:
 
     static Coord position; // 현재 자기의 위치
     
-    const int PIN_ENDSTOP_X = 12;
-    const int PIN_ENDSTOP_Y = 22;
+    const int PIN_ENDSTOP_X = 52;
+    const int PIN_ENDSTOP_Y = 53;
 
     void CWmove(int steps, int dp, int sp);
     void CCWmove(int steps, int dp, int sp);

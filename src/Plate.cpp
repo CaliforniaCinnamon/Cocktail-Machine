@@ -156,34 +156,20 @@ void Plate::move_to_initial_position()
 
     // note: 스위치 모양이 /(우상향) 이렇게 되어 있을 때 왼쪽부터 차례대로,
     // 인풋 핀, VCC, GND 순서대로 연결한다.
-
-    // 필요한 플래그 & 속도 선언 및 초기화
-    bool x_touch = false;
-    bool y_touch = false;
-    const int MOVE_STEP = -1; // 설정 필요!
-
+	const int MOVE_STEP = -1;
+    
 
     // y 방향의 초기화
-    while (!y_touch) {
-        if (digitalRead(PIN_ENDSTOP_Y)) {
-            y_touch = true;
-        }
-        else {
-            this->position.pos_y -= MOVE_STEP;
-            move(MOVE_STEP, 1); // Y방향으로 움직여라
-        }
-    } // end of while (y)
+	while (digitalRead(53) == 0) {
+		move(MOVE_STEP, 1);
+	}
+	// end of while (y)
 
     // x 방향의 초기화
-    while (!x_touch) {
-        if (digitalRead(PIN_ENDSTOP_X)) {
-            x_touch = true;
-        }
-        else {
-            this->position.pos_x -= MOVE_STEP;
-            move(MOVE_STEP, 0); // MOVE_STEP 만큼 X방향으로 움직여라
-        }
-    } // end of while (x)
+	while (digitalRead(52) == 0) {
+		move(MOVE_STEP, 0);
+	}
+	// end of while (x)
 }
 
 
