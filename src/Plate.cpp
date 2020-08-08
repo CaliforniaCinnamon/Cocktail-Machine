@@ -6,38 +6,68 @@
 
 #include "Plate.h"
 
+//****************** private 지정자 함수 *******************//
+void Plate::CWmove(int steps, int dirPin, int stepPin)
+{
+    digitalWrite(dirPin, HIGH);
+    for (int i = 0; i < steps; i++) {
+        digitalWrite(stepPin, HIGH);
+        delayMicroseconds(STEPPER_DELAY);
+        digitalWrite(stepPin, LOW);
+        delayMicroseconds(STEPPER_DELAY);
+    }
+}
+
+
+void Plate::CCWmove(int steps, int dirPin, int stepPin)
+{
+    digitalWrite(dirPin, LOW);
+    for (int i = 0; i < steps; i++) {
+        digitalWrite(stepPin, HIGH);
+        delayMicroseconds(STEPPER_DELAY);
+        digitalWrite(stepPin, LOW);
+        delayMicroseconds(STEPPER_DELAY);
+    }
+}
+
+
+void Plate::move(int steps, int xy)
+{
+    int dirPin = -1; // 아무것도 아니란 의미에서 -1
+    int stepPin = -1;
+
+    if (xy == 0) { // x 방향
+        pinMode(7, OUTPUT);
+        pinMode(6, OUTPUT);
+        dirPin = 7;
+        stepPin = 6;
+    }
+    else { // y방향
+        pinMode(9, OUTPUT);
+        pinMode(8, OUTPUT);
+        dirPin = 9;
+        stepPin = 8;
+    }
+
+
+    if (steps >= 0) {
+        CWmove(steps, dirPin, stepPin);
+    }
+    else {
+        CCWmove(abs(steps), dirPin, stepPin);
+    }
+}
+
+
+
+
 //************* 생성자 및 소멸자 함수 ****************//
 Plate::Plate()
 {
-    position = Coord(0, 0);
-
-    Stepper stepper_x(STEPS_PER_REVOLUTION, 40, 41, 42, 43);
-    Stepper stepper_y(STEPS_PER_REVOLUTION, 6, 7, 8, 9);
-
-    stepper_x.setSpeed(STEPPER_SPEED);
-    stepper_y.setSpeed(STEPPER_SPEED);
-    // parameter notation: 
-    // steps per revolution, driver pin 1, driver pin 2, driver pin 3, driver pin 4
-
-    // 동적할당 해주고 클래스의 포인터 멤버변수에 대입
-    p_stepper_x = (Stepper*)malloc(sizeof(stepper_x));
-    p_stepper_y = (Stepper*)malloc(sizeof(stepper_y));
-
-    *(p_stepper_x) = stepper_x;
-    *(p_stepper_y) = stepper_y;
-
     // 엔드스탑의 핀모드 설정
     pinMode(PIN_ENDSTOP_X, INPUT);
     pinMode(PIN_ENDSTOP_Y, INPUT);
 }
-
-Plate::~Plate()
-{ // 동적으로 할당해 준 Stepper 의 해제를 위해 존재  
-    free(p_stepper_x);
-    free(p_stepper_y);
-}
-//******************************************************//
-
 
 
 //****************** public 지정자 함수 ******************//
@@ -51,90 +81,15 @@ Coord Plate::get_current_position()
 
 // 말그대로 스피드를 설정해줌.
 void Plate::set_stepper_speed(long a_speed) {
-    (p_stepper_x)->setSpeed(a_speed);
-    (p_stepper_y)->setSpeed(a_speed);
+    STEPPER_DELAY = a_speed;
 }
 
 
-// 목표 위치를 Coord 스트럭트로 입력해주면 현재 위치에 따라 그 차만큼 움직임.
-void Plate::move_to(Coord a_des_pos)
+
+void Plate::moveto(int px, int py) 
 {
-	//문제되는 구간의 디스펜서4개의 번호는
-	//-------
-	// 4 | 1
-	//	 *(stir)
-	// 3 | 2
-	// | 는 x축방향
-	//디스펜서_1의 (x위치, y위치)
-	Coord disp_stir1(1, 0);//*************************직접 확인후수정
-	//디스펜서_2의 (x위치, y위치)
-	Coord disp_stir2(2, 0);
-	//확인 후 추가
-
-
-    // 인자로 목표 좌표를 받고 (a_des_pos)
-    // 아래 함수로 현재 좌표를 받아 (current_position)
-    Coord current_position = get_current_position();
-
-	//x좌표 범위로 판별(주의_ material x좌표 설정해줄때 initial pos에서 멀수록 더 큰 값)
-	if (a_des_pos.pos_x <= disp_stir2.pos_x) {
-		
-		// x방향, y방향 각각 차이를 계산하고 그만큼 움직인다.
-		// x 방향 이동
-		int x_diff = a_des_pos.pos_x - current_position.pos_x;
-		(p_stepper_x)->step(x_diff);
-		this->position.pos_x += x_diff;
-
-		// y 방향 이동
-		int y_diff = a_des_pos.pos_y - current_position.pos_y;
-		(p_stepper_y)->step(y_diff);
-		this->position.pos_y += y_diff;
-	
-	}
-
-	else {
-		int ref_diff = 3;
-		//x축 이동 -> y축 이동 -> x축 이동
-		int x_diff = a_des_pos.pos_x - ref_diff;
-		(p_stepper_x)->step(x_diff);
-		this->position.pos_x += x_diff;
-
-		int y_diff = a_des_pos.pos_y - current_position.pos_y;
-		(p_stepper_y)->step(y_diff);
-		this->position.pos_y += y_diff;
-
-		int x_diff = a_des_pos.pos_x - current_position.pos_x;
-		(p_stepper_x)->step(x_diff);
-		this->position.pos_x += x_diff;
-		
-	}
-}
-//*****************************************************************************
-void Plate::CWmove(int steps) {
-	digitalWrite(dirPin, HIGH);
-	for (int i = 0; i < steps; i++) {
-		digitalWrite(stepPin, HIGH);
-		delayMicroseconds(1000);
-		digitalWrite(stepPin, LOW);
-		delayMicroseconds(1000);
-	}
-}
-void Plate::CCWmove(int steps) {
-	digitalWrite(dirPin, LOW);
-	for (int i = 0; i < steps; i++) {
-		digitalWrite(stepPin, HIGH);
-		delayMicroseconds(1000);
-		digitalWrite(stepPin, LOW);
-		delayMicroseconds(1000);
-	}
-}
-void Plate::move(int steps) {
-	if (steps >= 0) {
-		CWmove(steps);
-	}
-	else {
-		CCWmove(abs(steps));
-	}
+	Coord c(px, py);
+	Plate::moveto(c);
 }
 
 
@@ -163,60 +118,41 @@ void Plate::moveto(Coord a_des_pos) {
 		// x방향, y방향 각각 차이를 계산하고 그만큼 움직인다.
 		// x 방향 이동
 		int x_diff = a_des_pos.pos_x - current_position.pos_x;
-		move(x_diff);
+		move(x_diff, 0);
 		this->position.pos_x += x_diff;
 
 		// y 방향 이동
 		int y_diff = a_des_pos.pos_y - current_position.pos_y;
-		move(y_diff);
+		move(y_diff, 1);
 		this->position.pos_y += y_diff;
 
 	}
 
-	else {
+	else { // 주의해야 할 구간
 		int ref_diff = 3;
 		//x축 이동 -> y축 이동 -> x축 이동
 		int x_diff = a_des_pos.pos_x - ref_diff;
-		move(x_diff);
+		move(x_diff, 0);
 		this->position.pos_x += x_diff;
 
 		int y_diff = a_des_pos.pos_y - current_position.pos_y;
-		move(y_diff);
+		move(y_diff, 1);
 		this->position.pos_y += y_diff;
 
 		int x_diff = a_des_pos.pos_x - current_position.pos_x;
-		move(x_diff);
+		move(x_diff, 0);
 		this->position.pos_x += x_diff;
 
 	}
 
-}
-
-//*****************************************************************************
-
-void Plate::move_to(int px, int py)
-{
-    // 인자의 인트를 받아 목표 좌표로 설정
-    Coord a_des_pos(px, py);
-    // 아래 함수로 현재 좌표를 받아 (current_position)
-    Coord current_position = get_current_position();
-
-    // x방향, y방향 각각 차이를 계산하고 그만큼 움직인다.
-    // x 방향 이동
-    int x_diff = a_des_pos.pos_x - current_position.pos_x;
-    (p_stepper_x)->step(x_diff);
-    this->position.pos_x += x_diff;
-
-    // y 방향 이동
-    int y_diff = a_des_pos.pos_y - current_position.pos_y;
-    (p_stepper_y)->step(y_diff);
-    this->position.pos_y += y_diff;
 }
 
 
 // 호출되면 (0,0)으로 돌아가고, 좌표도 초기화됨.
 void Plate::move_to_initial_position()
 {
+    // 얼음 장치에 안 걸리게 하기 위한 좌표
+    moveto(1, 2); // 상수 설정 필요
 
     // note: 스위치 모양이 /(우상향) 이렇게 되어 있을 때 왼쪽부터 차례대로,
     // 인풋 핀, VCC, GND 순서대로 연결한다.
@@ -224,18 +160,8 @@ void Plate::move_to_initial_position()
     // 필요한 플래그 & 속도 선언 및 초기화
     bool x_touch = false;
     bool y_touch = false;
-    const int move_speed = -1; // 설정 필요!
+    const int MOVE_STEP = -1; // 설정 필요!
 
-    // x 방향의 초기화
-    while (!x_touch) {
-        if (digitalRead(PIN_ENDSTOP_X)) {
-            x_touch = true;
-        }
-        else {
-            this->position.pos_x -= move_speed;
-            (p_stepper_x)->step(move_speed);
-        }
-    } // end of while (x)
 
     // y 방향의 초기화
     while (!y_touch) {
@@ -243,11 +169,21 @@ void Plate::move_to_initial_position()
             y_touch = true;
         }
         else {
-            this->position.pos_y -= move_speed;
-            (p_stepper_y)->step(move_speed);
+            this->position.pos_y -= MOVE_STEP;
+            move(MOVE_STEP, 1); // Y방향으로 움직여라
         }
     } // end of while (y)
 
+    // x 방향의 초기화
+    while (!x_touch) {
+        if (digitalRead(PIN_ENDSTOP_X)) {
+            x_touch = true;
+        }
+        else {
+            this->position.pos_x -= MOVE_STEP;
+            move(MOVE_STEP, 0); // MOVE_STEP 만큼 X방향으로 움직여라
+        }
+    } // end of while (x)
 }
 
 
