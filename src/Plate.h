@@ -31,6 +31,11 @@ private:
     const int STEPS_PER_REVOLUTION = 200;
     int STEPPER_SPEED = 30;
 
+	//******************************************
+	const int dirPin = 7;
+	const int stepPin = 8;
+
+
     Coord position; // 현재 자기의 위치
     
     const int PIN_ENDSTOP_X = 12;
@@ -45,7 +50,12 @@ private:
 public:
     Plate();
     ~Plate();
-
+	//************************************************
+	void CWmove(int steps);
+	void CCWmove(int steps);
+	void move(int steps);
+	void moveto(Coord a_des_pos);
+	//************************************************
     Coord get_current_position();
     void move_to(Coord a_des_pos);
     void move_to(int px, int py); // 함수 오버라이딩

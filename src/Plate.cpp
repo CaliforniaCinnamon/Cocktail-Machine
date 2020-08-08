@@ -109,6 +109,90 @@ void Plate::move_to(Coord a_des_pos)
 		
 	}
 }
+//*****************************************************************************
+void Plate::CWmove(int steps) {
+	digitalWrite(dirPin, HIGH);
+	for (int i = 0; i < steps; i++) {
+		digitalWrite(stepPin, HIGH);
+		delayMicroseconds(1000);
+		digitalWrite(stepPin, LOW);
+		delayMicroseconds(1000);
+	}
+}
+void Plate::CCWmove(int steps) {
+	digitalWrite(dirPin, LOW);
+	for (int i = 0; i < steps; i++) {
+		digitalWrite(stepPin, HIGH);
+		delayMicroseconds(1000);
+		digitalWrite(stepPin, LOW);
+		delayMicroseconds(1000);
+	}
+}
+void Plate::move(int steps) {
+	if (steps >= 0) {
+		CWmove(steps);
+	}
+	else {
+		CCWmove(abs(steps));
+	}
+}
+
+
+void Plate::moveto(Coord a_des_pos) {
+	
+	//문제되는 구간의 디스펜서4개의 번호는
+	//-------
+	// 4 | 1
+	//	 *(stir)
+	// 3 | 2
+	// | 는 x축방향
+	//디스펜서_1의 (x위치, y위치)
+	Coord disp_stir1(1, 0);//*************************직접 확인후수정
+	//디스펜서_2의 (x위치, y위치)
+	Coord disp_stir2(2, 0);
+	//확인 후 추가
+
+
+	// 인자로 목표 좌표를 받고 (a_des_pos)
+	// 아래 함수로 현재 좌표를 받아 (current_position)
+	Coord current_position = get_current_position();
+
+	//x좌표 범위로 판별(주의_ material x좌표 설정해줄때 initial pos에서 멀수록 더 큰 값)
+	if (a_des_pos.pos_x <= disp_stir2.pos_x) {
+
+		// x방향, y방향 각각 차이를 계산하고 그만큼 움직인다.
+		// x 방향 이동
+		int x_diff = a_des_pos.pos_x - current_position.pos_x;
+		move(x_diff);
+		this->position.pos_x += x_diff;
+
+		// y 방향 이동
+		int y_diff = a_des_pos.pos_y - current_position.pos_y;
+		move(y_diff);
+		this->position.pos_y += y_diff;
+
+	}
+
+	else {
+		int ref_diff = 3;
+		//x축 이동 -> y축 이동 -> x축 이동
+		int x_diff = a_des_pos.pos_x - ref_diff;
+		move(x_diff);
+		this->position.pos_x += x_diff;
+
+		int y_diff = a_des_pos.pos_y - current_position.pos_y;
+		move(y_diff);
+		this->position.pos_y += y_diff;
+
+		int x_diff = a_des_pos.pos_x - current_position.pos_x;
+		move(x_diff);
+		this->position.pos_x += x_diff;
+
+	}
+
+}
+
+//*****************************************************************************
 
 void Plate::move_to(int px, int py)
 {
