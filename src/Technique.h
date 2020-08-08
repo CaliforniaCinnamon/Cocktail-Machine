@@ -29,8 +29,8 @@ private:
 
 public:
 	void f(TechniqueMethod method);
-	void set_technique(TechniqueMethod tm) { method = tm; }
-	void add_ice(int num);
+	void add_ice(int num); 
+	// num 은 피스톤을 움직이는 횟수, 이걸로 얼음 양 조절
 
 };
 
