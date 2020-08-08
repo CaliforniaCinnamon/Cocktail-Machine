@@ -31,6 +31,7 @@ public:
 	void f(TechniqueMethod method);
 	void add_ice(int a_glass); 
 	// num 은 피스톤을 움직이는 횟수, 이걸로 얼음 양 조절
+	int glass;
 
 };
 

@@ -26,8 +26,9 @@ private:
 
 public:
     // 이름은 "Martini" 이렇게 받고, 배열은 주소로 받음. 기법은 BUILD STIR 이렇게 써주면 됨.
+	// glass는 잔 높이가 낮은것부터 1,2,3,4
     Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],
-        TechniqueMethod a_method, int a_r, int a_g, int a_b);
+        TechniqueMethod a_method, int glass, int a_r, int a_g, int a_b);
 
     String get_name() { return cocktail_name; }
     int* get_disp_recipe() { return disp_material_amount; }
@@ -40,7 +41,7 @@ public:
 
 
 inline Cocktail::Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],
-    TechniqueMethod a_method, int a_r, int a_g, int a_b)
+    TechniqueMethod a_method, int glass, int a_r, int a_g, int a_b)
 {
     cocktail_name = name;
 
