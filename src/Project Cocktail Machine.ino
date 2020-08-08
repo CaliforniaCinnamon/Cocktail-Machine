@@ -9,6 +9,7 @@
 // ========= user-installed headers ==========
 // (이것들 클래스의 헤더로 옮겨야함)
 
+#include <Servo.h>
 #include <SoftwareSerial.h>
 #include <Stepper.h>
 

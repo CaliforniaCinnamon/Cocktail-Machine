@@ -6,10 +6,6 @@
 
 #include "Technique.h"
 
-extern Led* ledstrip1;
-extern Led* ledstrip2;
-extern Led* ledpanel;
-
 
 // 스터:
 void Technique::stir() 
@@ -62,44 +58,49 @@ void Technique::f(TechniqueMethod method) {
 }
 
 
-void Technique::add_ice(int num) 
+void Technique::add_ice(int a_glass)  // 서보로 해야함
 {
-	// 모터 드라이버 핀 번호 설정 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	const int PIN_MOTOR_1 = 50;
-	const int PIN_MOTOR_2 = 52;
+	Servo servo; // 서보 인스턴스 선언
+	servo.attach(10); // 핀 번호 설정
+	const int SERVO_DELAY = 20; // 서보모터의 딜레이 (속도 조절) @@@@@@@@@@@@@
+	const int INIT_ANGLE = 0; // 피스톤이 내려가있을 때 서보 각도 @@@@@@@@@@@@
+	const int FULL_ANGLE = 90; // 피스톤이 끝까지 올라가있을 때 서보 각도 @@@@@
 
-	pinMode(11, INPUT);  // 센서1번 적외선 센서 핀 번호 설정 필요 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	pinMode(12, INPUT);  // 센서2번
+	// 잔 종류에 따른 얼음 양 정보 미리 저장, 1.0 = full로 한 번
+	double ice_amount_arr[4] = { 0.5, 1, 1.5 , 2 }; // @@@@@@@@@@@@@@@@@
+	double ice_amount = ice_amount_arr[a_glass - 1];
 
-	pinMode(PIN_MOTOR_1, OUTPUT);
-	pinMode(PIN_MOTOR_2, OUTPUT);
+	// 얼음 양에서 얼마나 반복할지 계산 (ice_amount 올림)
+	int num = 1 + (int)ice_amount;
 
-	// num 횟수만큼 얼음을 투하. (얼음 양 조절)
+	// ice_amount 에 따라 피스톤 왕복운동 반복
+	for (int i = 0; i < num; i++)
+	{
+		// 서보 목표 각도; ice_amount 에 따라 달라짐
+		int des_angle = 0;
+		if ((int)ice_amount / 1) des_angle = FULL_ANGLE;
+		else des_angle = (int)(FULL_ANGLE * ice_amount);
 
-	for (int i = 0; i < num; i++) {
-		digitalWrite(PIN_MOTOR_1, HIGH); // 피스톤 올라가기
-		digitalWrite(PIN_MOTOR_2, LOW);
+			// INIT_ANGLE -> des_angle 로 서보 각도를 제어하는 코드
+			for (int j = INIT_ANGLE; j <= des_angle; j++) {
+				servo.write(j);
+				delay(SERVO_DELAY);
+			}
 
-		// 뚜껑을 감지하면 digitalRead가 0이되어 신호를 빠져나옴
-		while (digitalRead(11)) {} // 위에 있는 센서 (1번)
+		delay(1000); // 피스톤이 올라오고 (얼음을 밀어내고) 잠시 딜레이 시간 @@@@@@@@
 
-		// 뚜껑을 감지해서 while을 빠져나오면 (뚜껑이 닫히면) 브레이크 걸어줌
-		digitalWrite(PIN_MOTOR_1, HIGH);
-		digitalWrite(PIN_MOTOR_2, HIGH);
+		// des_angle -> INIT_ANGLE 로 서보 각도를 제어하는 코드
+		for (int j = des_angle; j >= INIT_ANGLE; j++) {
+			servo.write(j);
+			delay(SERVO_DELAY);
+		}
 
-		delay(1000);  //*************************************************
-
-		digitalWrite(PIN_MOTOR_1, LOW); // 피스톤 내려가기
-		digitalWrite(PIN_MOTOR_2, HIGH);
-
-		// 뚜껑을 감지하면 digitalRead가 0이되어 신호를 빠져나옴
-		while (digitalRead(12)) {} // 아래에 있는 센서 (2번)
-
-		// 뚜껑을 감지해서 while을 빠져나오면 (뚜껑이 열리면) 브레이크 걸어줌
-		digitalWrite(PIN_MOTOR_1, HIGH);
-		digitalWrite(PIN_MOTOR_2, HIGH);
+		delay(1000); // 피스톤이 내려가고 (얼음을 채우고) 잠시 딜레이 시간 @@@@@@@@
+		ice_amount--;
 	}
-}
+
+} // end of for(num)
+
 
 
 #endif

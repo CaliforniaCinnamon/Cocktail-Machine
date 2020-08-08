@@ -10,8 +10,8 @@
 #endif
 
 #include "Plate.h"
-#include "Led.h"
-#include "Oled.h"
+#include <Servo.h>
+
 
 
 //method들을 numbering
@@ -29,7 +29,7 @@ private:
 
 public:
 	void f(TechniqueMethod method);
-	void add_ice(int num); 
+	void add_ice(int a_glass); 
 	// num 은 피스톤을 움직이는 횟수, 이걸로 얼음 양 조절
 
 };
