@@ -28,7 +28,7 @@ struct Coord {
 class Plate {
 private:
     const int STEPS_PER_REVOLUTION = 200;
-    static int STEPPER_DELAY;
+    int STEPPER_DELAY = 2000;
 
     static Coord position; // 현재 자기의 위치
     
@@ -37,10 +37,10 @@ private:
 
     void CWmove(int steps, int dp, int sp);
     void CCWmove(int steps, int dp, int sp);
-    void move(int steps, int xy); // xy가 0이면 x방향, 1이면 y방향
 
 public:
     Plate();
+	void move(int steps, int xy); // xy가 0이면 x방향, 1이면 y방향
 	void moveto(Coord a_des_pos);
     void moveto(int px, int py);
     Coord get_current_position();

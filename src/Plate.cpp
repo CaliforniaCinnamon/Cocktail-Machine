@@ -7,7 +7,7 @@
 #include "Plate.h"
 
 //****************** private 지정자 함수 *******************//
-void Plate::CWmove(int steps, int dirPin, int stepPin)
+void Plate::CCWmove(int steps, int dirPin, int stepPin)
 {
     digitalWrite(dirPin, HIGH);
     for (int i = 0; i < steps; i++) {
@@ -19,7 +19,7 @@ void Plate::CWmove(int steps, int dirPin, int stepPin)
 }
 
 
-void Plate::CCWmove(int steps, int dirPin, int stepPin)
+void Plate::CWmove(int steps, int dirPin, int stepPin)
 {
     digitalWrite(dirPin, LOW);
     for (int i = 0; i < steps; i++) {
@@ -102,9 +102,9 @@ void Plate::moveto(Coord a_des_pos) {
 	// 3 | 2
 	// | 는 x축방향
 	//디스펜서_1의 (x위치, y위치)
-	Coord disp_stir1(1, 0);//*************************직접 확인후수정
+	Coord disp_stir1(3140, 0);//*************************직접 확인후수정
 	//디스펜서_2의 (x위치, y위치)
-	Coord disp_stir2(2, 0);
+	Coord disp_stir2(2640, 0);
 	//확인 후 추가
 
 
@@ -129,7 +129,7 @@ void Plate::moveto(Coord a_des_pos) {
 	}
 
 	else { // 주의해야 할 구간
-		int ref_diff = 3;
+		int ref_diff = 500;
 		//x축 이동 -> y축 이동 -> x축 이동
 		int x_diff = a_des_pos.pos_x - ref_diff;
 		move(x_diff, 0);

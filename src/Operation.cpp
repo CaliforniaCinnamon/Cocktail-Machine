@@ -116,15 +116,15 @@ void Operation::preset_pump_materials()
 {
 	//pump_material_instance »ý¼º
 	//PumpMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
-	PumpMaterial pumpmaterial_instance1("Raspberry", 0, 750, 200, 50, 40);
-	PumpMaterial pumpmaterial_instance2("Lemon", 1, 750, 255, 255, 10);
-	PumpMaterial pumpmaterial_instance3("Lime", 2, 750, 120, 210, 100);
-	PumpMaterial pumpmaterial_instance4("Sweet & Sour", 3, 750, 230, 230, 100);
-	PumpMaterial pumpmaterial_instance5("Orange", 4, 750, 255, 130, 0);
-	PumpMaterial pumpmaterial_instance6("Grapefruit juice", 5, 750, 255, 185, 115);
-	PumpMaterial pumpmaterial_instance7("Tonic", 6, 750, 255, 255, 255);
-	PumpMaterial pumpmaterial_instance8("Kanari", 7, 750, 128, 64, 64);
-	PumpMaterial pumpmaterial_instance9("Unknwon", 6, 750, 255, 255, 255); //?? ***************************
+	PumpMaterial pumpmaterial_instance1("Raspberry", 13, 750, 200, 50, 40);
+	PumpMaterial pumpmaterial_instance2("Lemon", 14, 750, 255, 255, 10);
+	PumpMaterial pumpmaterial_instance3("Lime", 15, 750, 120, 210, 100);
+	PumpMaterial pumpmaterial_instance4("Sweet & Sour", 16, 750, 230, 230, 100);
+	PumpMaterial pumpmaterial_instance5("Orange", 17, 750, 255, 130, 0);
+	PumpMaterial pumpmaterial_instance6("Grapefruit juice", 18, 750, 255, 185, 115);
+	PumpMaterial pumpmaterial_instance7("Tonic", 19, 750, 255, 255, 255);
+	PumpMaterial pumpmaterial_instance8("Kanari", 20, 750, 128, 64, 64);
+	PumpMaterial pumpmaterial_instance9("Unknwon", 21, 750, 255, 255, 255); //?? ***************************
 
 	pump_mtrl_arr[0] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance1));
 	pump_mtrl_arr[1] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance2));

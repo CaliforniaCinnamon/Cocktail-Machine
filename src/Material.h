@@ -43,6 +43,7 @@ inline Material::Material(String aname, int a_num, int a_remain, int ar, int ag,
 inline void Material::num_to_pos(int a_num) {
 	switch (a_num)
 	{
+	//**************disp_material**************//
 	case 1:
 		pos_x = 3140;  pos_y = 0;  break;
 	case 2:
@@ -67,6 +68,26 @@ inline void Material::num_to_pos(int a_num) {
 		pos_x = 1140;  pos_y = 1800;  break;
 	case 12:
 		pos_x = 640;  pos_y = 1800;  break;
+	//************pump_material*************//
+	case 13:
+		pos_x = 560;  pos_y = 1000;  break;
+	case 14:
+		pos_x = 790;  pos_y = 0;  break;
+	case 15:
+		pos_x = 1050;  pos_y = 1800;  break;
+	case 16:
+		pos_x = 1310;  pos_y = 1800;  break;
+	case 17:
+		pos_x = 1570;  pos_y = 1800;  break;
+	case 18:
+		pos_x = 1800;  pos_y = 1800;  break;
+	case 19:
+		pos_x = 2060;  pos_y = 1800;  break;
+	case 20:
+		pos_x = 2320;  pos_y = 1800;  break;
+	case 21:
+		pos_x = 2580;  pos_y = 1800;  break;
+
 	default:
 		break;
 	}
