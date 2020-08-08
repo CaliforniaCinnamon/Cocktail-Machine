@@ -8,21 +8,20 @@
 #include "Operation.h"
 
 // ******************** main의 전역 포인터 가져오기 ******************
-extern Led * p_ledstrip1;  extern Led* p_ledstrip2;
-extern Led* p_ledpanel;
+extern Led * p_ledstrip1;  extern Led* p_ledstrip2;  extern Led* p_ledpanel;
 extern Pump* pump_arr[9];
 
 extern DispenserMaterial* disp_mtrl_arr[12];
 extern PumpMaterial* pump_mtrl_arr[9];
-extern Cocktail* cocktail_arr[17];
+extern Cocktail* cocktail_arr[18];
 
 
 // *************************** 프리셋 함수들 *************************
 void Operation::preset_led_instances()
 {
-	Led ledstrip1(50, 50); // led 개수, 핀넘버
-	Led ledstrip2(50, 32);
-	Led ledpanel(256, 24);
+	Led ledstrip1(55, 3); // led 개수, 핀넘버
+	Led ledstrip2(55, 4);
+	Led ledpanel(256, 2);
 
 	p_ledstrip1 = (Led*)malloc(sizeof(ledstrip1));
 	p_ledstrip2 = (Led*)malloc(sizeof(ledstrip2));
@@ -35,15 +34,15 @@ void Operation::preset_led_instances()
 
 void Operation::preset_pump_instances()
 {
-	Pump pump1(23); // 핀A
-	Pump pump2(25); //****************************************************핀넘버 설정필요
-	Pump pump3(27);
-	Pump pump4(29);
-	Pump pump5(31);
-	Pump pump6(33);
-	Pump pump7(35);
-	Pump pump8(35);
-	Pump pump9(35, 36);
+	Pump pump1(30); // 핀A
+	Pump pump2(31); //****************************************************핀넘버 설정필요
+	Pump pump3(32);
+	Pump pump4(33);
+	Pump pump5(34);
+	Pump pump6(35);
+	Pump pump7(36);
+	Pump pump8(37);
+	Pump pump9(38, 39);
 
 	pump_arr[0] = (Pump*)malloc(sizeof(pump1));
 	pump_arr[1] = (Pump*)malloc(sizeof(pump2));
@@ -77,10 +76,10 @@ void Operation::preset_dispenser_materials()
 	DispenserMaterial dispmaterial_instance4("Tequila", 3, 750, 240, 240, 95);
 	DispenserMaterial dispmaterial_instance5("Cuentro", 4, 750, 210, 145, 45);
 	DispenserMaterial dispmaterial_instance6("Smynov", 5, 750, 130, 225, 120);
-	DispenserMaterial dispmaterial_instance7("Soju", 6, 360, 130, 225, 120); //********* 수정했음
+	DispenserMaterial dispmaterial_instance7("Soju", 6, 360, 130, 225, 120);
 	DispenserMaterial dispmaterial_instance8("Peach", 7, 750, 250, 160, 205);
 	DispenserMaterial dispmaterial_instance9("BlueCurasso", 8, 750, 60, 60, 210);
-	DispenserMaterial dispmaterial_instance10("Beer", 9, 500, 110, 65, 100); //************ 수정했음
+	DispenserMaterial dispmaterial_instance10("Beer", 9, 500, 110, 65, 100);
 	DispenserMaterial dispmaterial_instance11("Mohito", 10, 750, 130, 215, 125);
 	DispenserMaterial dispmaterial_instance12("JackDaniel", 11, 750, 210, 140, 60);
 
@@ -123,8 +122,8 @@ void Operation::preset_pump_materials()
 	PumpMaterial pumpmaterial_instance5("Orange", 17, 750, 255, 130, 0);
 	PumpMaterial pumpmaterial_instance6("Grapefruit juice", 18, 750, 255, 185, 115);
 	PumpMaterial pumpmaterial_instance7("Tonic", 19, 750, 255, 255, 255);
-	PumpMaterial pumpmaterial_instance8("Kanari", 20, 750, 128, 64, 64);
-	PumpMaterial pumpmaterial_instance9("Unknwon", 21, 750, 255, 255, 255); //?? ***************************
+	PumpMaterial pumpmaterial_instance8("Unknwon1", 20, 750, 128, 64, 64); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	PumpMaterial pumpmaterial_instance9("Unknwon2", 21, 750, 255, 255, 255); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 	pump_mtrl_arr[0] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance1));
 	pump_mtrl_arr[1] = (PumpMaterial*)malloc(sizeof(pumpmaterial_instance2));
@@ -148,7 +147,7 @@ void Operation::preset_pump_materials()
 
 }
 
-void Operation::preset_cocktail_recipes()
+void Operation::preset_cocktail_recipes() // 제조 기법 BUILD or STIR 정하기 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 {
 	//cocktail_instance 생성
 	// 이름은 "Martini" 이렇게 받고, 배열은 주소로 받음. 기법은 BUILD STIR 이렇게 써주면 됨.
@@ -260,17 +259,19 @@ void Operation::preset_cocktail_recipes()
 
 void Operation::initialize() 
 {
-	// 펌프 작동 중지
+	// 펌프 작동 중지 (1~8)
 	for (int i = 0; i < 8; i++) {
 		pump_arr[i]->stop_pump(i);
 	}
+	pinMode(38, OUTPUT);  digitalWrite(38, HIGH); // 9번째 함수
+	pinMode(39, OUTPUT);  digitalWrite(39, HIGH);
 
 	// 플레이트 위치 (0,0)으로 초기화
 	Plate p;
 	p.move_to_initial_position(); // 혹시 모르니 처음 포지션으로 가
 
 	// 디스펜서용 액츄에이터 초기 위치로 가!
-	Actuator a(30, 31);
+	Actuator a(22, 23);
 	a.down();
 	delay(6000);
 	a.up();
@@ -287,27 +288,15 @@ void Operation::initialize()
 	o.clear();
 
 	// 스터러
-	pinMode(30, OUTPUT);
-	pinMode(31, OUTPUT);
-	digitalWrite(30, LOW);
-	digitalWrite(31, LOW);
+	pinMode(40, OUTPUT);  digitalWrite(40, HIGH);
+	pinMode(41, OUTPUT);  digitalWrite(41, HIGH);
 
-	Actuator a(30, 31);
+	Actuator a(42, 43);
 	a.down();
 	delay(6000);
 
-	// 아이스
-	pinMode(50, OUTPUT); // 모터 드라이브 핀
-	pinMode(51, OUTPUT);
-	pinMode(10, INPUT); // 적외선 센서 핀
-
-	while (digitalRead(10)) { // 감지되면(닫히면) digitalRead가 0 
-		digitalWrite(50, HIGH);
-		digitalWrite(51, LOW);
-	}
-
-	digitalWrite(50, HIGH); // 브레이크
-	digitalWrite(51, HIGH);
+	// 아이스 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ technique에 초기화함수 만들자
+	/* 대충 아이스 장치 초기화하는 함수 */
 
 }
 
@@ -322,7 +311,7 @@ Operation::~Operation() // 동적으로 할당해준 주소들을 해제해 준다.
 	for (int i = 0; i < 9; i++) free(pump_arr[i]);
 	for (int i = 0; i < 12; i++) free(disp_mtrl_arr[i]);
 	for (int i = 0; i < 9; i++) free(pump_mtrl_arr[i]);
-	for (int i = 0; i < 17; i++) free(cocktail_arr[i]);
+	for (int i = 0; i < 18; i++) free(cocktail_arr[i]);
 }
 
 // ********************** 작동을 위한 함수들 *********************
@@ -337,7 +326,7 @@ int Operation::select_make_recipe(String message)
 
 	int i = 2; // message의 인덱스
 
-	while (message[i] != '&') {
+	while (message[i] != '&') { // 메세지의 끝인지 검사, 끝이면 빠져나옴
 		String index = "";
 		String amount = "";
 
@@ -345,7 +334,7 @@ int Operation::select_make_recipe(String message)
 			index += message[i];
 			i++;
 		} // end of internal while, %를 만나면 빠져나옴
-		i++;
+		i++; // 지금의 index는 '%'를 가리키고 있으므로 아래에서 하나 증가시켜줌.
 
 		while (message[i] != '%' && message[i] != '&') { // amount 정보 받아오기
 			amount += message[i];
@@ -356,32 +345,33 @@ int Operation::select_make_recipe(String message)
 		int index_int = index.toInt();
 		int amount_int = amount.toInt();
 
-		// index가 0~11이면 disp mtrl, 12~18이면 pump mtrl
+		// index가 0~11이면 disp mtrl, 12~20이면 pump mtrl
 		if (0 <= index_int && index_int <= 11) {
 			disp_mtrl_amount[index_int] = amount_int;
 		}
-		else if (12 <= index_int && index_int <= 18) {
-			pump_mtrl_amount[index_int] = amount_int;
+		else if (12 <= index_int && index_int <= 20) {
+			pump_mtrl_amount[index_int - 12] = amount_int;
 		}
 
-		// 마지막 검사 메세지는 char로 끝났으므로 message의 인덱스 하나 증가
+		// 참고: 지금의 인덱스는 '%' 또는 '&'를 가리키고 있다.
 	} // end of while: disp_mtrl_amount 와 pump_mtrl_amount 배열 설정 완료
-	Serial.println("hi");
+
 	// 칵테일 인스턴스 생성
 	Cocktail my_cocktail("my_cocktail", disp_mtrl_amount, pump_mtrl_amount, 
-		TechniqueMethod::BUILD, 123, 123, 123);
+		TechniqueMethod::BUILD, 123, 123, 123); // 나만의 레시피 테크닉과 rgb @@@@@@@@@@@@@@@@@@@@@2
 
-		// 동적할당 및 주소 대입
-	cocktail_arr[19] = (Cocktail*)malloc(sizeof(my_cocktail));
-	*(cocktail_arr[19]) = my_cocktail;
+	// 동적할당 및 주소 대입
+	cocktail_arr[17] = (Cocktail*)malloc(sizeof(my_cocktail));
+	*(cocktail_arr[17]) = my_cocktail;
 
 	// 리턴
-	return 19;
+	return 17;
 }
 
 
 int Operation::bluetooth_connect() {
-	SoftwareSerial bluetooth(10, 11);
+	// SoftwareSerial이 아닌 Serial1 으로 바꿔야 할 수도 있음 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	SoftwareSerial bluetooth(18, 19); // pin Notation: RX, TX
 	bluetooth.begin(9600);
 
 	if (bluetooth.available()) {
@@ -392,6 +382,7 @@ int Operation::bluetooth_connect() {
 			str.concat(ch);
 		}
 
+		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 신호 줄 때 0~16인지 1~17인지?
 		//select_sample
 		if (str.charAt(0) == '$') {
 			String res = "";
@@ -401,13 +392,14 @@ int Operation::bluetooth_connect() {
 				res.concat(ch);
 				i++;
 			}
-			return (res.toInt()); // 0~16 (원래 레시피 16개 + 시그니쳐 1개)
+			return (res.toInt()); // 0~16 (원래 레시피 16개 + 시그니쳐 1개 = 17개)
 		}
 
 		//make_recipe
 		else if (str.charAt(0) == '&') {
 			return select_make_recipe(str); // 17 (나만의 레피시 or 랜덤 레시피)
 		}
+
 		else
 			return 18; // 블루투스 신호를 받았지만 유효한 값이 아님 (에러)
 	}
@@ -478,7 +470,7 @@ int Operation::make_cocktail(int result_index)
 
 			// 좌표 설정하고, plate 움직이기
 			coord.set(material.get_pos_x(), material.get_pos_y());
-			plate.move_to(coord);
+			plate.moveto(coord);
 			delay(2000);
 
 			// 좌표로 이동했으면 액츄에이터 작동 (해당 레시피의 양에 해당하는 시간만큼)
@@ -505,7 +497,7 @@ int Operation::make_cocktail(int result_index)
 
 			// 좌표 설정하고, plate 움직이기
 			coord.set(material.get_pos_x(), material.get_pos_y());
-			plate.move_to(coord);
+			plate.moveto(coord);
 			delay(2000);
 
 			// 좌표로 이동했으면 !펌프! 작동 (해당 레시피의 양에 해당하는 시간만큼)
@@ -531,12 +523,22 @@ int Operation::make_cocktail(int result_index)
 }
 
 
-int Operation::emergency_stop()
+void Operation::emergency_stop()
 {
 	Oled o;
 	o.display_center("emergency stop!");
-	exit;
-	return 20; // 리턴 코드 20: 긴급 정지
+
+	// 동적 할당 해제
+	free(p_ledstrip1);
+	free(p_ledstrip2);
+	free(p_ledpanel);
+
+	for (int i = 0; i < 9; i++) free(pump_arr[i]);
+	for (int i = 0; i < 12; i++) free(disp_mtrl_arr[i]);
+	for (int i = 0; i < 9; i++) free(pump_mtrl_arr[i]);
+	for (int i = 0; i < 18; i++) free(cocktail_arr[i]);
+
+	exit(1); // 에러 코드 1: 무효한 블루투스 입력 값
 }
 
 

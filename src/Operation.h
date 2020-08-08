@@ -9,7 +9,10 @@
 	#include "WProgram.h"
 #endif
 
+#include <stdlib.h>
 
+#include "Oled.h"
+#include "Led.h"
 #include "Material.h"
 #include "Plate.h"
 #include "Cocktail.h"
@@ -43,7 +46,7 @@ public:
 	// 작동 함수
 	int bluetooth_connect();
 	int make_cocktail(int res_index);
-	int emergency_stop();
+	void emergency_stop();
 };
 
 
