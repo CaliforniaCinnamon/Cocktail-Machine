@@ -20,7 +20,7 @@ private:
     String cocktail_name; // 칵테일 이름
   // {0, 0, 50, 60, 0, 0, 0, ...} 이런 식으로 필요한 재료와 양 정보를 저장함.
     int disp_material_amount[12];
-    int pump_material_amount[7];
+    int pump_material_amount[9];
     TechniqueMethod method; // 기법
     int cocktail_rgb[3]; // 완성됐을 때 Led 색깔 정보
     int glass; // 잔 정보
@@ -51,7 +51,7 @@ inline Cocktail::Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],
         disp_material_amount[i] = a_disp_mtrl[i];
     }
 
-    for (int i = 0; i < 7; i++) { // 펌프 재료 종류와 양 정보 깊은복사
+    for (int i = 0; i < 9; i++) { // 펌프 재료 종류와 양 정보 깊은복사
         pump_material_amount[i] = a_pump_mtrl[i];
     }
 

@@ -48,7 +48,9 @@ void Technique::stir()
 	pinMode(31, OUTPUT);  digitalWrite(31, LOW);
 	// 모터 속도 조절 (지금은 안 씀)
 	//pinMode(32, OUTPUT);  analogWrite(32, 150);
+	delay(3000); // 젓는 시간 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
+	digitalWrite(30, HIGH);  digitalWrite(31, HIGH); // 모터 정지
 	delay(1000); // 다 젓고 기다리는 시간 @@@@@@@@@@@@@@@@@@@@@
 	a.up();
 	delay(5000); // 다 올라가기까지 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
