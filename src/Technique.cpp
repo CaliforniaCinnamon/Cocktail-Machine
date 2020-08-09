@@ -16,7 +16,7 @@ void Technique::stir()
 	p.move(-1050, 1);
 
 	// 거품기 작동
-	Actuator a(24, 25); // 거품기 액츄에이터 핀 번호
+	Actuator a(42, 43); // 거품기 액츄에이터 핀 번호
 	
 	//잔 종류에 따라 높이 다르게
 	//낮은것부터 1,2,3,4
@@ -26,17 +26,17 @@ void Technique::stir()
 		break;
 	case 2:
 		a.down();
-		delay(8000);//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		delay(8000);
 		a.idle();
 		break;
 	case 3:
 		a.down();
-		delay(1500);//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		delay(1500);
 		a.idle();
 		break;
 	case 4:
 		a.down();
-		delay(2000);//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+		delay(2000);
 		a.idle();
 		break;
 	}

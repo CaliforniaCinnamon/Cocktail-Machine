@@ -34,10 +34,6 @@
 // ============ global pointers ==============
 Led* p_ledstrip1;  Led* p_ledstrip2;  Led* p_ledpanel;
 Pump* pump_arr[9];
-DispenserMaterial* disp_mtrl_arr[12];
-PumpMaterial* pump_mtrl_arr[9];
-Cocktail* cocktail_arr[18];
-// 16 프리셋 + 1 메그니쳐 + 1 랜덤 & 나만의 = 18
 
 
 // ============ global variables ============
@@ -47,18 +43,22 @@ Operation ctrl;
 // ===================== setup & loop =====================
 void setup() {
 	Serial.begin(9600);
-	ctrl.preset_led_instances();
-	ctrl.preset_pump_instances();
+
+	ctrl.preset_led_pump_instances();
+
 	ctrl.preset_dispenser_materials();
 	ctrl.preset_pump_materials();
 	ctrl.preset_cocktail_recipes();
 
+	Serial.println(2);
 	ctrl.initialize();
+	Serial.println(3);
 
 }
 
 
 void loop() {
+	Serial.println(4);
 	int flag = 1;  // 1이면 명령 기다림, 0이면 명령 탈출
 	int res_index = -1; // bluetooth_connect의 
 

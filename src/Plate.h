@@ -30,7 +30,7 @@ private:
     const int STEPS_PER_REVOLUTION = 200;
     int STEPPER_DELAY = 2000;
 
-    static Coord position; // 현재 자기의 위치
+    Coord position; // 현재 자기의 위치
     
     const int PIN_ENDSTOP_X = 52;
     const int PIN_ENDSTOP_Y = 53;

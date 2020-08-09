@@ -139,7 +139,7 @@ void Plate::moveto(Coord a_des_pos) {
 		move(y_diff, 1);
 		this->position.pos_y += y_diff;
 
-		int x_diff = a_des_pos.pos_x - current_position.pos_x;
+		x_diff = a_des_pos.pos_x - current_position.pos_x;
 		move(x_diff, 0);
 		this->position.pos_x += x_diff;
 
@@ -177,10 +177,11 @@ void Plate::move_to_initial_position()
 void Plate::push_dispenser(int a_amount)
 {
     // 선언 및 초기화, 딜레이 타임 & 4개 상수 측정 완료
-    Actuator a(30, 31);
-    const int UP_TIME = 1800;
-    const int DOWN_TIME = 1520;
-    const int FULL_WAIT_TIME = 3000;
+    Actuator a(22, 23);
+    const int UP_TIME = 5500;
+    const int HALF_UP_TIME = 4200;
+    const int DOWN_TIME = 6000;
+    const int FULL_WAIT_TIME =000;
     const int HALF_WAIT_TIME = 800;
     int num_full_push = a_amount / 30;
     int num_half_push = (a_amount % 30) / 15;
@@ -202,7 +203,7 @@ void Plate::push_dispenser(int a_amount)
 
     if (num_half_push) {
         a.up();
-        delay(UP_TIME);
+        delay(HALF_UP_TIME);
 
         a.idle();
         delay(HALF_WAIT_TIME);

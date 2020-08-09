@@ -29,8 +29,7 @@ private:
 public:
 	// 프리셋 함수 (setup)
 		// 인스턴스 셋업하기 (Led 3, Pump 7)
-	void preset_led_instances();
-	void preset_pump_instances();
+	void preset_led_pump_instances();
 
 		// 정보 셋업하기 (재료들의 위치, 칵테일 레시피)
 	void preset_dispenser_materials();
