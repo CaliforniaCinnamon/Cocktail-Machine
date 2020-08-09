@@ -15,9 +15,9 @@ void Oled::display_bluetooth() {
 	idisplay.clearDisplay();
 	idisplay.setTextColor(WHITE);
 	idisplay.setTextSize(1);
-	idisplay.setCursor(30, 27);
+	idisplay.setCursor(35, 25);
 	idisplay.println("Bluetooth");
-	idisplay.setCursor(20, 35);
+	idisplay.setCursor(25, 35);
 	idisplay.println("is connected");
 	idisplay.display();
 }
@@ -27,14 +27,14 @@ void Oled::display_complete() {
 	idisplay.clearDisplay();
 	idisplay.setTextColor(WHITE);
 	idisplay.setTextSize(1);
-	idisplay.setCursor(30, 30);
+	idisplay.setCursor(35, 30);
 	idisplay.println("Complete!");
 	idisplay.display();
 }
 
 
 // 인자로 5(full) ~ 30(empty) 값 받음
-void Oled::display_process(int i) 
+void Oled::display_process(int i)
 {
 	// 잔 레이아웃을 그리는 코드
 	idisplay.drawTriangle(5, 5, 55, 5, 30, 35, WHITE);
@@ -44,7 +44,7 @@ void Oled::display_process(int i)
 	// 단계를 표시하기 위해 계산
 	int d1 = 1.2 * i - 1;
 	int d2 = -1.2 * i + 63;
-	idisplay.fillTriangle(i, d1, d2, d1, 30, 35, WHITE);	
+	idisplay.fillTriangle(i, d1, d2, d1, 30, 35, WHITE);
 }
 
 //칵테일 이름 출력(이름 긴 거는 띄어쓰기 기준으로 줄바꿈)
@@ -95,12 +95,13 @@ void Oled::display_progress(int now, int amount, char* ct_name)
 	idisplay.clearDisplay();
 	// 현재 따른 양 now와 전체 양 amount 비율에 따라 스케일링
 	int how_much = (0 - 25) * now / amount + 30;
-	
+
 	// 진행도 그림 옆에 칵테일 이름을 표시해 준다
 	this->display_right(ct_name);
 
 	// display_process의 인자; 5 (full) ~ 30 (empty)
 	this->display_process(how_much);
+	idisplay.display();
 
 }
 
