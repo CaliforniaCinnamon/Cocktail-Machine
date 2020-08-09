@@ -43,11 +43,13 @@ void Technique::stir()
 		break;
 	}
 	
-	pinMode(30, OUTPUT); // DC모터 출력 핀
-	pinMode(31, OUTPUT);
-	analogWrite(30, 200); // 0~255 속도조절 원래 12V지만 5V해도 ㄱㅊ @@@@@@@@@@@@@@@@@@
-	analogWrite(31, 100);
-
+	// 모터 ON
+	pinMode(30, OUTPUT);  digitalWrite(30, HIGH);
+	pinMode(31, OUTPUT);  digitalWrite(31, LOW);
+	// 모터 속도 조절 (지금은 안 씀)
+	//pinMode(32, OUTPUT);  analogWrite(32, 150);
+	
+	delay(1000); // 다 젓고 기다리는 시간 @@@@@@@@@@@@@@@@@@@@@
 	a.up();
 	delay(5000); // 다 올라가기까지 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	a.idle();
@@ -80,12 +82,12 @@ void Technique::add_ice(int a_glass)  // 서보로 해야함
 {
 	Servo servo; // 서보 인스턴스 선언
 	servo.attach(10); // 핀 번호 설정
-	const int SERVO_DELAY = 20; // 서보모터의 딜레이 (속도 조절) @@@@@@@@@@@@@
-	const int INIT_ANGLE = 0; // 피스톤이 내려가있을 때 서보 각도 @@@@@@@@@@@@
-	const int FULL_ANGLE = 90; // 피스톤이 끝까지 올라가있을 때 서보 각도 @@@@@
+	const int SERVO_DELAY = 20; // 서보모터의 딜레이 (속도 조절) @@@@@@@@@@@@@@@@
+	const int INIT_ANGLE = 0; // 피스톤이 내려가있을 때 서보 각도 @@@@@@@@@@@@@@@
+	const int FULL_ANGLE = 90; // 피스톤이 끝까지 올라가있을 때 서보 각도 @@@@@@@
 
 	// 잔 종류에 따른 얼음 양 정보 미리 저장, 1.0 = full로 한 번
-	double ice_amount_arr[4] = { 0.5, 1, 1.5 , 2 }; // @@@@@@@@@@@@@@@@@
+	double ice_amount_arr[4] = { 0.5, 1, 1.5 , 2 }; // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	double ice_amount = ice_amount_arr[a_glass - 1];
 
 	// 얼음 양에서 얼마나 반복할지 계산 (ice_amount 올림)

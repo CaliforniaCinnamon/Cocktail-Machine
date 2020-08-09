@@ -23,6 +23,7 @@ private:
     int pump_material_amount[7];
     TechniqueMethod method; // 기법
     int cocktail_rgb[3]; // 완성됐을 때 Led 색깔 정보
+    int glass; // 잔 정보
 
 public:
     // 이름은 "Martini" 이렇게 받고, 배열은 주소로 받음. 기법은 BUILD STIR 이렇게 써주면 됨.
@@ -35,6 +36,7 @@ public:
     int* get_pump_recipe() { return pump_material_amount; }
     TechniqueMethod get_technique() { return method; }
     int* get_cocktail_color() { return cocktail_rgb; }
+    int get_glass_info() { return glass; }
 
 
 };
@@ -52,6 +54,8 @@ inline Cocktail::Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],
     for (int i = 0; i < 7; i++) { // 펌프 재료 종류와 양 정보 깊은복사
         pump_material_amount[i] = a_pump_mtrl[i];
     }
+
+    this->glass = glass;
 
     cocktail_rgb[0] = a_r;
     cocktail_rgb[1] = a_g;

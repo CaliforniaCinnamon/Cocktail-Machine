@@ -34,8 +34,8 @@ void Operation::preset_led_instances()
 
 void Operation::preset_pump_instances()
 {
-	Pump pump1(30); // 핀A
-	Pump pump2(31); //****************************************************핀넘버 설정필요
+	Pump pump1(30);
+	Pump pump2(31);
 	Pump pump3(32);
 	Pump pump4(33);
 	Pump pump5(34);
@@ -155,7 +155,7 @@ void Operation::preset_cocktail_recipes() // 제조 기법 BUILD or STIR 정하기 @@@@
 	//glass는 작은 것부터 1,2,3,4
 	int disp_mtrl1[12] = { 0,0,45,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl1[9] = {0,0,20,0,0,0,0,0,0};
-	Cocktail cocktail_instance1("Daiquiri", disp_mtrl1, pump_mtrl1, TechniqueMethod::BUILD, 4, 200, 255, 150);
+	Cocktail cocktail_instance1("Daiquiri", disp_mtrl1, pump_mtrl1, TechniqueMethod::STIR, 4, 200, 255, 150);
 
 	int disp_mtrl2[12] = { 15,15,15,15,15,0,0,0,0,0,0,0 };
 	int pump_mtrl2[9] = { 0,30,0,0,0,0,0,0,0 };
@@ -163,7 +163,7 @@ void Operation::preset_cocktail_recipes() // 제조 기법 BUILD or STIR 정하기 @@@@
 
 	int disp_mtrl3[12] = { 0,0,30,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl3[9] = { 15,0,15,0,0,0,0,0,0 };
-	Cocktail cocktail_instance3("Bacardi", disp_mtrl3, pump_mtrl3, TechniqueMethod::BUILD, 4, 255, 255, 255);
+	Cocktail cocktail_instance3("Bacardi", disp_mtrl3, pump_mtrl3, TechniqueMethod::STIR, 4, 255, 255, 255);
 
 	int disp_mtrl4[12] = { 30,0,0,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl4[9] = { 60,0,0,0,0,15,0,0,0 };
@@ -171,11 +171,11 @@ void Operation::preset_cocktail_recipes() // 제조 기법 BUILD or STIR 정하기 @@@@
 
 	int disp_mtrl5[12] = { 0,0,0,0,0,45,0,0,0,0,0,0 };
 	int pump_mtrl5[9] = { 0,0,0,60,0,0,0,0,0 };
-	Cocktail cocktail_instance5("AppMartini", disp_mtrl5, pump_mtrl5, TechniqueMethod::BUILD, 4, 145, 220, 145);
+	Cocktail cocktail_instance5("AppMartini", disp_mtrl5, pump_mtrl5, TechniqueMethod::STIR, 4, 145, 220, 145);
 
 	int disp_mtrl6[12] = { 30,0,0,0,15,0,0,0,0,0,0,0 };
 	int pump_mtrl6[9] = { 15,0,15,0,0,0,0,0,0 };
-	Cocktail cocktail_instance6("Cosmopolitan", disp_mtrl6, pump_mtrl6, TechniqueMethod::BUILD, 4, 220, 145, 160);
+	Cocktail cocktail_instance6("Cosmopolitan", disp_mtrl6, pump_mtrl6, TechniqueMethod::STIR, 4, 220, 145, 160);
 
 	int disp_mtrl7[12] = { 0,0,0,30,0,0,0,0,0,0,0,0 };
 	int pump_mtrl7[9] = { 15,0,0,0,90,0,0,0,0 };
@@ -183,7 +183,7 @@ void Operation::preset_cocktail_recipes() // 제조 기법 BUILD or STIR 정하기 @@@@
 
 	int disp_mtrl8[12] = { 0,45,0,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl8[9] = { 0,15,0,0,0,0,15,0,0 };
-	Cocktail cocktail_instance8("TomCollins", disp_mtrl8, pump_mtrl8, TechniqueMethod::BUILD, 2, 210, 240, 200);
+	Cocktail cocktail_instance8("TomCollins", disp_mtrl8, pump_mtrl8, TechniqueMethod::STIR, 2, 210, 240, 200);
 
 	int disp_mtrl9[12] = {0,0,45,0,0,0,0,0,0,0,30,0};
 	int pump_mtrl9[9] = {0,0,0,0,0,0,30,0,0 };
@@ -199,7 +199,7 @@ void Operation::preset_cocktail_recipes() // 제조 기법 BUILD or STIR 정하기 @@@@
 
 	int disp_mtrl12[12] = { 0,0,0,30,15,0,0,0,0,0,0,0 };
 	int pump_mtrl12[9] = { 0,0,15,0,0,0,0,0,0 };
-	Cocktail cocktail_instance12("Margarita", disp_mtrl12, pump_mtrl12, TechniqueMethod::BUILD, 4, 205, 245, 200);
+	Cocktail cocktail_instance12("Margarita", disp_mtrl12, pump_mtrl12, TechniqueMethod::STIR, 4, 205, 245, 200);
 
 	int disp_mtrl13[12] = {0,0,0,0,0,0,0,30,0,0,0,0};
 	int pump_mtrl13[9] = {60,0,0,60,0,0,0,0,0 };
@@ -207,7 +207,7 @@ void Operation::preset_cocktail_recipes() // 제조 기법 BUILD or STIR 정하기 @@@@
 
 	int disp_mtrl14[12] = { 30,0,0,0,0,0,0,0,30,0,0,0 };
 	int pump_mtrl14[9] = { 0,0,0,0,100,0,0,0,0 };
-	Cocktail cocktail_instance14("BlueRomance", disp_mtrl14, pump_mtrl14, TechniqueMethod::BUILD, 3, 0, 130, 190);
+	Cocktail cocktail_instance14("BlueRomance", disp_mtrl14, pump_mtrl14, TechniqueMethod::STIR, 3, 0, 130, 190);
 
 	int disp_mtrl15[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl15[9] = {0,0,0,0,0,90,60,0,0 };
@@ -359,7 +359,7 @@ int Operation::select_make_recipe(String message)
 
 	// 칵테일 인스턴스 생성
 	Cocktail my_cocktail("my_cocktail", disp_mtrl_amount, pump_mtrl_amount, 
-		TechniqueMethod::BUILD, 123, 123, 123); // 나만의 레시피 테크닉과 rgb @@@@@@@@@@@@@@@@@@@@@2
+		TechniqueMethod::BUILD, 4, 121, 0, 214); // 나만의 레시피 테크닉과 rgb @@@@@@@@@@@@@@@@@@@@@2
 
 	// 동적할당 및 주소 대입
 	cocktail_arr[17] = (Cocktail*)malloc(sizeof(my_cocktail));
@@ -370,15 +370,14 @@ int Operation::select_make_recipe(String message)
 }
 
 
-int Operation::bluetooth_connect() {
-	// SoftwareSerial이 아닌 Serial1 으로 바꿔야 할 수도 있음 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	SoftwareSerial bluetooth(18, 19); // pin Notation: RX, TX
-	bluetooth.begin(9600);
+int Operation::bluetooth_connect() 
+{
+	Serial1.begin(9600);
 
-	if (bluetooth.available()) {
+	if (Serial1.available()) {
 		String str = "";
-		while (bluetooth.available()) {
-			char ch = bluetooth.read();
+		while (Serial1.available()) {
+			char ch = Serial1.read();
 			delay(50); // 버퍼에 쌓인 데이터를 가져오고 삭제하는 것을 기다리는 시간
 			str.concat(ch);
 		}
@@ -433,10 +432,10 @@ int Operation::make_cocktail(int result_index)
 	// 만들기 전, OLED로 칵테일 이름을 표시하고 Led로 칵테일 고유 불빛을 비춤
 	oled.display_right(name);
 	p_ledpanel->color(ct_color);
-	delay(5000);
+	delay(5000); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 만들기 전 기다리는 시간
 
-	// 전체 양이 얼마나 되는지 체크
-	int total_amount = 0;
+	// 전체 양이 얼마나 되는지 체크 (oled 표시용)
+	int total_amount = 15;
 	int now_amount = 0;
 
 	for (int i = 0; i < 12; i++) {
@@ -448,9 +447,9 @@ int Operation::make_cocktail(int result_index)
 
 	
 	//얼음은그냥 다 넣는걸로!?
-	plate.moveto(5, 6);//*******************위치 그냥 바로 넣어줌_직접확인 후 수정
+	plate.moveto(5, 6); // 얼음 받는 위치 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	Technique t;
-	t.add_ice(3);//*************실제로 나오는 얼음 양보고 수정
+	t.add_ice(ct.get_glass_info());
 	
 
 	// 잔량 체크 코드를 지우고 전체 양을 계산하는 코드를 넣음. OLED에 진행도를 표시하기 위함
@@ -467,17 +466,19 @@ int Operation::make_cocktail(int result_index)
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			p_ledpanel->color(material.get_rgb());
-			delay(1000); // 색 바꾸고 1초동안 기다려
+			p_ledstrip1->color(material.get_rgb());
+			p_ledstrip2->color(material.get_rgb());
+			delay(1000); // 색 바꾸고 1초동안 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 			// 좌표 설정하고, plate 움직이기
 			coord.set(material.get_pos_x(), material.get_pos_y());
 			plate.moveto(coord);
-			delay(2000);
+			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
 
 			// 좌표로 이동했으면 액츄에이터 작동 (해당 레시피의 양에 해당하는 시간만큼)
 			plate.push_dispenser(disp_recipe[i]);
 
-			delay(1000);
+			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		} // 재료 하나의 루프가 끝났으면, 다시 다른 재료로 이 루프를 또 실행
 	}
 
@@ -494,27 +495,33 @@ int Operation::make_cocktail(int result_index)
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			p_ledpanel->color(material.get_rgb());
-			delay(1000); // 색 바꾸고 1초동안 기다려
+			p_ledstrip1->color(material.get_rgb());
+			p_ledstrip2->color(material.get_rgb());
+			delay(1000); // 색 바꾸고 1초동안 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22
 
 			// 좌표 설정하고, plate 움직이기
 			coord.set(material.get_pos_x(), material.get_pos_y());
 			plate.moveto(coord);
-			delay(2000);
+			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 			// 좌표로 이동했으면 !펌프! 작동 (해당 레시피의 양에 해당하는 시간만큼)
 			pump_arr[i]->work_pump(i,pump_recipe[i]);
-			delay(1000);
+			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
 		} // 재료 하나의 루프가 끝났으면, 다시 다른 재료로 이 루프를 또 실행
 	}
 
 	oled.display_progress(now_amount, total_amount, name);
-	delay(3000);
+	delay(2000); // 전부 다 따르고 스터 또는 빌드 하기 전에 기다림 @@@@@@@@@@@@@@@@@@@@@@@@@@2
 
 	// 주조 기법에 따라 주조하기
 	p_ledpanel->color(ct_color); // 해당 칵테일의 고유 색 표현
-	// 함수 실행을 위한 인스턴스 선언, 위에서 선언해준 method를 전달해 그 명령 수행
-	Technique t;
+	p_ledstrip1->color(ct_color);
+	p_ledstrip2->color(ct_color);
+
+	// 테크닉 인스턴스에다가 위에서 선언해준 method를 전달해 그 명령 수행
 	t.f(method);
+	oled.display_progress(now_amount, total_amount, name);
+	delay(2000); // 완성 하고 complete 표시하기 전 까지 잠시 기다림 @@@@@@@@@@@@@@@@@@@@@@@@@@@2
 
 	// 칵테일 완성!!
 	oled.display_complete();    // OLED에 완료했다고 표시

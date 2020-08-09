@@ -82,9 +82,9 @@ void Led::rainbowCycle(int t) {
 void Led::colorWipe(uint32_t c, uint8_t wait) {
     for (uint16_t i = 0; i < numpixels; i++) {
         strip.setPixelColor(i, c);
-        strip.show();
         delay(wait);
     }
+    strip.show(); // ¾ê ¿ø·¡ for¹® ¹Û¿¡ ÀÖ¾ú´Âµ¥ ²¨³¿
 }
 
 uint32_t Led::Wheel(byte WheelPos) {
