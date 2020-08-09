@@ -1,4 +1,5 @@
 // Oled.h
+// 주의: Oled 인스턴스는 전역공간에 선언하지 말 것
 
 #if 1
 #pragma once
