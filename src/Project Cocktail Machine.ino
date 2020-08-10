@@ -24,17 +24,16 @@ void setup()
 	Serial.begin(9600);
 
 	  Serial.println("\n\n= start debugging...");
-	  Serial.println(11111111);
 
 	ctrl.preset_dispenser_materials();
 	ctrl.preset_pump_materials();
 	ctrl.preset_cocktail_recipes();
 
-	  Serial.println(22222222);
+	  Serial.println(22222);
 
 	ctrl.initialize();
 
-	  Serial.println(3333333);
+	  Serial.println(33);
 }
 
 

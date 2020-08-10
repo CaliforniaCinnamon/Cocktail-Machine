@@ -188,32 +188,22 @@ void Operation::preset_cocktail_recipes()
 
 void Operation::initialize() 
 {
+	// oled 화면 전부 지우기
+	Oled o;
+	o.display_preparing();
+	Serial.print("-");
+
 	// 펌프 작동 중지 (1~8)
 	Pump pump_instance;
-	for (int i = 0; i < 8; i++) {
-		pump_instance.stop_pump(i + 1);
+	for (int i = 0; i < 9; i++) {
+		pump_instance.stop_pump(i);
 	}
-	pinMode(38, OUTPUT);  digitalWrite(38, HIGH); // 9번째 함수
-	pinMode(39, OUTPUT);  digitalWrite(39, HIGH);
+	Serial.print("-");
 
-	// 플레이트 위치 (0,0)으로 초기화
-	Plate p;
-	p.move_to_initial_position();
-
-	Serial.print('a');
-
-	// 디스펜서용 액츄에이터 초기 위치로 가!
-	Actuator disp_act(22, 23);
-	disp_act.down();
-	delay(5000);
-	/* 나중에 액츄에이터 위치 조정하게 되면 주석 삭제 ㄱㄱ
-	disp_act.up();
-	delay(2300); 
-	disp_act.idle();
-	*/
-	
-
-	Serial.print('b');
+	// 스터러 모터 브레이크
+	pinMode(48, OUTPUT);  digitalWrite(48, HIGH);
+	pinMode(49, OUTPUT);  digitalWrite(49, HIGH);
+	Serial.print("-");
 
 	// led 스트립, 매트릭스 끄기
 	Led ledstrip1(55, 3); // led 개수, 핀넘버
@@ -222,29 +212,33 @@ void Operation::initialize()
 	ledstrip1.off();
 	ledstrip2.off();
 	ledpanel.off();
-
-	Serial.print('c');
-
-	// oled 화면 전부 지우기
-	Oled o;
-	o.clear();
-
-	// 스터러 모터 브레이크
-	pinMode(40, OUTPUT);  digitalWrite(40, HIGH);
-	pinMode(41, OUTPUT);  digitalWrite(41, HIGH);
-
-	Serial.print('d');
+	Serial.print("-");
 
 	// 스터러 액츄에이터 맨 위로 올라가기
 	Actuator stir_act(42, 43);
-	stir_act.down();
+	stir_act.up();
 	delay(5000);
+	Serial.print("-");
 
-	Serial.print('e');
+	// 디스펜서용 액츄에이터 초기 위치로 가!
+	Actuator disp_act(22, 23);
+	disp_act.down();
+	delay(5000);
+	Serial.println("-");
+	/* 나중에 액츄에이터 위치 조정하게 되면 주석 삭제 ㄱㄱ
+	disp_act.up();
+	delay(2300);
+	disp_act.idle();
+	*/
+
+	// 플레이트 위치 (0,0)으로 초기화
+	Plate p;
+	//p.move_to_initial_position();
 
 	// 아이스 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ technique에 초기화함수 만들자
 	/* 대충 아이스 장치 초기화하는 함수 */
 
+	Serial.println("end of initialize func");
 }
 
 
@@ -453,7 +447,7 @@ int Operation::make_cocktail(int result_index)
 	ledstrip2.color(ct_color);
 
 	// 테크닉 인스턴스에다가 위에서 선언해준 method를 전달해 그 명령 수행
-	t.f(method);
+	t.f(ct);
 	oled.display_progress(total_amount, total_amount, name);
 	delay(2000); // 완성 하고 complete 표시하기 전 까지 잠시 기다림 @@@@@@@@@@@@@@@@@@@@@@@@@@@2
 
