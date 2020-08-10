@@ -20,40 +20,40 @@ void Operation::preset_dispenser_materials()
 	// dispenser_material_instance 생성
 	// DispenserMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
 	// 이후 전역공간의 pump_mtrl_arr 배열에 정보 저장
-	DispenserMaterial dispmaterial_instance1("Vodka", 0, 750, 250, 250, 250);
+	DispenserMaterial dispmaterial_instance1("Vodka", 1, 750, 250, 250, 250);
 	disp_mtrl_arr[0] = dispmaterial_instance1;
 
-	DispenserMaterial dispmaterial_instance2("Jean", 1, 750, 180, 220, 220);
+	DispenserMaterial dispmaterial_instance2("Jean", 2, 750, 180, 220, 220);
 	disp_mtrl_arr[1] = dispmaterial_instance2;
 
-	DispenserMaterial dispmaterial_instance3("WhiteRum", 2, 750, 250, 250, 250);
+	DispenserMaterial dispmaterial_instance3("WhiteRum", 3, 750, 250, 250, 250);
 	disp_mtrl_arr[2] = dispmaterial_instance3;
 
-	DispenserMaterial dispmaterial_instance4("Tequila", 3, 750, 240, 240, 95);
+	DispenserMaterial dispmaterial_instance4("Tequila", 4, 750, 240, 240, 95);
 	disp_mtrl_arr[3] = dispmaterial_instance4;
 
-	DispenserMaterial dispmaterial_instance5("Cuentro", 4, 750, 210, 145, 45);
+	DispenserMaterial dispmaterial_instance5("Cuentro", 5, 750, 210, 145, 45);
 	disp_mtrl_arr[4] = dispmaterial_instance5;
 
-	DispenserMaterial dispmaterial_instance6("Smynov", 5, 750, 130, 225, 120);
+	DispenserMaterial dispmaterial_instance6("Smynov", 6, 750, 130, 225, 120);
 	disp_mtrl_arr[5] = dispmaterial_instance6;
 
-	DispenserMaterial dispmaterial_instance7("Soju", 6, 360, 130, 225, 120);
+	DispenserMaterial dispmaterial_instance7("Soju", 7, 360, 130, 225, 120);
 	disp_mtrl_arr[6] = dispmaterial_instance7;
 
-	DispenserMaterial dispmaterial_instance8("Peach", 7, 750, 250, 160, 205);
+	DispenserMaterial dispmaterial_instance8("Peach", 8, 750, 250, 160, 205);
 	disp_mtrl_arr[7] = dispmaterial_instance8;
 
-	DispenserMaterial dispmaterial_instance9("BlueCurasso", 8, 750, 60, 60, 210);
+	DispenserMaterial dispmaterial_instance9("BlueCurasso", 9, 750, 60, 60, 210);
 	disp_mtrl_arr[8] = dispmaterial_instance9;
 
-	DispenserMaterial dispmaterial_instance10("Beer", 9, 500, 110, 65, 100);
+	DispenserMaterial dispmaterial_instance10("Beer", 10, 500, 110, 65, 100);
 	disp_mtrl_arr[9] = dispmaterial_instance10;
 
-	DispenserMaterial dispmaterial_instance11("Mohito", 10, 750, 130, 215, 125);
+	DispenserMaterial dispmaterial_instance11("Mohito", 11, 750, 130, 215, 125);
 	disp_mtrl_arr[10] = dispmaterial_instance11;
 
-	DispenserMaterial dispmaterial_instance12("JackDaniel", 11, 750, 210, 140, 60);
+	DispenserMaterial dispmaterial_instance12("JackDaniel", 12, 750, 210, 140, 60);
 	disp_mtrl_arr[11] = dispmaterial_instance12;
 
 }
@@ -188,38 +188,36 @@ void Operation::preset_cocktail_recipes()
 
 void Operation::initialize() 
 {
+	// led 스트립, 매트릭스 끄기
+	//Led ledstrip11(55, 3); // led 개수, 핀넘버
+	//Led ledstrip22(55, 4);
 	// oled 화면 전부 지우기
 	Oled o;
 	o.display_preparing();
-	Serial.print("-");
+	Serial.println("-");
 
 	// 펌프 작동 중지 (1~8)
 	Pump pump_instance;
 	for (int i = 0; i < 9; i++) {
 		pump_instance.stop_pump(i);
 	}
-	Serial.print("-");
+	Serial.println("-");
 
 	// 스터러 모터 브레이크
 	pinMode(48, OUTPUT);  digitalWrite(48, HIGH);
 	pinMode(49, OUTPUT);  digitalWrite(49, HIGH);
-	Serial.print("-");
+	Serial.println("-");
 
-	// led 스트립, 매트릭스 끄기
-	Led ledstrip1(55, 3); // led 개수, 핀넘버
-	Led ledstrip2(55, 4);
-	Led ledpanel(256, 2);
-	ledstrip1.off();
-	ledstrip2.off();
-	ledpanel.off();
-	Serial.print("-");
+	
+	//Led ledpanel(256, 2);
+	//ledstrip1.off();
+	//ledstrip2.off();
+	//ledpanel.off();*/
+	Serial.println("-");
 
 	// 스터러 액츄에이터 맨 위로 올라가기
 	Actuator stir_act(42, 43);
 	stir_act.up();
-	delay(5000);
-	Serial.print("-");
-
 	// 디스펜서용 액츄에이터 초기 위치로 가!
 	Actuator disp_act(22, 23);
 	disp_act.down();
@@ -233,10 +231,7 @@ void Operation::initialize()
 
 	// 플레이트 위치 (0,0)으로 초기화
 	Plate p;
-	//p.move_to_initial_position();
-
-	// 아이스 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ technique에 초기화함수 만들자
-	/* 대충 아이스 장치 초기화하는 함수 */
+	p.move_to_initial_position();
 
 	Serial.println("end of initialize func");
 }
@@ -353,7 +348,7 @@ int Operation::make_cocktail(int result_index)
 	int* pump_recipe = ct.get_pump_recipe(); // 원소 9개 배열
 	String ct_name = ct.get_name();
 	char* name;
-	ct_name.toCharArray(name, ct_name.length() + 1);
+	ct_name.toCharArray(name, ct_name.length());
 	int* ct_color = ct.get_cocktail_color(); // 원소 3개 배열
 	TechniqueMethod method = ct.get_technique();
 
@@ -362,7 +357,7 @@ int Operation::make_cocktail(int result_index)
 	ledpanel.color(ct_color);
 	ledstrip1.color(ct_color);
 	ledstrip2.color(ct_color);
-	delay(5000); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 만들기 전 기다리는 시간
+	delay(2000); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 만들기 전 기다리는 시간
 
 	// 전체 양이 얼마나 되는지 체크 (oled 표시용)
 	int total_amount = 15;
@@ -373,11 +368,11 @@ int Operation::make_cocktail(int result_index)
 	}
 	for (int i = 0; i < 9; i++) {
 		total_amount += pump_recipe[i];
-	} // 스터나 아이스와 관련하여 코드 수정될 수 있음 **************************
+	} // total amount 계산 완료
 
 	
 	//얼음은그냥 다 넣는걸로!?
-	plate.moveto(5, 6); // 얼음 받는 위치 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	plate.moveto(400,1200); // 얼음 받는 위치 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	Technique t;
 	t.add_ice(ct.get_glass_info());
 	
@@ -389,25 +384,27 @@ int Operation::make_cocktail(int result_index)
 		   // 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
 			DispenserMaterial material = disp_mtrl_arr[i];
 			String mtrl_name = material.get_name();
+			char* c_mtrl_name;
+			mtrl_name.toCharArray(c_mtrl_name, mtrl_name.length());
 
 			// OLED 표시
-			oled.display_progress(now_amount, total_amount, mtrl_name);
-			total_amount += disp_recipe[i];
+			oled.display_progress(now_amount, total_amount, c_mtrl_name);
+			now_amount += disp_recipe[i];
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			ledpanel.color(material.get_rgb());
 			ledstrip1.color(material.get_rgb());
 			ledstrip2.color(material.get_rgb());
-			delay(1000); // 색 바꾸고 1초동안 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+			delay(100); // 색 바꾸고 0.1초동안 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 			// 좌표 설정하고, plate 움직이기
 			plate.moveto(material.get_pos_x(), material.get_pos_y());
-			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+			delay(100); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
 
 			// 좌표로 이동했으면 액츄에이터 작동 (해당 레시피의 양에 해당하는 시간만큼)
 			plate.push_dispenser(disp_recipe[i]);
 
-			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+			delay(100); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 		} // 재료 하나의 루프가 끝났으면, 다시 다른 재료로 이 루프를 또 실행
 	}
 
@@ -417,29 +414,31 @@ int Operation::make_cocktail(int result_index)
 		   // 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
 			PumpMaterial material = pump_mtrl_arr[i];
 			String mtrl_name = material.get_name();
+			char* c_mtrl_name;
+			mtrl_name.toCharArray(c_mtrl_name, mtrl_name.length());
 
 			// OLED 표시
-			oled.display_progress(now_amount, total_amount, mtrl_name);
-			total_amount += pump_recipe[i];
+			oled.display_progress(now_amount, total_amount, c_mtrl_name);
+			now_amount += pump_recipe[i];
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 			ledpanel.color(material.get_rgb());
 			ledstrip1.color(material.get_rgb());
 			ledstrip2.color(material.get_rgb());
-			delay(1000); // 색 바꾸고 1초동안 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22
+			delay(100); // 색 바꾸고 0.1초동안 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22
 
 			// 좌표 설정하고, plate 움직이기
 			plate.moveto(material.get_pos_x(), material.get_pos_y());
-			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+			delay(100); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 			// 좌표로 이동했으면 !펌프! 작동 (해당 레시피의 양에 해당하는 시간만큼)
 			pump_instance.work_pump(i + 1, pump_recipe[i]);
-			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
+			delay(100); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
 		} // 재료 하나의 루프가 끝났으면, 다시 다른 재료로 이 루프를 또 실행
 	}
 
 	oled.display_progress(now_amount, total_amount, name);
-	delay(2000); // 전부 다 따르고 스터 또는 빌드 하기 전에 기다림 @@@@@@@@@@@@@@@@@@@@@@@@@@2
+	delay(200); // 전부 다 따르고 스터 또는 빌드 하기 전에 기다림 @@@@@@@@@@@@@@@@@@@@@@@@@@2
 
 	// 주조 기법에 따라 주조하기
 	ledpanel.color(ct_color); // 해당 칵테일의 고유 색 표현
@@ -447,14 +446,12 @@ int Operation::make_cocktail(int result_index)
 	ledstrip2.color(ct_color);
 
 	// 테크닉 인스턴스에다가 위에서 선언해준 method를 전달해 그 명령 수행
-	t.f(ct);
 	oled.display_progress(total_amount, total_amount, name);
+	t.f(ct);
 	delay(2000); // 완성 하고 complete 표시하기 전 까지 잠시 기다림 @@@@@@@@@@@@@@@@@@@@@@@@@@@2
 
 	// 칵테일 완성!!
 	oled.display_complete();    // OLED에 완료했다고 표시
-	plate.moveto(640, 840);
-	plate.move_to_initial_position();    // move to init pos
 
 	return 1; // 리턴 코드 1: 칵테일 완성
 }

@@ -45,7 +45,7 @@ void Pump::start_pump(int pump_num)
 {
 	this->set_pin_num(pump_num); // 펌프 공용 인스턴스의 핀 번호 설정
 
-	if (pump_num != 8) {
+	if (pump_num != 9) {
 		digitalWrite(PIN_PUMP_1, LOW);//LOW가 작동
 	}
 	else {
@@ -63,10 +63,10 @@ void Pump::stop_pump(int pump_num)
 {
 	this->set_pin_num(pump_num); // 펌프 공용 인스턴스의 핀 번호 설정
 
-	if (pump_num != 8) { // 0~7 
+	if (pump_num != 9) {
 		digitalWrite(PIN_PUMP_1, HIGH); //HIGH가 멈춤
 	}
-	else { // 8 (9번재 펌프)
+	else { // (9번재 펌프)
 		digitalWrite(PIN_PUMP_1, HIGH);
 		digitalWrite(PIN_PUMP_2, HIGH);
 	}

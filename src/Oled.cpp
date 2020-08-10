@@ -91,17 +91,13 @@ void Oled::display_center(char* msg)
 
 
 // 단계 출력: 왼쪽에 칵테일 그림 (now / amount) 비율로 차있음, ct_name 오른쪽에 표시
-void Oled::display_progress(int now, int amount, String ct_name)
+void Oled::display_progress(int now, int amount, char* ct_name)
 {
-	char* name;
-	ct_name.toCharArray(name, ct_name.length() + 1);
-	idisplay.clearDisplay();
-
 	// 현재 따른 양 now와 전체 양 amount 비율에 따라 스케일링
 	int how_much = (0 - 25) * now / amount + 30;
 
 	// 진행도 그림 옆에 칵테일 이름을 표시해 준다
-	this->display_right(name);
+	this->display_right(ct_name);
 
 	// display_process의 인자; 5 (full) ~ 30 (empty)
 	this->display_process(how_much);

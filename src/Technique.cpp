@@ -36,6 +36,7 @@ void Technique::stir(int a_glass)
 	a.down();
 	delay(actuator_time);
 	a.idle();
+	delay(1500);
 	
 	// 모터 ON
 	pinMode(48, OUTPUT);  
@@ -48,13 +49,13 @@ void Technique::stir(int a_glass)
 	delay(3000); // 젓는 시간 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	
 	digitalWrite(30, HIGH);  digitalWrite(31, HIGH); // 모터 정지
-	delay(1000); // 다 젓고 기다리는 시간 @@@@@@@@@@@@@@@@@@@@@
+	delay(1500); // 다 젓고 기다리는 시간 @@@@@@@@@@@@@@@@@@@@@
 	a.up();
 	delay(actuator_time + 1000);
 	a.idle();
 
 	// 사용자에게 전달
-	p.moveto(640, 840);
+	p.moveto(640, 0);
 	p.move_to_initial_position();
 }
 
@@ -63,7 +64,7 @@ void Technique::stir(int a_glass)
 void Technique::build() 
 {
 	Plate p;
-	p.moveto(640, 840);
+	p.moveto(640, 0);
 	p.move_to_initial_position();// 사용자에게 건네 줄 마지막 좌표
 }
 

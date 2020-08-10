@@ -31,7 +31,7 @@ public:
 	void display_center(char* msg); // 명령 받았을 때 칵테일 이름 표시용
 	
 	// 단계 출력 함수
-	void display_progress(int now, int amount, String ct_name);	
+	void display_progress(int now, int amount, char* ct_name);	
 
 	// 기본 함수
 	void clear();

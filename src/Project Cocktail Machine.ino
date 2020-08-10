@@ -29,16 +29,13 @@ void setup()
 	ctrl.preset_pump_materials();
 	ctrl.preset_cocktail_recipes();
 
-	  Serial.println(22222);
-
 	ctrl.initialize();
-
-	  Serial.println(33);
 }
 
 
 void loop() 
 {
+	//Serial.println("Loopstart");
 	// LED 인스턴스 생성
 	Led ledstrip1(55, 3);
 	Led ledstrip2(55, 4);
@@ -50,15 +47,15 @@ void loop()
 	// 전원 연결이 되면, oled는 로고를 출력해 입력을 기다리고 있음을 나타냄
 	Oled oled;
 	oled.display_center("Welcome!"); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	delay(3000); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	delay(2000); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	oled.display_center("waiting for inputs..."); //@@@@@@@@@@@@@@@@@@
 
 	while (flag) { // flag 1: 명령 기다림 | flag 0: 명령 받아 while 탈출
 	// LED 레인보우를 동시에 표현하기 위한 코드
 		int time_marker = millis();
 		ledstrip1.random_color(time_marker); // 무지개 말고 단색으로 하느게 편할 것 같긴 함 @@@@@
-		ledstrip2.random_color(time_marker + 0);
-		ledpanel.random_color(time_marker + 0);
+		ledstrip2.random_color(time_marker);
+		ledpanel.random_color(time_marker);
 
 		res_index = ctrl.bluetooth_connect();
 		// res_index notation:
