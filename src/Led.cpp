@@ -13,7 +13,8 @@ Led::Led(int a_numpixel, int a_pin) {
     strip = Adafruit_NeoPixel(numpixels, PIN_LED, NEO_GRB + NEO_KHZ800);
     strip.begin();
     strip.clear();
-    brightness = 50;
+    if (a_numpixel == 256) brightness = 20;
+    else brightness = 50;
     set_brightness(brightness);
     strip.show();
     user_delay = 20;

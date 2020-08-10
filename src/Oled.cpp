@@ -53,7 +53,6 @@ void Oled::display_complete()
     //칵테일 이름 출력(이름 긴 거는 띄어쓰기 기준으로 줄바꿈)
 void Oled::display_right(char* msg)
 {
-	idisplay.clearDisplay();
 	idisplay.setTextColor(WHITE);
 	idisplay.setTextSize(1);
 
@@ -66,7 +65,6 @@ void Oled::display_right(char* msg)
 		result = strtok(NULL, " ");
 		i += 10;
 	}
-	idisplay.display();
 }
 
 
@@ -93,6 +91,8 @@ void Oled::display_center(char* msg)
 // 단계 출력: 왼쪽에 칵테일 그림 (now / amount) 비율로 차있음, ct_name 오른쪽에 표시
 void Oled::display_progress(int now, int amount, char* ct_name)
 {
+	idisplay.clearDisplay(); //처음
+
 	// 현재 따른 양 now와 전체 양 amount 비율에 따라 스케일링
 	int how_much = (0 - 25) * now / amount + 30;
 
@@ -101,7 +101,8 @@ void Oled::display_progress(int now, int amount, char* ct_name)
 
 	// display_process의 인자; 5 (full) ~ 30 (empty)
 	this->display_process(how_much);
-	idisplay.display();
+
+	idisplay.display(); //마지막
 
 
 }

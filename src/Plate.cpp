@@ -105,7 +105,7 @@ void Plate::moveto(int px, int py)
     else { // 주의해야 할 구간
         int ref_diff = 500;
         //x축 이동 -> y축 이동 -> x축 이동
-        int x_diff = px - ref_diff;
+        int x_diff = px - plate_x - ref_diff;
         move(x_diff, 0);
         plate_x += x_diff;
 
@@ -113,7 +113,7 @@ void Plate::moveto(int px, int py)
         move(y_diff, 1);
         plate_y += y_diff;
 
-        x_diff = px - plate_x;
+        x_diff = ref_diff;
         move(x_diff, 0);
         plate_x += x_diff;
     }
@@ -149,11 +149,11 @@ void Plate::push_dispenser(int a_amount)
 {
     // 선언 및 초기화, 딜레이 타임 & 4개 상수 측정 완료
     Actuator a(22, 23);
-    const int UP_TIME = 5500;
-    const int HALF_UP_TIME = 4200;
-    const int DOWN_TIME = 6000;
-    const int FULL_WAIT_TIME = 0;
-    const int HALF_WAIT_TIME = 800;
+    const int UP_TIME = 5500; //5500
+    const int HALF_UP_TIME = 4200;  //4200
+    const int DOWN_TIME = 6000; //6000
+    const int FULL_WAIT_TIME = 0; //0
+    const int HALF_WAIT_TIME = 400; // 400
     int num_full_push = a_amount / 30;
     int num_half_push = (a_amount % 30) / 15;
 

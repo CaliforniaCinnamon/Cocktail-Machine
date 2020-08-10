@@ -28,15 +28,24 @@ void Pump::set_pin_num(int a_pump_num)
 	case 8:
 		PIN_PUMP_1 = 37; break;
 	case 9:
-		PIN_PUMP_1 = 38;  PIN_PUMP_2 = 39;  break;
+		PIN_PUMP_1 = 38;  
+		PIN_PUMP_2 = 39;  
+		pinMode(PIN_PUMP_2, OUTPUT);
+		break;
 	}
+
+	pinMode(PIN_PUMP_1, OUTPUT);
 }
 
 
 int Pump::cal_pump(int amount, int pump_num) 
 {
-	int pump_ratio[9] = { 1,2,3,4,5,6,7,8,9 }; // 펌프 얼마나 잘 나오는지?
-	int pump_time = amount * pump_ratio[pump_num - 1]; //양->초
+	//이거 배열안쓰고 다 600으로 해줘도 될것같음
+	// 펌프 얼마나 잘 나오는지?
+	int pump_wait_time[9] = { 800, 4000, 800, 800, 1500, 2000, 2500, -1, -1 }; //8~9번은 아직 미정
+	int pump_ratio[9] = { 40,40,40,25,40,40,40,40,40 };
+	
+	int pump_time = pump_wait_time[pump_num - 1] + amount * pump_ratio[pump_num - 1]; //양->초
 	return pump_time;
 }
 
