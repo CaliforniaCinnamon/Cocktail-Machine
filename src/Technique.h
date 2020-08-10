@@ -10,25 +10,17 @@
 #endif
 
 #include "Plate.h"
+#include "Cocktail.h"
 #include <Servo.h>
-
-
-
-//method들을 numbering
-enum class TechniqueMethod {
-	BUILD,
-	STIR,
-};
 
 
 class Technique {
 private:
 	void build();
-	void stir();
-	TechniqueMethod method;
+	void stir(int a_glass);
 
 public:
-	void f(TechniqueMethod method);
+	void f(Cocktail ct);
 	void add_ice(int a_glass); 
 	// num 은 피스톤을 움직이는 횟수, 이걸로 얼음 양 조절
 	int glass;

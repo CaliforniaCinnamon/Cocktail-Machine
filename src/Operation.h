@@ -9,16 +9,11 @@
 	#include "WProgram.h"
 #endif
 
-#include <stdlib.h>
 
 #include "Oled.h"
 #include "Led.h"
-#include "Material.h"
-#include "Plate.h"
-#include "Cocktail.h"
 #include "Technique.h"
 #include "Pump.h"
-#include <SoftwareSerial.h>
 
 
 class Operation {

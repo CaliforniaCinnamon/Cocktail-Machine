@@ -11,7 +11,12 @@
 
 
 #include "Material.h"
-#include "Technique.h"
+
+//methodµÈ¿ª numbering
+enum class TechniqueMethod {
+    BUILD,
+    STIR,
+};
 
 
 class Cocktail

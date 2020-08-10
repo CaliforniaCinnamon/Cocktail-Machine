@@ -8,38 +8,34 @@
 
 
 // 스터:
-void Technique::stir() 
+void Technique::stir(int a_glass) 
 {
 	// 이동: 여러번 해야함
 	Plate p;
 	p.moveto(3015, 1800);
 	p.move(-1050, 1);
 
-	// 거품기 작동
-	Actuator a(42, 43); // 거품기 액츄에이터 핀 번호
+	Actuator a(42, 43); // 인스턴스 생성; 거품기 액츄에이터 핀 번호
+
+	int actuator_time = 0;
 	
 	//잔 종류에 따라 높이 다르게
 	//낮은것부터 1,2,3,4
-	switch (glass) {
+	switch (a_glass) {
 	case 1:
 		//안해준다
 		break;
 	case 2:
-		a.down();
-		delay(8000);
-		a.idle();
-		break;
+		actuator_time = 8000;  break;
 	case 3:
-		a.down();
-		delay(1500);
-		a.idle();
-		break;
+		actuator_time = 1500;  break;
 	case 4:
-		a.down();
-		delay(2000);
-		a.idle();
-		break;
+		actuator_time = 2000;  break;
 	}
+
+	a.down();
+	delay(actuator_time);
+	a.idle();
 	
 	// 모터 ON
 	pinMode(30, OUTPUT);  digitalWrite(30, HIGH);
@@ -51,7 +47,7 @@ void Technique::stir()
 	digitalWrite(30, HIGH);  digitalWrite(31, HIGH); // 모터 정지
 	delay(1000); // 다 젓고 기다리는 시간 @@@@@@@@@@@@@@@@@@@@@
 	a.up();
-	delay(5000); // 다 올라가기까지 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	delay(actuator_time + 1000); // 다 올라가기까지 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	a.idle();
 
 	// 사용자에게 전달
@@ -68,13 +64,17 @@ void Technique::build()
 	p.move_to_initial_position();// 사용자에게 건네 줄 마지막 좌표
 }
 
-void Technique::f(TechniqueMethod method) {
+void Technique::f(Cocktail ct) 
+{
+	// 받은 칵테일 정보에서 주조 기법, 잔 종류 정보를 빼옴
+	TechniqueMethod method = ct.get_technique();
+	int glass = ct.get_glass_info(); // 1~4
 
 	switch (method) {
 	case TechniqueMethod::BUILD:
 		build();
 	case TechniqueMethod::STIR:
-		stir();
+		stir(glass);
 	}
 
 }
