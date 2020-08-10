@@ -11,12 +11,9 @@
 // ========= user-defined headers ============
 #include "Operation.h"
 
-// ============ global pointers ==============
-
 
 // ============ global variables =============
 Operation ctrl;
-
 
 // ===================== setup & loop =====================
 void setup() 

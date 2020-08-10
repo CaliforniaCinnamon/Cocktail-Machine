@@ -55,6 +55,7 @@ void Technique::stir()
 	a.idle();
 
 	// 사용자에게 전달
+	p.moveto(640, 840);
 	p.move_to_initial_position();
 }
 
@@ -63,6 +64,7 @@ void Technique::stir()
 void Technique::build() 
 {
 	Plate p;
+	p.moveto(640, 840);
 	p.move_to_initial_position();// 사용자에게 건네 줄 마지막 좌표
 }
 

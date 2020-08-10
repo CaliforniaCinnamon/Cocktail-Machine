@@ -6,12 +6,11 @@
 
 #include "Operation.h"
 
-// ******************** main의 전역 포인터 가져오기 ******************
-
 // global variable
 DispenserMaterial disp_mtrl_arr[12];
 PumpMaterial pump_mtrl_arr[9];
 Cocktail cocktail_arr[18];
+
 
 // *************************** 프리셋 함수들 *************************
 
@@ -199,17 +198,20 @@ void Operation::initialize()
 
 	// 플레이트 위치 (0,0)으로 초기화
 	Plate p;
-	//p.move_to_initial_position(); // 혹시 모르니 처음 포지션으로 가 @@@@@@@@@@@@2
+	p.move_to_initial_position();
 
 	Serial.print('a');
 
 	// 디스펜서용 액츄에이터 초기 위치로 가!
 	Actuator disp_act(22, 23);
 	disp_act.down();
-	delay(6000);
+	delay(5000);
+	/* 나중에 액츄에이터 위치 조정하게 되면 주석 삭제 ㄱㄱ
 	disp_act.up();
-	delay(2300);
+	delay(2300); 
 	disp_act.idle();
+	*/
+	
 
 	Serial.print('b');
 
@@ -236,7 +238,7 @@ void Operation::initialize()
 	// 스터러 액츄에이터 맨 위로 올라가기
 	Actuator stir_act(42, 43);
 	stir_act.down();
-	delay(6000);
+	delay(5000);
 
 	Serial.print('e');
 
@@ -346,7 +348,6 @@ int Operation::make_cocktail(int result_index)
 
 	// 컨트롤을 위한 인스턴스 생성;
 	Oled oled;
-	Coord coord;
 	Plate plate;
 	Led ledstrip1(55, 3); // led 개수, 핀넘버
 	Led ledstrip2(55, 4);
@@ -406,8 +407,7 @@ int Operation::make_cocktail(int result_index)
 			delay(1000); // 색 바꾸고 1초동안 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 			// 좌표 설정하고, plate 움직이기
-			coord.set(material.get_pos_x(), material.get_pos_y());
-			plate.moveto(coord);
+			plate.moveto(material.get_pos_x(), material.get_pos_y());
 			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
 
 			// 좌표로 이동했으면 액츄에이터 작동 (해당 레시피의 양에 해당하는 시간만큼)
@@ -435,8 +435,7 @@ int Operation::make_cocktail(int result_index)
 			delay(1000); // 색 바꾸고 1초동안 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22
 
 			// 좌표 설정하고, plate 움직이기
-			coord.set(material.get_pos_x(), material.get_pos_y());
-			plate.moveto(coord);
+			plate.moveto(material.get_pos_x(), material.get_pos_y());
 			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 			// 좌표로 이동했으면 !펌프! 작동 (해당 레시피의 양에 해당하는 시간만큼)
@@ -460,6 +459,7 @@ int Operation::make_cocktail(int result_index)
 
 	// 칵테일 완성!!
 	oled.display_complete();    // OLED에 완료했다고 표시
+	plate.moveto(640, 840);
 	plate.move_to_initial_position();    // move to init pos
 
 	return 1; // 리턴 코드 1: 칵테일 완성

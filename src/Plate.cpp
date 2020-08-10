@@ -6,6 +6,9 @@
 
 #include "Plate.h"
 
+int Plate::plate_x;
+int Plate::plate_y;
+
 //****************** private 지정자 함수 *******************//
 void Plate::CCWmove(int steps, int dirPin, int stepPin)
 {
@@ -59,11 +62,8 @@ void Plate::move(int steps, int xy)
 }
 
 
-
-
 //************* 생성자 및 소멸자 함수 ****************//
-Plate::Plate()
-{
+Plate::Plate() {
     // 엔드스탑의 핀모드 설정
     pinMode(PIN_ENDSTOP_X, INPUT);
     pinMode(PIN_ENDSTOP_Y, INPUT);
@@ -72,88 +72,57 @@ Plate::Plate()
 
 //****************** public 지정자 함수 ******************//
 
-// 현재의 위치를 Coord로 리턴해줌.
-Coord Plate::get_current_position()
-{
-    return position;
-}
-
-
 // 말그대로 스피드를 설정해줌.
 void Plate::set_stepper_speed(long a_speed) {
     STEPPER_DELAY = a_speed;
 }
 
 
-
 void Plate::moveto(int px, int py) 
 {
-	Coord c(px, py);
-	Plate::moveto(c);
-}
+    // 문제되는 스터러의 좌표
+    const int DISP_STIR_1_X = 3140;
+    const int DISP_STIR_2_X = 2640;
 
+    // 인자로 목표 좌표를 받고 (px, py)
+    // 현재 좌표는 이미 정의되어 있는 것으로
 
-void Plate::moveto(Coord a_des_pos) {
-	
-	//문제되는 구간의 디스펜서4개의 번호는
-	//-------
-	// 4 | 1
-	//	 *(stir)
-	// 3 | 2
-	// | 는 x축방향
-	//디스펜서_1의 (x위치, y위치)
-	Coord disp_stir1(3140, 0);//*************************직접 확인후수정
-	//디스펜서_2의 (x위치, y위치)
-	Coord disp_stir2(2640, 0);
-	//확인 후 추가
+    //x좌표 범위로 판별(주의_ material x좌표 설정해줄때 initial pos에서 멀수록 더 큰 값)
+    if (px <= DISP_STIR_2_X) {
+        // x방향, y방향 각각 차이를 계산하고 그만큼 움직인다.
+        // x 방향 이동
+        int x_diff = px - plate_x;
+        move(x_diff, 0);
+        plate_x += x_diff;
 
+        // y 방향 이동
+        int y_diff = py - plate_y;
+        move(y_diff, 1);
+        plate_y += y_diff;
 
-	// 인자로 목표 좌표를 받고 (a_des_pos)
-	// 아래 함수로 현재 좌표를 받아 (current_position)
-	Coord current_position = get_current_position();
+    }
 
-	//x좌표 범위로 판별(주의_ material x좌표 설정해줄때 initial pos에서 멀수록 더 큰 값)
-	if (a_des_pos.pos_x <= disp_stir2.pos_x) {
+    else { // 주의해야 할 구간
+        int ref_diff = 500;
+        //x축 이동 -> y축 이동 -> x축 이동
+        int x_diff = px - ref_diff;
+        move(x_diff, 0);
+        plate_x += x_diff;
 
-		// x방향, y방향 각각 차이를 계산하고 그만큼 움직인다.
-		// x 방향 이동
-		int x_diff = a_des_pos.pos_x - current_position.pos_x;
-		move(x_diff, 0);
-		this->position.pos_x += x_diff;
+        int y_diff = py - plate_y;
+        move(y_diff, 1);
+        plate_y += y_diff;
 
-		// y 방향 이동
-		int y_diff = a_des_pos.pos_y - current_position.pos_y;
-		move(y_diff, 1);
-		this->position.pos_y += y_diff;
-
-	}
-
-	else { // 주의해야 할 구간
-		int ref_diff = 500;
-		//x축 이동 -> y축 이동 -> x축 이동
-		int x_diff = a_des_pos.pos_x - ref_diff;
-		move(x_diff, 0);
-		this->position.pos_x += x_diff;
-
-		int y_diff = a_des_pos.pos_y - current_position.pos_y;
-		move(y_diff, 1);
-		this->position.pos_y += y_diff;
-
-		x_diff = a_des_pos.pos_x - current_position.pos_x;
-		move(x_diff, 0);
-		this->position.pos_x += x_diff;
-
-	}
-
+        x_diff = px - plate_x;
+        move(x_diff, 0);
+        plate_x += x_diff;
+    }
 }
 
 
 // 호출되면 (0,0)으로 돌아가고, 좌표도 초기화됨.
 void Plate::move_to_initial_position()
 {
-    // 얼음 장치에 안 걸리게 하기 위한 좌표
-    moveto(640, 840); // 상수 설정 필요 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
     // note: 스위치 모양이 /(우상향) 이렇게 되어 있을 때 왼쪽부터 차례대로,
     // 인풋 핀, VCC, GND 순서대로 연결한다.
 	const int MOVE_STEP = -1;
@@ -170,6 +139,8 @@ void Plate::move_to_initial_position()
 		move(MOVE_STEP, 0);
 	}
 	// end of while (x)
+
+    plate_x = 0;  plate_y = 0;
 }
 
 
@@ -181,7 +152,7 @@ void Plate::push_dispenser(int a_amount)
     const int UP_TIME = 5500;
     const int HALF_UP_TIME = 4200;
     const int DOWN_TIME = 6000;
-    const int FULL_WAIT_TIME =000;
+    const int FULL_WAIT_TIME = 0;
     const int HALF_WAIT_TIME = 800;
     int num_full_push = a_amount / 30;
     int num_half_push = (a_amount % 30) / 15;
