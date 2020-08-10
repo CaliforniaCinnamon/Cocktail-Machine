@@ -4,71 +4,16 @@
 
 #if 1
 
-#include <EEPROM.h>
 #include "Operation.h"
 
 // ******************** main의 전역 포인터 가져오기 ******************
-extern Led * p_ledstrip1;  extern Led* p_ledstrip2;  extern Led* p_ledpanel;
-extern Pump* pump_arr[9];
 
 // global variable
-int eeprom_adrs = 0;
-int eeprom_pump_start_adrs = 0;
-int eeprom_cocktail_start_adrs = 0;
-
-int mtrl_size = 0;
-int cocktail_size = 0;
 
 
 // *************************** 프리셋 함수들 *************************
-void Operation::preset_led_pump_instances()
-{
-	//*********************** led 인스턴스 생성 ********************//
-	Led ledstrip1(55, 3); // led 개수, 핀넘버
-	Led ledstrip2(55, 4);
-	Led ledpanel(256, 2);
 
-	p_ledstrip1 = (Led*)malloc(sizeof(ledstrip1));
-	p_ledstrip2 = (Led*)malloc(sizeof(ledstrip2));
-	p_ledpanel = (Led*)malloc(sizeof(ledpanel));
-
-	*(p_ledstrip1) = ledstrip1;
-	*(p_ledstrip2) = ledstrip2;
-	*(p_ledpanel) = ledpanel;
-
-	//********************** 펌프 인스턴스 생성 **********************//
-	Pump pump1(30);
-	Pump pump2(31);
-	Pump pump3(32);
-	Pump pump4(33);
-	Pump pump5(34);
-	Pump pump6(35);
-	Pump pump7(36);
-	Pump pump8(37);
-	Pump pump9(38, 39);
-
-	pump_arr[0] = (Pump*)malloc(sizeof(pump1));
-	pump_arr[1] = (Pump*)malloc(sizeof(pump2));
-	pump_arr[2] = (Pump*)malloc(sizeof(pump3));
-	pump_arr[3] = (Pump*)malloc(sizeof(pump4));
-	pump_arr[4] = (Pump*)malloc(sizeof(pump5));
-	pump_arr[5] = (Pump*)malloc(sizeof(pump6));
-	pump_arr[6] = (Pump*)malloc(sizeof(pump7));
-	pump_arr[7] = (Pump*)malloc(sizeof(pump8));
-	pump_arr[8] = (Pump*)malloc(sizeof(pump9));
-
-	*(pump_arr[0]) = pump1;
-	*(pump_arr[1]) = pump2;
-	*(pump_arr[2]) = pump3;
-	*(pump_arr[3]) = pump4;
-	*(pump_arr[4]) = pump5;
-	*(pump_arr[5]) = pump6;
-	*(pump_arr[6]) = pump7;
-	*(pump_arr[7]) = pump8;
-	*(pump_arr[8]) = pump9;
-}
-
-// 정보 셋업하기 (재료들의 위치, 칵테일 레시피)
+    // 정보 셋업하기 (재료들의 위치, 칵테일 레시피)
 void Operation::preset_dispenser_materials()
 {
 	//dispenser_material_instance 생성
@@ -284,8 +229,9 @@ void Operation::preset_cocktail_recipes()
 void Operation::initialize() 
 {
 	// 펌프 작동 중지 (1~8)
+	Pump pump_instance;
 	for (int i = 0; i < 8; i++) {
-		pump_arr[i]->stop_pump(i + 1);
+		pump_instance.stop_pump(i + 1);
 	}
 	pinMode(38, OUTPUT);  digitalWrite(38, HIGH); // 9번째 함수
 	pinMode(39, OUTPUT);  digitalWrite(39, HIGH);
@@ -303,9 +249,12 @@ void Operation::initialize()
 	disp_act.idle();
 
 	// led 스트립, 매트릭스 끄기
-	p_ledstrip1->off();
-	p_ledstrip2->off();
-	p_ledpanel->off();
+	Led ledstrip1(55, 3); // led 개수, 핀넘버
+	Led ledstrip2(55, 4);
+	Led ledpanel(256, 2);
+	ledstrip1.off();
+	ledstrip2.off();
+	ledpanel.off();
 
 	// oled 화면 전부 지우기
 	Oled o;
@@ -325,16 +274,6 @@ void Operation::initialize()
 
 }
 
-
-// ************************* 소멸자 함수 **************************
-Operation::~Operation() // 동적으로 할당해준 주소들을 해제해 준다.
-{
-	free(p_ledstrip1);
-	free(p_ledstrip2);
-	free(p_ledpanel);
-
-	for (int i = 0; i < 9; i++) free(pump_arr[i]);
-}
 
 // ********************** 작동을 위한 함수들 *********************
 
@@ -402,7 +341,6 @@ int Operation::bluetooth_connect()
 			str.concat(ch);
 		}
 
-		// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 신호 줄 때 0~16인지 1~17인지?
 		//select_sample
 		if (str.charAt(0) == '$') {
 			String res = "";
@@ -439,10 +377,13 @@ int Operation::make_cocktail(int result_index)
 	EEPROM.get(eeprom_cocktail_start_adrs + result_index * cocktail_size, ct);
 
 	// 컨트롤을 위한 인스턴스 생성;
-	// Led, Pump 인스턴스는 전역의 포인터 변수를 사용
 	Oled oled;
 	Coord coord;
 	Plate plate;
+	Led ledstrip1(55, 3); // led 개수, 핀넘버
+	Led ledstrip2(55, 4);
+	Led ledpanel(256, 2);
+	Pump pump_instance;
 
 	// 사용하기 쉽게 칵테일 정보들을 미리 선언해준다.
 	int* disp_recipe = ct.get_disp_recipe(); // 원소 12개 배열
@@ -455,7 +396,9 @@ int Operation::make_cocktail(int result_index)
 
 	// 만들기 전, OLED로 칵테일 이름을 표시하고 Led로 칵테일 고유 불빛을 비춤
 	oled.display_right(name);
-	p_ledpanel->color(ct_color);
+	ledpanel.color(ct_color);
+	ledstrip1.color(ct_color);
+	ledstrip2.color(ct_color);
 	delay(5000); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ 만들기 전 기다리는 시간
 
 	// 전체 양이 얼마나 되는지 체크 (oled 표시용)
@@ -490,9 +433,9 @@ int Operation::make_cocktail(int result_index)
 			total_amount += disp_recipe[i];
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
-			p_ledpanel->color(material.get_rgb());
-			p_ledstrip1->color(material.get_rgb());
-			p_ledstrip2->color(material.get_rgb());
+			ledpanel.color(material.get_rgb());
+			ledstrip1.color(material.get_rgb());
+			ledstrip2.color(material.get_rgb());
 			delay(1000); // 색 바꾸고 1초동안 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 			// 좌표 설정하고, plate 움직이기
@@ -520,9 +463,9 @@ int Operation::make_cocktail(int result_index)
 			total_amount += pump_recipe[i];
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
-			p_ledpanel->color(material.get_rgb());
-			p_ledstrip1->color(material.get_rgb());
-			p_ledstrip2->color(material.get_rgb());
+			ledpanel.color(material.get_rgb());
+			ledstrip1.color(material.get_rgb());
+			ledstrip2.color(material.get_rgb());
 			delay(1000); // 색 바꾸고 1초동안 기다려 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22
 
 			// 좌표 설정하고, plate 움직이기
@@ -531,7 +474,7 @@ int Operation::make_cocktail(int result_index)
 			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 			// 좌표로 이동했으면 !펌프! 작동 (해당 레시피의 양에 해당하는 시간만큼)
-			pump_arr[i]->work_pump(i,pump_recipe[i]);
+			pump_instance.work_pump(i + 1, pump_recipe[i]);
 			delay(1000); //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2
 		} // 재료 하나의 루프가 끝났으면, 다시 다른 재료로 이 루프를 또 실행
 	}
@@ -540,9 +483,9 @@ int Operation::make_cocktail(int result_index)
 	delay(2000); // 전부 다 따르고 스터 또는 빌드 하기 전에 기다림 @@@@@@@@@@@@@@@@@@@@@@@@@@2
 
 	// 주조 기법에 따라 주조하기
-	p_ledpanel->color(ct_color); // 해당 칵테일의 고유 색 표현
-	p_ledstrip1->color(ct_color);
-	p_ledstrip2->color(ct_color);
+	ledpanel.color(ct_color); // 해당 칵테일의 고유 색 표현
+	ledstrip1.color(ct_color);
+	ledstrip2.color(ct_color);
 
 	// 테크닉 인스턴스에다가 위에서 선언해준 method를 전달해 그 명령 수행
 	t.f(method);
@@ -562,12 +505,6 @@ void Operation::emergency_stop()
 	Oled o;
 	o.display_center("emergency stop!");
 
-	// 동적 할당 해제
-	free(p_ledstrip1);
-	free(p_ledstrip2);
-	free(p_ledpanel);
-
-	for (int i = 0; i < 9; i++) free(pump_arr[i]);
 	exit(1); // 에러 코드 1: 무효한 블루투스 입력 값
 }
 
