@@ -21,13 +21,23 @@ Operation ctrl;
 // ===================== setup & loop =====================
 void setup() 
 {
+	Oled oled_instance;
+	oled_instance.display_preparing();
+
 	Serial.begin(9600);
+
+	  Serial.println("\n\n= start debugging...");
+	  Serial.println(11111111);
 
 	ctrl.preset_dispenser_materials();
 	ctrl.preset_pump_materials();
 	ctrl.preset_cocktail_recipes();
 
+	  Serial.println(22222222);
+
 	ctrl.initialize();
+
+	  Serial.println(3333333);
 }
 
 
@@ -38,15 +48,14 @@ void loop()
 	Led ledstrip2(55, 4);
 	Led ledpanel(256, 2);
 
-
 	int flag = 1;  // 1이면 명령 기다림, 0이면 명령 탈출
-	int res_index = -1; // bluetooth_connect의 
+	int res_index = -1; // bluetooth_connect의 리턴 값
 
 	// 전원 연결이 되면, oled는 로고를 출력해 입력을 기다리고 있음을 나타냄
 	Oled oled;
-	oled.display_center("trame");
+	oled.display_center("Welcome!"); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	delay(3000); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	oled.display_center("waiting for inputs...");
+	oled.display_center("waiting for inputs..."); //@@@@@@@@@@@@@@@@@@
 
 	while (flag) { // flag 1: 명령 기다림 | flag 0: 명령 받아 while 탈출
 	// LED 레인보우를 동시에 표현하기 위한 코드
@@ -66,6 +75,9 @@ void loop()
 			flag = 0;
 		}
 		// 보통 명령 없을 때, millis() 차이는 몇초?
+
+		Serial.println(res_index);
+
 	} // end of while
 
 	// LED 스트립 보라색으로 바꿈

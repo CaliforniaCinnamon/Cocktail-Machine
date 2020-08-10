@@ -21,6 +21,7 @@ private:
 
 public:
 	Material(String aname, int a_num, int a_remain, int ar, int ag, int ab);
+
 	String get_name() { return name; }
 	int get_pos_x() { return pos_x; }
 	int get_pos_y() { return pos_y; }
@@ -102,6 +103,7 @@ class DispenserMaterial :
 public:
 	DispenserMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
 		: Material(aname, a_num, a_remain, ar, ag, ab) { }
+	DispenserMaterial() : DispenserMaterial("", -1, -1, -1, -1, -1) { } // 마테리얼 배열 생성을 위한 기본 생성자
 
 };
 
@@ -111,6 +113,7 @@ class PumpMaterial :
 public:
 	PumpMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
 		: Material(aname, a_num, a_remain, ar, ag, ab) { }
+	PumpMaterial() : PumpMaterial("", -1, -1, -1, -1, -1) { } // 마테리얼 배열 생성을 위한 기본 생성자
 
 };
 
