@@ -9,116 +9,93 @@
 // ******************** main의 전역 포인터 가져오기 ******************
 
 // global variable
-
+DispenserMaterial disp_mtrl_arr[12];
+PumpMaterial pump_mtrl_arr[9];
+Cocktail cocktail_arr[18];
 
 // *************************** 프리셋 함수들 *************************
 
     // 정보 셋업하기 (재료들의 위치, 칵테일 레시피)
 void Operation::preset_dispenser_materials()
 {
-	//dispenser_material_instance 생성
-	//DispenserMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
+	// dispenser_material_instance 생성
+	// DispenserMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
+	// 이후 전역공간의 pump_mtrl_arr 배열에 정보 저장
 	DispenserMaterial dispmaterial_instance1("Vodka", 0, 750, 250, 250, 250);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance1);
-
-	mtrl_size = sizeof(dispmaterial_instance1);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[0] = dispmaterial_instance1;
 
 	DispenserMaterial dispmaterial_instance2("Jean", 1, 750, 180, 220, 220);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance2);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[1] = dispmaterial_instance2;
 
 	DispenserMaterial dispmaterial_instance3("WhiteRum", 2, 750, 250, 250, 250);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance3);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[2] = dispmaterial_instance3;
 
 	DispenserMaterial dispmaterial_instance4("Tequila", 3, 750, 240, 240, 95);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance4);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[3] = dispmaterial_instance4;
 
 	DispenserMaterial dispmaterial_instance5("Cuentro", 4, 750, 210, 145, 45);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance5);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[4] = dispmaterial_instance5;
 
 	DispenserMaterial dispmaterial_instance6("Smynov", 5, 750, 130, 225, 120);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance6);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[5] = dispmaterial_instance6;
 
 	DispenserMaterial dispmaterial_instance7("Soju", 6, 360, 130, 225, 120);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance7);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[6] = dispmaterial_instance7;
 
 	DispenserMaterial dispmaterial_instance8("Peach", 7, 750, 250, 160, 205);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance8);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[7] = dispmaterial_instance8;
 
 	DispenserMaterial dispmaterial_instance9("BlueCurasso", 8, 750, 60, 60, 210);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance9);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[8] = dispmaterial_instance9;
 
 	DispenserMaterial dispmaterial_instance10("Beer", 9, 500, 110, 65, 100);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance10);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[9] = dispmaterial_instance10;
 
 	DispenserMaterial dispmaterial_instance11("Mohito", 10, 750, 130, 215, 125);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance11);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[10] = dispmaterial_instance11;
 
 	DispenserMaterial dispmaterial_instance12("JackDaniel", 11, 750, 210, 140, 60);
-	EEPROM.put(eeprom_adrs, dispmaterial_instance12);
-	eeprom_adrs += sizeof(mtrl_size);
+	disp_mtrl_arr[11] = dispmaterial_instance12;
 
 }
 
 void Operation::preset_pump_materials()
 {
-	eeprom_pump_start_adrs = eeprom_adrs;
-
 	//pump_material_instance 생성
 	//PumpMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
+	// 이후 전역공간의 pump_mtrl_arr 배열에 정보 저장
 	PumpMaterial pumpmaterial_instance1("Raspberry", 13, 750, 200, 50, 40);
-	EEPROM.put(eeprom_adrs, pumpmaterial_instance1);
-	eeprom_adrs += sizeof(mtrl_size);
+	pump_mtrl_arr[0] = pumpmaterial_instance1;
 
 	PumpMaterial pumpmaterial_instance2("Lemon", 14, 750, 255, 255, 10);
-	EEPROM.put(eeprom_adrs, pumpmaterial_instance2);
-	eeprom_adrs += sizeof(mtrl_size);
+	pump_mtrl_arr[1] = pumpmaterial_instance2;
 
 	PumpMaterial pumpmaterial_instance3("Lime", 15, 750, 120, 210, 100);
-	EEPROM.put(eeprom_adrs, pumpmaterial_instance3);
-	eeprom_adrs += sizeof(mtrl_size);
+	pump_mtrl_arr[2] = pumpmaterial_instance3;
 
 	PumpMaterial pumpmaterial_instance4("Sweet & Sour", 16, 750, 230, 230, 100);
-	EEPROM.put(eeprom_adrs, pumpmaterial_instance4);
-	eeprom_adrs += sizeof(mtrl_size);
+	pump_mtrl_arr[3] = pumpmaterial_instance4;
 
 	PumpMaterial pumpmaterial_instance5("Orange", 17, 750, 255, 130, 0);
-	EEPROM.put(eeprom_adrs, pumpmaterial_instance5);
-	eeprom_adrs += sizeof(mtrl_size);
+	pump_mtrl_arr[4] = pumpmaterial_instance5;
 
 	PumpMaterial pumpmaterial_instance6("Grapefruit juice", 18, 750, 255, 185, 115);
-	EEPROM.put(eeprom_adrs, pumpmaterial_instance6);
-	eeprom_adrs += sizeof(mtrl_size);
+	pump_mtrl_arr[5] = pumpmaterial_instance6;
 
 	PumpMaterial pumpmaterial_instance7("Tonic", 19, 750, 255, 255, 255);
-	EEPROM.put(eeprom_adrs, pumpmaterial_instance7);
-	eeprom_adrs += sizeof(mtrl_size);
+	pump_mtrl_arr[6] = pumpmaterial_instance7;
 
 	PumpMaterial pumpmaterial_instance8("Unknwon1", 20, 750, 128, 64, 64); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	EEPROM.put(eeprom_adrs, pumpmaterial_instance8);
-	eeprom_adrs += sizeof(mtrl_size);
+	pump_mtrl_arr[7] = pumpmaterial_instance8;
 
 	PumpMaterial pumpmaterial_instance9("Unknwon2", 21, 750, 255, 255, 255); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	EEPROM.put(eeprom_adrs, pumpmaterial_instance9);
-	eeprom_adrs += sizeof(mtrl_size);
+	pump_mtrl_arr[8] = pumpmaterial_instance9;
 
 
 }
 
 void Operation::preset_cocktail_recipes()
 {
-	eeprom_cocktail_start_adrs = eeprom_adrs;
-
 	//cocktail_instance 생성
 	// 이름은 "Martini" 이렇게 받고, 배열은 주소로 받음. 기법은 BUILD STIR 이렇게 써주면 됨.
 	//Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],   TechniqueMethod a_method, int glass, int a_r, int a_g, int a_b);
@@ -126,100 +103,84 @@ void Operation::preset_cocktail_recipes()
 	int disp_mtrl1[12] = { 0,0,45,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl1[9] = {0,0,20,0,0,0,0,0,0};
 	Cocktail cocktail_instance1("Daiquiri", disp_mtrl1, pump_mtrl1, TechniqueMethod::STIR, 4, 200, 255, 150);
-	EEPROM.put(eeprom_adrs, cocktail_instance1);
-
-	cocktail_size = sizeof(cocktail_instance1);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[0] = cocktail_instance1;
 
 	int disp_mtrl2[12] = { 15,15,15,15,15,0,0,0,0,0,0,0 };
 	int pump_mtrl2[9] = { 0,30,0,0,0,0,0,0,0 };
 	Cocktail cocktail_instance2("Longisland", disp_mtrl2, pump_mtrl2, TechniqueMethod::BUILD, 3, 115, 60, 60);
-	EEPROM.put(eeprom_adrs, cocktail_instance2);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[1] = cocktail_instance2;
 
 	int disp_mtrl3[12] = { 0,0,30,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl3[9] = { 15,0,15,0,0,0,0,0,0 };
 	Cocktail cocktail_instance3("Bacardi", disp_mtrl3, pump_mtrl3, TechniqueMethod::STIR, 4, 255, 255, 255);
-	EEPROM.put(eeprom_adrs, cocktail_instance3);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[2] = cocktail_instance3;
 
 	int disp_mtrl4[12] = { 30,0,0,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl4[9] = { 60,0,0,0,0,15,0,0,0 };
 	Cocktail cocktail_instance4("SeaBreeze", disp_mtrl4, pump_mtrl4, TechniqueMethod::BUILD, 2, 215, 60, 85);
-	EEPROM.put(eeprom_adrs, cocktail_instance4);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[3] = cocktail_instance4;
 
 	int disp_mtrl5[12] = { 0,0,0,0,0,45,0,0,0,0,0,0 };
 	int pump_mtrl5[9] = { 0,0,0,60,0,0,0,0,0 };
 	Cocktail cocktail_instance5("AppMartini", disp_mtrl5, pump_mtrl5, TechniqueMethod::STIR, 4, 145, 220, 145);
-	EEPROM.put(eeprom_adrs, cocktail_instance5);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[4] = cocktail_instance5;
 
 	int disp_mtrl6[12] = { 30,0,0,0,15,0,0,0,0,0,0,0 };
 	int pump_mtrl6[9] = { 15,0,15,0,0,0,0,0,0 };
 	Cocktail cocktail_instance6("Cosmopolitan", disp_mtrl6, pump_mtrl6, TechniqueMethod::STIR, 4, 220, 145, 160);
-	EEPROM.put(eeprom_adrs, cocktail_instance6);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[5] = cocktail_instance6;
 
 	int disp_mtrl7[12] = { 0,0,0,30,0,0,0,0,0,0,0,0 };
 	int pump_mtrl7[9] = { 15,0,0,0,90,0,0,0,0 };
 	Cocktail cocktail_instance7("TequilaSunrise", disp_mtrl7, pump_mtrl7, TechniqueMethod::BUILD, 2, 255, 155, 55);
-	EEPROM.put(eeprom_adrs, cocktail_instance7);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[6] = cocktail_instance7;
 
 	int disp_mtrl8[12] = { 0,45,0,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl8[9] = { 0,15,0,0,0,0,15,0,0 };
 	Cocktail cocktail_instance8("TomCollins", disp_mtrl8, pump_mtrl8, TechniqueMethod::STIR, 2, 210, 240, 200);
-	EEPROM.put(eeprom_adrs, cocktail_instance8);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[7] = cocktail_instance8;
 
 	int disp_mtrl9[12] = {0,0,45,0,0,0,0,0,0,0,30,0};
 	int pump_mtrl9[9] = {0,0,0,0,0,0,30,0,0 };
 	Cocktail cocktail_instance9("Mohito", disp_mtrl9, pump_mtrl9, TechniqueMethod::BUILD, 3, 185, 230, 170);
-	EEPROM.put(eeprom_adrs, cocktail_instance9);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[8] = cocktail_instance9;
 
 	int disp_mtrl10[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl10[9] = {0,0,0,0,0,120,0,0,0 };
 	Cocktail cocktail_instance10("SoltiDog", disp_mtrl10, pump_mtrl10, TechniqueMethod::BUILD, 1, 230, 200, 170);
-	EEPROM.put(eeprom_adrs, cocktail_instance10);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[9] = cocktail_instance10;
 
 	int disp_mtrl11[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl11[9] = {0,0,0,0,120,0,0,0,0 };
 	Cocktail cocktail_instance11("ScrewDriver", disp_mtrl11, pump_mtrl11, TechniqueMethod::BUILD, 2, 255, 210, 1);
-	EEPROM.put(eeprom_adrs, cocktail_instance11);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[10] = cocktail_instance11;
 
 	int disp_mtrl12[12] = { 0,0,0,30,15,0,0,0,0,0,0,0 };
 	int pump_mtrl12[9] = { 0,0,15,0,0,0,0,0,0 };
 	Cocktail cocktail_instance12("Margarita", disp_mtrl12, pump_mtrl12, TechniqueMethod::STIR, 4, 205, 245, 200);
-	EEPROM.put(eeprom_adrs, cocktail_instance12);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[11] = cocktail_instance12;
 
 	int disp_mtrl13[12] = {0,0,0,0,0,0,0,30,0,0,0,0};
 	int pump_mtrl13[9] = {60,0,0,60,0,0,0,0,0 };
 	Cocktail cocktail_instance13("PitchCrush", disp_mtrl13, pump_mtrl13, TechniqueMethod::BUILD, 3, 255, 160, 160);
-	EEPROM.put(eeprom_adrs, cocktail_instance13);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[12] = cocktail_instance13;
 
 	int disp_mtrl14[12] = { 30,0,0,0,0,0,0,0,30,0,0,0 };
 	int pump_mtrl14[9] = { 0,0,0,0,100,0,0,0,0 };
 	Cocktail cocktail_instance14("BlueRomance", disp_mtrl14, pump_mtrl14, TechniqueMethod::STIR, 3, 0, 130, 190);
-	EEPROM.put(eeprom_adrs, cocktail_instance14);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[13] = cocktail_instance14;
 
 	int disp_mtrl15[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl15[9] = {0,0,0,0,0,90,60,0,0 };
 	Cocktail cocktail_instance15("JackHoneymong", disp_mtrl15, pump_mtrl15, TechniqueMethod::BUILD, 1, 175, 95, 95);
-	EEPROM.put(eeprom_adrs, cocktail_instance15);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[14] = cocktail_instance15;
 
 	int disp_mtrl16[12] = { 0,0,0,0,0,0,15,0,0,60,0,0 };
 	int pump_mtrl16[9] = { 0,0,0,0,0,0,0,0,0 };
 	Cocktail cocktail_instance16("K-Cocktail", disp_mtrl16, pump_mtrl16, TechniqueMethod::BUILD, 2, 230, 210, 140);
-	EEPROM.put(eeprom_adrs, cocktail_instance16);
-	eeprom_adrs += sizeof(cocktail_size);
+	cocktail_arr[15] = cocktail_instance16;
+
+	// 여기에 메그니쳐 칵테일 레시피 추가(17번째)
 }
 
 
@@ -319,10 +280,10 @@ int Operation::select_make_recipe(String message)
 
 	// 칵테일 인스턴스 생성
 	Cocktail my_cocktail("my_cocktail", disp_mtrl_amount, pump_mtrl_amount, 
-		TechniqueMethod::BUILD, 4, 121, 0, 214); // 나만의 레시피 테크닉과 rgb @@@@@@@@@@@@@@@@@@@@@2
+		TechniqueMethod::BUILD, 4, 121, 0, 214); // 나만의 레시피 테크닉과 @@@@@@@@@@@@@@@@@@@@@2
 
-	// eeprom 칵테일 18번째 주소에 덮어쓰기
-	EEPROM.put(eeprom_cocktail_start_adrs + 17 * cocktail_size, my_cocktail);
+	// 칵테일 배열 18번째 원소(index 17)에 할당
+	cocktail_arr[17] = my_cocktail;
 
 	// 리턴
 	return 17;
@@ -370,11 +331,8 @@ int Operation::bluetooth_connect()
 // 칵테일을 만드는 함수
 int Operation::make_cocktail(int result_index)
 {
-	// eeprom에 저장된 칵테일 정보 꺼내오기
-	int disp_mtrl_tmp[12] = { 0, };
-	int pump_mtrl_tmp[9] = { 0, };
-	Cocktail ct("tmp_cocktail", disp_mtrl_tmp, pump_mtrl_tmp, TechniqueMethod::BUILD, 1, 0, 0, 0);
-	EEPROM.get(eeprom_cocktail_start_adrs + result_index * cocktail_size, ct);
+	// 칵테일 배열에 저장된 정보를 result_index로 꺼내오기
+	Cocktail ct = cocktail_arr[result_index];
 
 	// 컨트롤을 위한 인스턴스 생성;
 	Oled oled;
@@ -424,8 +382,7 @@ int Operation::make_cocktail(int result_index)
 	for (int i = 0; i < 12; i++) {
 		if (disp_recipe[i]) { // 만약 해당 재료의 레시피가 0이면 그 재료는 무시함
 		   // 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
-			DispenserMaterial material("temp_disp_mtrl", 0, 0, 0, 0, 0);
-			EEPROM.get(mtrl_size * i, material);
+			DispenserMaterial material = disp_mtrl_arr[i];
 			String mtrl_name = material.get_name();
 
 			// OLED 표시
@@ -454,8 +411,7 @@ int Operation::make_cocktail(int result_index)
 	for (int i = 0; i < 9; i++) {
 		if (pump_recipe[i]) { // 만약 해당 재료의 레시피가 0이면 그 재료는 무시함
 		   // 쉬운 코딩을 위해 해당 레시피의 인스턴스 선언
-			PumpMaterial material("temp_pump_mtrl", 0, 0, 0, 0, 0);
-			EEPROM.get(eeprom_pump_start_adrs + mtrl_size * i, material);
+			PumpMaterial material = pump_mtrl_arr[i];
 			String mtrl_name = material.get_name();
 
 			// OLED 표시
