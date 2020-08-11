@@ -11,7 +11,12 @@
 
 
 #include "Material.h"
-#include "Technique.h"
+
+//method들을 numbering
+enum class TechniqueMethod {
+    BUILD,
+    STIR,
+};
 
 
 class Cocktail
@@ -30,6 +35,7 @@ public:
 	// glass는 잔 높이가 낮은것부터 1,2,3,4
     Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],
         TechniqueMethod a_method, int glass, int a_r, int a_g, int a_b);
+    Cocktail(); // 배열 생성을 위한 기본 생성자 - 아무런 정보도 포함하지 않음
 
     String get_name() { return cocktail_name; }
     int* get_disp_recipe() { return disp_material_amount; }
@@ -63,6 +69,9 @@ inline Cocktail::Cocktail(String name, int a_disp_mtrl[], int a_pump_mtrl[],
 
     method = a_method;
 }
+
+
+inline Cocktail::Cocktail() : Cocktail("", 0, 0, TechniqueMethod::BUILD, -1, -1, -1, -1) { }
 
 
 #endif

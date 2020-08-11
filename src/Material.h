@@ -21,6 +21,7 @@ private:
 
 public:
 	Material(String aname, int a_num, int a_remain, int ar, int ag, int ab);
+
 	String get_name() { return name; }
 	int get_pos_x() { return pos_x; }
 	int get_pos_y() { return pos_y; }
@@ -45,48 +46,48 @@ inline void Material::num_to_pos(int a_num) {
 	{
 	//**************disp_material**************//
 	case 1:
-		pos_x = 3140;  pos_y = 0;  break;
+		pos_x = 3190;  pos_y = 0;  break;
 	case 2:
-		pos_x = 2640;  pos_y = 0;  break;
+		pos_x = 2680;  pos_y = 0;  break;
 	case 3:
-		pos_x = 2140;  pos_y = 0;  break;
+		pos_x = 2170;  pos_y = 0;  break;
 	case 4:
-		pos_x = 1640;  pos_y = 0;  break;
+		pos_x = 1660;  pos_y = 0;  break;
 	case 5:
-		pos_x = 1140;  pos_y = 0;  break;
+		pos_x = 1150;  pos_y = 0;  break;
 	case 6:
 		pos_x = 640;  pos_y = 0;  break;
 	case 7:
-		pos_x = 3140;  pos_y = 1800;  break;
+		pos_x = 3160;  pos_y = 1800;  break;
 	case 8:
-		pos_x = 2640;  pos_y = 1800;  break;
+		pos_x = 2654;  pos_y = 1800;  break;
 	case 9:
-		pos_x = 2140;  pos_y = 1800;  break;
+		pos_x = 2148;  pos_y = 1800;  break;
 	case 10:
-		pos_x = 1640;  pos_y = 1800;  break;
+		pos_x = 1642;  pos_y = 1800;  break;
 	case 11:
-		pos_x = 1140;  pos_y = 1800;  break;
+		pos_x = 1136;  pos_y = 1800;  break;
 	case 12:
-		pos_x = 640;  pos_y = 1800;  break;
+		pos_x = 630;  pos_y = 1800;  break;
 	//************pump_material*************//
 	case 13:
-		pos_x = 560;  pos_y = 1000;  break;
+		pos_x = 790;  pos_y = 1000;  break;
 	case 14:
-		pos_x = 790;  pos_y = 0;  break;
+		pos_x = 1050;  pos_y = 1000;  break;
 	case 15:
-		pos_x = 1050;  pos_y = 1800;  break;
+		pos_x = 1310;  pos_y = 1000;  break;
 	case 16:
-		pos_x = 1310;  pos_y = 1800;  break;
+		pos_x = 1570;  pos_y = 1000;  break;
 	case 17:
-		pos_x = 1570;  pos_y = 1800;  break;
+		pos_x = 1800;  pos_y = 1000;  break;
 	case 18:
-		pos_x = 1800;  pos_y = 1800;  break;
+		pos_x = 2060;  pos_y = 1000;  break;
 	case 19:
-		pos_x = 2060;  pos_y = 1800;  break;
+		pos_x = 2320;  pos_y = 1000;  break;
 	case 20:
-		pos_x = 2320;  pos_y = 1800;  break;
+		pos_x = 2580;  pos_y = 1000;  break;
 	case 21:
-		pos_x = 2580;  pos_y = 1800;  break;
+		pos_x = 560;  pos_y = 1000;  break;
 
 	default:
 		break;
@@ -102,6 +103,7 @@ class DispenserMaterial :
 public:
 	DispenserMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
 		: Material(aname, a_num, a_remain, ar, ag, ab) { }
+	DispenserMaterial() : DispenserMaterial("", -1, -1, -1, -1, -1) { } // 마테리얼 배열 생성을 위한 기본 생성자
 
 };
 
@@ -111,6 +113,7 @@ class PumpMaterial :
 public:
 	PumpMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
 		: Material(aname, a_num, a_remain, ar, ag, ab) { }
+	PumpMaterial() : PumpMaterial("", -1, -1, -1, -1, -1) { } // 마테리얼 배열 생성을 위한 기본 생성자
 
 };
 

@@ -13,7 +13,8 @@ Led::Led(int a_numpixel, int a_pin) {
     strip = Adafruit_NeoPixel(numpixels, PIN_LED, NEO_GRB + NEO_KHZ800);
     strip.begin();
     strip.clear();
-    brightness = 50;
+    if (a_numpixel == 256) brightness = 20;
+    else brightness = 50;
     set_brightness(brightness);
     strip.show();
     user_delay = 20;
@@ -61,11 +62,28 @@ void Led::random_color(int t)
 
 //모든 LED를 출력가능한 모든색으로 한번씩 보여주는 동작을 한번 시행
 void Led::rainbow(int t) {
-    int j = t / user_delay & 256;
-    for (int i = 0; i < numpixels; i++) {
-        strip.setPixelColor(i, Wheel((i + j) & 255));
+    int K = t % 3000;
+    if (K < 1000)
+    {
+        for (int i = 0; i < numpixels; i++) {
+            strip.setPixelColor(i, 255 - 255*K/1000, 255*K/1000,0);
+        }
+        strip.show();
     }
-    strip.show();    
+    else if (K < 2000)
+    {
+        for (int i = 0; i < numpixels; i++) {
+            strip.setPixelColor(i,0, 255 - 255 * (K-1000) / 1000, 255 * (K-1000) / 1000);
+        }
+        strip.show();
+    }
+    else
+    {
+        for (int i = 0; i < numpixels; i++) {
+            strip.setPixelColor(i, 255 * (K-2000) / 1000, 0, 255 - 255 * (K-2000) / 1000 );
+        }
+        strip.show();
+    }   
 }
 
 //NeoPixel에 달린 LED를 각각 다른색으로 시작하여 다양한 색으로 5번 반복

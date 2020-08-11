@@ -7,18 +7,54 @@
 #include "Pump.h"
 
 
+//*************************** private 지정자 함수들 +*****************//
+void Pump::set_pin_num(int a_pump_num)
+{
+	switch (a_pump_num) {
+	case 1:
+		PIN_PUMP_1 = 30; break;
+	case 2:
+		PIN_PUMP_1 = 31; break;
+	case 3:
+		PIN_PUMP_1 = 32; break;
+	case 4:
+		PIN_PUMP_1 = 33; break;
+	case 5:
+		PIN_PUMP_1 = 34; break;
+	case 6:
+		PIN_PUMP_1 = 35; break;
+	case 7:
+		PIN_PUMP_1 = 36; break;
+	case 8:
+		PIN_PUMP_1 = 37; break;
+	case 9:
+		PIN_PUMP_1 = 38;  
+		PIN_PUMP_2 = 39;  
+		pinMode(PIN_PUMP_2, OUTPUT);
+		break;
+	}
+
+	pinMode(PIN_PUMP_1, OUTPUT);
+}
+
+
 int Pump::cal_pump(int amount, int pump_num) 
 {
 	//이거 배열안쓰고 다 600으로 해줘도 될것같음
-	int pump_ratio[9] = { 600,600,600,600,600,600,600,600,600 }; // 펌프 얼마나 잘 나오는지?
-	int pump_time = amount * pump_ratio[pump_num - 1]; //양->초
+	// 펌프 얼마나 잘 나오는지?
+	int pump_wait_time[9] = { 800, 4000, 800, 800, 1500, 2000, 2500, -1, -1 }; //8~9번은 아직 미정
+	int pump_ratio[9] = { 40,40,40,25,40,40,40,40,40 };
+	
+	int pump_time = pump_wait_time[pump_num - 1] + amount * pump_ratio[pump_num - 1]; //양->초
 	return pump_time;
 }
 
 
 void Pump::start_pump(int pump_num) 
 {
-	if (pump_num != 8) {
+	this->set_pin_num(pump_num); // 펌프 공용 인스턴스의 핀 번호 설정
+
+	if (pump_num != 9) {
 		digitalWrite(PIN_PUMP_1, LOW);//LOW가 작동
 	}
 	else {
@@ -29,78 +65,27 @@ void Pump::start_pump(int pump_num)
 }
 
 
+//******************************* public 지정자 함수 *****************************//
+
+
 void Pump::stop_pump(int pump_num) 
 {
-	if (pump_num != 8) {
-		digitalWrite(PIN_PUMP_1, HIGH);//HIGH가 멈춤
+	this->set_pin_num(pump_num); // 펌프 공용 인스턴스의 핀 번호 설정
+
+	if (pump_num != 9) {
+		digitalWrite(PIN_PUMP_1, HIGH); //HIGH가 멈춤
 	}
-	else {
+	else { // (9번재 펌프)
 		digitalWrite(PIN_PUMP_1, HIGH);
 		digitalWrite(PIN_PUMP_2, HIGH);
 	}
 }
 
 
-void Pump::work_pump(int pump_num, int amount) {
-	//800,600**1
-	//800,600**2
-	//800,600**3
-	//800,600**4
-	//1500**********5오렌지는 잘 안내려간다_바로 나옴
-	//자몽은 아직 모른다6
-	//2500**********사이다도 잘 안내려간다_바로 나옴
-	
-	//처음 시작
-	switch (pump_num) {
-	case 1:
-		start_pump(pump_num);
-		delay(800);
-		stop_pump(pump_num);
-		break;
-	case 2:
-		start_pump(pump_num);
-		delay(800);
-		stop_pump(pump_num);
-		break;
-	case 3:
-		start_pump(pump_num);
-		delay(800);
-		stop_pump(pump_num);
-		break;
-	case 4:
-		start_pump(pump_num);
-		delay(800);
-		stop_pump(pump_num);
-		break;
-	case 5:
-		start_pump(pump_num);
-		delay(1500);
-		stop_pump(pump_num);
-		break;
-	case 6:
-		start_pump(pump_num);
-		delay(20000);
-		stop_pump(pump_num);
-		break;
-	case 7:
-		start_pump(pump_num);
-		delay(2500);
-		stop_pump(pump_num);
-		break;
-	case 8://unknown
-		start_pump(pump_num);
-		delay(20000);
-		stop_pump(pump_num);
-		break;
-	case 9://unknown
-		start_pump(pump_num);
-		delay(20000);
-		stop_pump(pump_num);
-		break;
-	}
-	//15ml씩 나옴
+void Pump::work_pump(int pump_num, int amount) 
+{
 	start_pump(pump_num);
-	delay(cal_pump(amount, pump_num));//변환 시간 입력
+	delay(cal_pump(amount, pump_num)); //변환 시간 입력
 	stop_pump(pump_num);
 }
 

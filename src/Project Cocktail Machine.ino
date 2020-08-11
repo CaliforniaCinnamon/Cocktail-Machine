@@ -5,75 +5,57 @@
 */
 
 
-
 // ========= user-installed headers ==========
-// (이것들 클래스의 헤더로 옮겨야함)
-
-#include <Servo.h>
-#include <SoftwareSerial.h>
-#include <Stepper.h>
-
-#include <splash.h>
-#include <Adafruit_SSD1306.h>
-
-#include <gfxfont.h>
-#include <Adafruit_SPITFT_Macros.h>
-#include <Adafruit_SPITFT.h>
-#include <Adafruit_MonoOLED.h>
-#include <Adafruit_GFX.h>
 
 
-// ========= user-defined headers =========
-
+// ========= user-defined headers ============
 #include "Operation.h"
-#include "Pump.h"
-#include "Led.h"
-#include "Pump.h"
 
 
-// ============ global pointers ==============
-Led* p_ledstrip1;  Led* p_ledstrip2;  Led* p_ledpanel;
-Pump* pump_arr[9];
-DispenserMaterial* disp_mtrl_arr[12];
-PumpMaterial* pump_mtrl_arr[9];
-Cocktail* cocktail_arr[18];
-// 16 프리셋 + 1 메그니쳐 + 1 랜덤 & 나만의 = 18
-
-
-// ============ global variables ============
+// ============ global variables =============
 Operation ctrl;
 
-
 // ===================== setup & loop =====================
-void setup() {
+void setup() 
+{
+	Oled oled_instance;
+	oled_instance.display_preparing();
+
 	Serial.begin(9600);
-	ctrl.preset_led_instances();
-	ctrl.preset_pump_instances();
+
+	  Serial.println("\n\n= start debugging...");
+
 	ctrl.preset_dispenser_materials();
 	ctrl.preset_pump_materials();
 	ctrl.preset_cocktail_recipes();
 
 	ctrl.initialize();
-
 }
 
 
-void loop() {
+void loop() 
+{
+	//Serial.println("Loopstart");
+	// LED 인스턴스 생성
+	Led ledstrip1(55, 3);
+	Led ledstrip2(55, 4);
+	Led ledpanel(256, 2);
+
 	int flag = 1;  // 1이면 명령 기다림, 0이면 명령 탈출
-	int res_index = -1; // bluetooth_connect의 
+	int res_index = -1; // bluetooth_connect의 리턴 값
 
 	// 전원 연결이 되면, oled는 로고를 출력해 입력을 기다리고 있음을 나타냄
 	Oled oled;
-	oled.display_center("trame");
-	delay(3000); // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	oled.display_center("waiting for inputs...");
+	oled.display_center("Welcome!");
+	delay(2000); 
+	oled.display_center("waiting");
 
 	while (flag) { // flag 1: 명령 기다림 | flag 0: 명령 받아 while 탈출
 	// LED 레인보우를 동시에 표현하기 위한 코드
 		int time_marker = millis();
-		p_ledstrip1->random_color(time_marker); // 무지개 말고 단색으로 하느게 편할 것 같긴 함 @@@@@
-		p_ledstrip2->random_color(time_marker + 0);
-		p_ledpanel->random_color(time_marker + 0);
+		ledstrip1.random_color(time_marker); // 무지개 말고 단색으로 하느게 편할 것 같긴 함 @@@@@
+		ledstrip2.random_color(time_marker);
+		ledpanel.random_color(time_marker);
 
 		res_index = ctrl.bluetooth_connect();
 		// res_index notation:
@@ -86,15 +68,20 @@ void loop() {
 			flag = 0;
 		}
 		// 보통 명령 없을 때, millis() 차이는 몇초?
+
+		Serial.println(res_index);
+
 	} // end of while
 
 	// LED 스트립 보라색으로 바꿈
 	int purple[3] = { 121,0,214 }; // 보라색 rgb
-	p_ledstrip1->color(purple);
-	p_ledstrip2->color(purple);
+	ledstrip1.color(purple);
+	ledstrip2.color(purple);
+	ledpanel.color(purple);
 
 	// 칵테일 만들기
 	ctrl.make_cocktail(res_index);
+	delay(2000);
 	
 
 }
