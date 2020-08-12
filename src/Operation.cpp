@@ -23,7 +23,7 @@ void Operation::preset_dispenser_materials()
 	DispenserMaterial dispmaterial_instance1("Vodka", 1, 750, 250, 250, 250);
 	disp_mtrl_arr[0] = dispmaterial_instance1;
 
-	DispenserMaterial dispmaterial_instance2("Jean", 2, 750, 180, 220, 220);
+	DispenserMaterial dispmaterial_instance2("Gin", 2, 750, 180, 220, 220);
 	disp_mtrl_arr[1] = dispmaterial_instance2;
 
 	DispenserMaterial dispmaterial_instance3("WhiteRum", 3, 750, 250, 250, 250);
@@ -32,10 +32,10 @@ void Operation::preset_dispenser_materials()
 	DispenserMaterial dispmaterial_instance4("Tequila", 4, 750, 240, 240, 95);
 	disp_mtrl_arr[3] = dispmaterial_instance4;
 
-	DispenserMaterial dispmaterial_instance5("Cuentro", 5, 750, 210, 145, 45);
+	DispenserMaterial dispmaterial_instance5("Cointreau", 5, 750, 210, 145, 45);
 	disp_mtrl_arr[4] = dispmaterial_instance5;
 
-	DispenserMaterial dispmaterial_instance6("Sminoff", 6, 750, 130, 225, 120);
+	DispenserMaterial dispmaterial_instance6("Smirnoff Green Apple", 6, 750, 130, 225, 120);
 	disp_mtrl_arr[5] = dispmaterial_instance6;
 
 	DispenserMaterial dispmaterial_instance7("Soju", 7, 360, 130, 225, 120);
@@ -44,16 +44,16 @@ void Operation::preset_dispenser_materials()
 	DispenserMaterial dispmaterial_instance8("Peach", 8, 750, 250, 160, 205);
 	disp_mtrl_arr[7] = dispmaterial_instance8;
 
-	DispenserMaterial dispmaterial_instance9("BlueCurasso", 9, 750, 60, 60, 210);
+	DispenserMaterial dispmaterial_instance9("Blue Curacao", 9, 750, 60, 60, 210);
 	disp_mtrl_arr[8] = dispmaterial_instance9;
 
 	DispenserMaterial dispmaterial_instance10("Beer", 10, 500, 110, 65, 100);
 	disp_mtrl_arr[9] = dispmaterial_instance10;
 
-	DispenserMaterial dispmaterial_instance11("Mohito", 11, 750, 130, 215, 125);
+	DispenserMaterial dispmaterial_instance11("Mojito", 11, 750, 130, 215, 125);
 	disp_mtrl_arr[10] = dispmaterial_instance11;
 
-	DispenserMaterial dispmaterial_instance12("JackDaniel", 12, 750, 210, 140, 60);
+	DispenserMaterial dispmaterial_instance12("Jack Daniel", 12, 750, 210, 140, 60);
 	disp_mtrl_arr[11] = dispmaterial_instance12;
 
 }
@@ -121,7 +121,7 @@ void Operation::preset_cocktail_recipes()
 
 	int disp_mtrl5[12] = { 0,0,0,0,0,45,0,0,0,0,0,0 };
 	int pump_mtrl5[9] = { 0,0,0,60,0,0,0,0,0 };
-	Cocktail cocktail_instance5("AppMartini", disp_mtrl5, pump_mtrl5, TechniqueMethod::STIR, 4, 145, 220, 145);
+	Cocktail cocktail_instance5("AppleMartini", disp_mtrl5, pump_mtrl5, TechniqueMethod::STIR, 4, 145, 220, 145);
 	cocktail_arr[4] = cocktail_instance5;
 
 	int disp_mtrl6[12] = { 30,0,0,0,15,0,0,0,0,0,0,0 };
@@ -141,12 +141,12 @@ void Operation::preset_cocktail_recipes()
 
 	int disp_mtrl9[12] = {0,0,45,0,0,0,0,0,0,0,30,0};
 	int pump_mtrl9[9] = {0,0,0,0,0,0,30,0,0 };
-	Cocktail cocktail_instance9("Mohito", disp_mtrl9, pump_mtrl9, TechniqueMethod::BUILD, 3, 185, 230, 170);
+	Cocktail cocktail_instance9("Mojito", disp_mtrl9, pump_mtrl9, TechniqueMethod::BUILD, 3, 185, 230, 170);
 	cocktail_arr[8] = cocktail_instance9;
 
 	int disp_mtrl10[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl10[9] = {0,0,0,0,0,120,0,0,0 };
-	Cocktail cocktail_instance10("SoltiDog", disp_mtrl10, pump_mtrl10, TechniqueMethod::BUILD, 1, 230, 200, 170);
+	Cocktail cocktail_instance10("Salty Dog", disp_mtrl10, pump_mtrl10, TechniqueMethod::BUILD, 1, 230, 200, 170);
 	cocktail_arr[9] = cocktail_instance10;
 
 	int disp_mtrl11[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
@@ -161,17 +161,17 @@ void Operation::preset_cocktail_recipes()
 
 	int disp_mtrl13[12] = {0,0,0,0,0,0,0,30,0,0,0,0};
 	int pump_mtrl13[9] = {60,0,0,60,0,0,0,0,0 };
-	Cocktail cocktail_instance13("PitchCrush", disp_mtrl13, pump_mtrl13, TechniqueMethod::BUILD, 3, 255, 160, 160);
+	Cocktail cocktail_instance13("PeachCrush", disp_mtrl13, pump_mtrl13, TechniqueMethod::BUILD, 3, 255, 160, 160);
 	cocktail_arr[12] = cocktail_instance13;
 
 	int disp_mtrl14[12] = { 30,0,0,0,0,0,0,0,30,0,0,0 };
 	int pump_mtrl14[9] = { 0,0,0,0,100,0,0,0,0 };
-	Cocktail cocktail_instance14("BlueRomance", disp_mtrl14, pump_mtrl14, TechniqueMethod::STIR, 3, 0, 130, 190);
+	Cocktail cocktail_instance14("Blue Romance", disp_mtrl14, pump_mtrl14, TechniqueMethod::STIR, 3, 0, 130, 190);
 	cocktail_arr[13] = cocktail_instance14;
 
 	int disp_mtrl15[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl15[9] = {0,0,0,0,0,90,60,0,0 };
-	Cocktail cocktail_instance15("JackHoneymong", disp_mtrl15, pump_mtrl15, TechniqueMethod::BUILD, 1, 175, 95, 95);
+	Cocktail cocktail_instance15("Jack Honey Mong", disp_mtrl15, pump_mtrl15, TechniqueMethod::BUILD, 1, 175, 95, 95);
 	cocktail_arr[14] = cocktail_instance15;
 
 	int disp_mtrl16[12] = { 0,0,0,0,0,0,15,0,0,60,0,0 };
