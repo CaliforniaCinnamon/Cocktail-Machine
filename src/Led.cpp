@@ -17,7 +17,6 @@ Led::Led(int a_numpixel, int a_pin) {
     else brightness = 50;
     set_brightness(brightness);
     strip.show();
-    user_delay = 20;
 } // note: 코드 순서 바꾸지 말 것.
 
 
