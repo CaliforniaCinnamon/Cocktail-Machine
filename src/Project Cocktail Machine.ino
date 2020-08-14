@@ -14,12 +14,16 @@
 
 // ============ global variables =============
 Operation ctrl;
+/*
+Adafruit_NeoPixel iledpanel = Adafruit_NeoPixel(256, 2, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel iledstrip1 = Adafruit_NeoPixel(55, 3, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel iledstrip2 = Adafruit_NeoPixel(55, 4, NEO_GRB + NEO_KHZ800);*/
 
 // ===================== setup & loop =====================
 void setup() 
 {
-	Oled oled_instance;
-	oled_instance.display_preparing();
+	//Oled oled_instance;
+	//oled_instance.display_preparing();
 
 	Serial.begin(9600);
 
@@ -35,11 +39,24 @@ void setup()
 
 void loop() 
 {
-	//Serial.println("Loopstart");
+	/*
 	// LED 인스턴스 생성
-	Led ledstrip1(55, 3);
-	Led ledstrip2(55, 4);
-	Led ledpanel(256, 2);
+	iledpanel.begin();
+	iledstrip1.begin();
+	iledstrip2.begin();
+
+	iledpanel.clear();
+	iledpanel.setBrightness(20);
+	iledpanel.show();
+
+	iledstrip1.clear();
+	iledstrip1.setBrightness(50);
+	iledstrip1.show();
+
+	iledstrip2.clear();
+	iledstrip2.setBrightness(50);
+	iledstrip2.show();*/
+
 
 	int flag = 1;  // 1이면 명령 기다림, 0이면 명령 탈출
 	int res_index = -1; // bluetooth_connect의 리턴 값
@@ -49,13 +66,26 @@ void loop()
 	oled.display_center("Welcome!");
 	delay(2000); 
 	oled.display_center("waiting");
+	
+	/*
+	for (int i = 0; i < 256; i++) {
+		iledpanel.setPixelColor(i, 121, 0, 214);
+	}
+	iledpanel.show();
+		
+	for (int i = 0; i < 55; i++) {
+		iledstrip1.setPixelColor(i, 121, 0, 214);
+	}
+	iledstrip1.show();
+
+	for (int i = 0; i < 55; i++) {
+		iledstrip2.setPixelColor(i, 121, 0, 214);
+	}
+	iledstrip2.show();*/
 
 	while (flag) { // flag 1: 명령 기다림 | flag 0: 명령 받아 while 탈출
 	// LED 레인보우를 동시에 표현하기 위한 코드
 		int time_marker = millis();
-		ledstrip1.random_color(time_marker); // 무지개 말고 단색으로 하느게 편할 것 같긴 함 @@@@@
-		ledstrip2.random_color(time_marker);
-		ledpanel.random_color(time_marker);
 
 		res_index = ctrl.bluetooth_connect();
 		// res_index notation:
@@ -72,12 +102,6 @@ void loop()
 		Serial.println(res_index);
 
 	} // end of while
-
-	// LED 스트립 보라색으로 바꿈
-	int purple[3] = { 121,0,214 }; // 보라색 rgb
-	ledstrip1.color(purple);
-	ledstrip2.color(purple);
-	ledpanel.color(purple);
 
 	// 칵테일 만들기
 	ctrl.make_cocktail(res_index);

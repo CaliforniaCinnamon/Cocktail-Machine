@@ -5,11 +5,17 @@
 #if 1
 
 #include "Operation.h"
+#include <stdint.h>
 
 // global variable
 DispenserMaterial disp_mtrl_arr[12];
 PumpMaterial pump_mtrl_arr[9];
 Cocktail cocktail_arr[18];
+
+
+Adafruit_NeoPixel ledpanel = Adafruit_NeoPixel(256, 2, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel ledstrip1 = Adafruit_NeoPixel(55, 3, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel ledstrip2 = Adafruit_NeoPixel(55, 4, NEO_GRB + NEO_KHZ800);
 
 
 // *************************** 프리셋 함수들 *************************
@@ -188,32 +194,37 @@ void Operation::preset_cocktail_recipes()
 
 void Operation::initialize() 
 {
-	// led 스트립, 매트릭스 끄기
-	//Led ledstrip11(55, 3); // led 개수, 핀넘버
-	//Led ledstrip22(55, 4);
+	ledpanel.begin();
+	ledstrip1.begin();
+	ledstrip2.begin();
+
+	ledpanel.clear();
+	ledpanel.setBrightness(20);
+	ledpanel.show();
+
+	ledstrip1.clear();
+	ledstrip1.setBrightness(50);
+	ledstrip1.show();
+
+	ledstrip2.clear();
+	ledstrip2.setBrightness(50);
+	ledstrip2.show();
+
+
 	// oled 화면 전부 지우기
 	Oled o;
 	o.display_preparing();
-	Serial.println("-");
 
 	// 펌프 작동 중지 (1~8)
 	Pump pump_instance;
 	for (int i = 0; i < 9; i++) {
 		pump_instance.stop_pump(i + 1);
 	}
-	Serial.println("-");
 
 	// 스터러 모터 브레이크
 	pinMode(48, OUTPUT);  digitalWrite(48, HIGH);
 	pinMode(49, OUTPUT);  digitalWrite(49, HIGH);
-	Serial.println("-");
 
-	
-	//Led ledpanel(256, 2);
-	//ledstrip1.off();
-	//ledstrip2.off();
-	//ledpanel.off();*/
-	Serial.println("-");
 
 	// 스터러 액츄에이터 맨 위로 올라가기
 	Actuator stir_act(42, 43);
@@ -222,7 +233,6 @@ void Operation::initialize()
 	Actuator disp_act(22, 23);
 	disp_act.down();
 	delay(5000);
-	Serial.println("-");
 	/* 나중에 액츄에이터 위치 조정하게 되면 주석 삭제 ㄱㄱ
 	disp_act.up();
 	delay(2300);
@@ -338,9 +348,6 @@ int Operation::make_cocktail(int result_index)
 	// 컨트롤을 위한 인스턴스 생성;
 	Oled oled;
 	Plate plate;
-	Led ledstrip1(55, 3); // led 개수, 핀넘버
-	Led ledstrip2(55, 4);
-	Led ledpanel(256, 2);
 	Pump pump_instance;
 
 	// 사용하기 쉽게 칵테일 정보들을 미리 선언해준다.
@@ -354,13 +361,27 @@ int Operation::make_cocktail(int result_index)
 
 	// 만들기 전, OLED로 칵테일 이름을 표시하고 Led로 칵테일 고유 불빛을 비춤
 	oled.display_center(name);
-	ledpanel.color(ct_color);
-	ledstrip1.color(ct_color);
-	ledstrip2.color(ct_color);
+
+	for (int i = 0; i < 256; i++) {
+		ledpanel.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
+	}
+	ledpanel.show();
+
+	for (int i = 0; i < 55; i++) {
+		ledstrip1.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
+	}
+	ledstrip1.show();
+
+	for (int i = 0; i < 55; i++) {
+		ledstrip2.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
+	}
+	ledstrip2.show();
+
+
 	delay(3000);
 
 	// 전체 양이 얼마나 되는지 체크 (oled 표시용)
-	int total_amount = 15;
+	int total_amount = 0;
 	int now_amount = 0;
 
 	for (int i = 0; i < 12; i++) {
@@ -369,11 +390,6 @@ int Operation::make_cocktail(int result_index)
 	for (int i = 0; i < 9; i++) {
 		total_amount += pump_recipe[i];
 	} // total amount 계산 완료
-
-	int purple[3] = { 121,0,214 }; // 보라색 rgb
-	ledstrip1.color(purple);
-	ledstrip2.color(purple);
-	ledpanel.color(purple);
 
 	oled.display_center("ice");
 	plate.moveto(190,1200);
@@ -389,15 +405,28 @@ int Operation::make_cocktail(int result_index)
 			DispenserMaterial material = disp_mtrl_arr[i];
 			String mtrl_name = material.get_name();
 			char* c_mtrl_name = mtrl_name.c_str();
+			int* mtrl_color = material.get_rgb();
 
 			// OLED 표시
 			oled.display_progress(now_amount, total_amount, c_mtrl_name);
 			now_amount += disp_recipe[i];
 
+			for (int i = 0; i < 256; i++) {
+				ledpanel.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+			}
+			ledpanel.show();
+
+			for (int i = 0; i < 55; i++) {
+				ledstrip1.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+			}
+			ledstrip1.show();
+
+			for (int i = 0; i < 55; i++) {
+				ledstrip2.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+			}
+			ledstrip2.show();
+
 			// Led 색깔 재료 고유의 색으로 바꾸기
-			ledpanel.color(material.get_rgb());
-			ledstrip1.color(material.get_rgb());
-			ledstrip2.color(material.get_rgb());
 
 			// 좌표 설정하고, plate 움직이기
 			plate.moveto(material.get_pos_x(), material.get_pos_y());
@@ -422,10 +451,28 @@ int Operation::make_cocktail(int result_index)
 			oled.display_progress(now_amount, total_amount, c_mtrl_name);
 			now_amount += pump_recipe[i];
 
+			int* mtrl_color = material.get_rgb();
+
+			// OLED 표시
+			oled.display_progress(now_amount, total_amount, c_mtrl_name);
+			now_amount += disp_recipe[i];
+
+			for (int i = 0; i < 256; i++) {
+				ledpanel.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+			}
+			ledpanel.show();
+
+			for (int i = 0; i < 55; i++) {
+				ledstrip1.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+			}
+			ledstrip1.show();
+
+			for (int i = 0; i < 55; i++) {
+				ledstrip2.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+			}
+			ledstrip2.show();
+
 			// Led 색깔 재료 고유의 색으로 바꾸기
-			ledpanel.color(material.get_rgb());
-			ledstrip1.color(material.get_rgb());
-			ledstrip2.color(material.get_rgb());
 
 			// 좌표 설정하고, plate 움직이기
 			plate.moveto(material.get_pos_x(), material.get_pos_y());
@@ -438,19 +485,32 @@ int Operation::make_cocktail(int result_index)
 	}
 
 	oled.display_progress(now_amount, total_amount, name);
-	delay(100);;
+	delay(1000);;
 	
-	// 주조 기법에 따라 주조하기
-	ledpanel.color(ct_color); // 해당 칵테일의 고유 색 표현
-	ledstrip1.color(ct_color);
-	ledstrip2.color(ct_color);
+	for (int i = 0; i < 256; i++) {
+		ledpanel.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
+	}
+	ledpanel.show();
+
+	for (int i = 0; i < 55; i++) {
+		ledstrip1.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
+	}
+	ledstrip1.show();
+
+	for (int i = 0; i < 55; i++) {
+		ledstrip2.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
+	}
+	ledstrip2.show();
+
 
 	// 테크닉 인스턴스에다가 위에서 선언해준 method를 전달해 그 명령 수행
-	oled.display_progress(total_amount, total_amount, name);
 	t.f(ct);
-	delay(2000);
 	// 칵테일 완성!!
 	oled.display_complete();    // OLED에 완료했다고 표시
+	// ********* 무지개 빙글빙글 (스트립만)
+	rainbow(10);
+	rainbow(10);
+	rainbow(10);
 
 	return 1; // 리턴 코드 1: 칵테일 완성
 }
@@ -462,6 +522,39 @@ void Operation::emergency_stop()
 	o.display_center("emergency stop!");
 
 	exit(1); // 에러 코드 1: 무효한 블루투스 입력 값
+}
+
+
+//********************** LED 빙글빙글을 위한 함수 ********************//
+//모든 LED를 출력가능한 모든색으로 한번씩 보여주는 동작을 한번하는 함수
+void Operation::rainbow(int wait) {
+	uint16_t i, j;
+
+	for (j = 0; j < 256; j++) {
+		for (i = 0; i < 55; i++) {
+			ledstrip1.setPixelColor(i, Wheel((i + j) & 255));
+			ledstrip2.setPixelColor(i, Wheel((i + j) & 255));
+		}
+		ledstrip1.show();
+		ledstrip2.show();
+		delay(wait);
+	}
+}
+
+
+//255가지의 색을 나타내는 함수
+uint32_t Operation::Wheel(byte WheelPos) {
+	if (WheelPos < 85) {
+		return ledstrip1.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+	}
+	else if (WheelPos < 170) {
+		WheelPos -= 85;
+		return ledstrip1.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+	}
+	else {
+		WheelPos -= 170;
+		return ledstrip1.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+	}
 }
 
 

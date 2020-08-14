@@ -15,7 +15,7 @@
 class Plate {
 private:
     const int STEPS_PER_REVOLUTION = 200;
-    int STEPPER_DELAY = 1500;
+    int STEPPER_DELAY = 1000;
     
     const int PIN_ENDSTOP_X = 52;
     const int PIN_ENDSTOP_Y = 53;

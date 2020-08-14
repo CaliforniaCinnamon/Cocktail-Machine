@@ -20,6 +20,8 @@ class Operation {
 private:
 	// bluetooth_connect 함수에 내장됨
 	int select_make_recipe(String message);
+	void rainbow(int wait);
+	uint32_t Wheel(byte WheelPos);
 
 public:
 	// 프리셋 함수 (setup)
