@@ -23,13 +23,14 @@ extern Cocktail cocktail_arr[18];
 Adafruit_NeoPixel ledpanel = Adafruit_NeoPixel(256, 2, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel ledstrip1 = Adafruit_NeoPixel(55, 3, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel ledstrip2 = Adafruit_NeoPixel(55, 4, NEO_GRB + NEO_KHZ800);
-Oled oled;
+
 
 // ===================== setup & loop =====================
 void setup()
 {
-	//Oled oled_instance;
-	//oled_instance.display_preparing();
+	//Oled oled;
+	// oled 화면 전부 지우기
+	//oled.display_preparing();
 
 	Serial.begin(9600);
 
@@ -58,32 +59,32 @@ void setup()
 	ledstrip2.setBrightness(50);
 	ledstrip2.show();
 
-	oled.display_center("Welcome!");
+	//oled.display_center("Welcome!");
 	delay(2000);
 }
 
 
 void loop()
 {
+	Oled oled;
 	int flag = 1;  // 1이면 명령 기다림, 0이면 명령 탈출
 	int res_index = -1; // bluetooth_connect의 리턴 값
 
 	// 루프 처음 들어오면 led 보라색으로 바꿈
 	for (int i = 0; i < 256; i++) {
 		ledpanel.setPixelColor(i, 121, 0, 214);
-		ledpanel.show();
 	}
+	ledpanel.show();
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip1.setPixelColor(i, 121, 0, 214);
-		ledstrip1.show();
 	}
-
+	ledstrip1.show();
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip2.setPixelColor(i, 121, 0, 214);
-		ledstrip2.show();
 	}
+	ledstrip2.show();
 
 	// waiting 띄우고 밑에 while 진입해서 명령 기다림
 	oled.display_center("waiting");
@@ -101,7 +102,7 @@ void loop()
 			flag = 0;
 		}
 
-		//Serial.println(res_index);
+		Serial.println(res_index);
 
 	} // end of while
 
@@ -127,18 +128,18 @@ void loop()
 
 	for (int i = 0; i < 256; i++) {
 		ledpanel.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
-		ledpanel.show();
 	}
+	ledpanel.show();
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip1.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
-		ledstrip1.show();
 	}
+	ledstrip1.show();
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip2.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
-		ledstrip2.show();
 	}
+	ledstrip2.show();
 
 	delay(3000);
 
@@ -175,18 +176,18 @@ void loop()
 
 			for (int i = 0; i < 256; i++) {
 				ledpanel.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
-				ledpanel.show();
 			}
+			ledpanel.show();
 
 			for (int i = 0; i < 55; i++) {
 				ledstrip1.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
-				ledstrip1.show();
 			}
+			ledstrip1.show();
 
 			for (int i = 0; i < 55; i++) {
 				ledstrip2.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
-				ledstrip2.show();
 			}
+			ledstrip2.show();
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 
@@ -210,25 +211,25 @@ void loop()
 			char* c_mtrl_name = mtrl_name.c_str();
 			int* mtrl_color = material.get_rgb();
 
-			// Led 색깔 재료 고유의 색으로 바꾸기
-			for (int i = 0; i < 256; i++) {
-				ledpanel.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
-				ledpanel.show();
-			}
-
-			for (int i = 0; i < 55; i++) {
-				ledstrip1.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
-				ledstrip1.show();
-			}
-
-			for (int i = 0; i < 55; i++) {
-				ledstrip2.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
-				ledstrip2.show();
-			}
-
 			// OLED 표시
 			oled.display_progress(now_amount, total_amount, c_mtrl_name);
 			now_amount += pump_recipe[i];
+
+			// Led 색깔 재료 고유의 색으로 바꾸기
+			for (int i = 0; i < 256; i++) {
+				ledpanel.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+			}
+			ledpanel.show();
+
+			for (int i = 0; i < 55; i++) {
+				ledstrip1.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+			}
+			ledstrip1.show();
+
+			for (int i = 0; i < 55; i++) {
+				ledstrip2.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+			}
+			ledstrip2.show();
 
 			// 좌표 설정하고, plate 움직이기
 			plate.moveto(material.get_pos_x(), material.get_pos_y());
@@ -246,18 +247,18 @@ void loop()
 	// 칵테일 고유색 설정하기
 	for (int i = 0; i < 256; i++) {
 		ledpanel.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
-		ledpanel.show();
 	}
+	ledpanel.show();
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip1.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
-		ledstrip1.show();
 	}
+	ledstrip1.show();
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip2.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
-		ledstrip2.show();
 	}
+	ledstrip2.show();
 
 	// 테크닉 인스턴스에다가 위에서 선언해준 method를 전달해 그 명령 수행
 	t.f(ct);

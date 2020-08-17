@@ -49,7 +49,7 @@ void Technique::stir(int a_glass)
 	digitalWrite(48, HIGH);  digitalWrite(49, HIGH); // 모터 정지
 	delay(100); // 다 젓고 기다리는 시간 @@@@@@@@@@@@@@@@@@@@@
 	a.up();
-	delay(actuator_time + 1000);
+	delay(actuator_time + 3100);
 	a.idle();
 
 	oled.display_center("delivering");

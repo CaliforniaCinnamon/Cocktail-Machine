@@ -189,10 +189,6 @@ void Operation::preset_cocktail_recipes()
 
 void Operation::initialize() 
 {
-	// oled 화면 전부 지우기
-	Oled o;
-	o.display_preparing();
-
 	// 펌프 작동 중지 (1~8)
 	Pump pump_instance;
 	for (int i = 0; i < 9; i++) {
