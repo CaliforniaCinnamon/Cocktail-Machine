@@ -8,40 +8,36 @@
 
 
 // 스터:
-void Technique::stir(int a_glass) 
+void Technique::stir(int a_glass)
 {
 	Oled oled;
 	oled.display_center("stirring");
+	Actuator a(42, 43); // 인스턴스 생성; 거품기 액츄에이터 핀 번호
 
 	// 이동: 여러번 해야함
 	Plate p;
 	p.moveto(3065, 1800);
-	p.move(-1050, 1);
-
-	Actuator a(42, 43); // 인스턴스 생성; 거품기 액츄에이터 핀 번호
+	a.down();
+	p.move(-1050, 1); // 2.1 ~ 2.2 초
 
 	int actuator_time = 0;
-	
+
 	//잔 종류에 따라 높이 다르게
 	//낮은것부터 1,2,3,4
 	switch (a_glass) {
-	case 1:
-		//안해준다
-		break;
 	case 2:
-		actuator_time = 10000;  break;
+		actuator_time = 8900;  break;
 	case 3:
-		actuator_time = 7000;  break;
+		actuator_time = 5900;  break;
 	case 4:
-		actuator_time = 4000;  break;
+		actuator_time = 2900;  break;
 	}
 
-	a.down();
 	delay(actuator_time);
 	a.idle();
-	
+
 	// 모터 ON
-	pinMode(48, OUTPUT);  
+	pinMode(48, OUTPUT);
 	pinMode(49, OUTPUT);
 
 	digitalWrite(48, HIGH);
@@ -49,7 +45,7 @@ void Technique::stir(int a_glass)
 	// 모터 속도 조절 (지금은 안 씀)
 	//pinMode(32, OUTPUT);  analogWrite(32, 150);
 	delay(5000); // 젓는 시간 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	
+
 	digitalWrite(48, HIGH);  digitalWrite(49, HIGH); // 모터 정지
 	delay(100); // 다 젓고 기다리는 시간 @@@@@@@@@@@@@@@@@@@@@
 	a.up();
@@ -65,7 +61,6 @@ void Technique::stir(int a_glass)
 	p.moveto(640, 0);
 	p.move_to_initial_position();
 }
-
 
 // 빌드: LED 색깔과 OLED 표시 설정 필요
 void Technique::build() 
