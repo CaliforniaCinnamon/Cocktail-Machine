@@ -19,15 +19,10 @@ Operation ctrl;
 extern DispenserMaterial disp_mtrl_arr[12];
 extern PumpMaterial pump_mtrl_arr[9];
 extern Cocktail cocktail_arr[18];
-extern Adafruit_NeoPixel ledpanel;
-extern Adafruit_NeoPixel ledstrip1;
-extern Adafruit_NeoPixel ledstrip2;
 
-
-/*
-Adafruit_NeoPixel iledpanel = Adafruit_NeoPixel(256, 2, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel iledstrip1 = Adafruit_NeoPixel(55, 3, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel iledstrip2 = Adafruit_NeoPixel(55, 4, NEO_GRB + NEO_KHZ800);*/
+Adafruit_NeoPixel ledpanel = Adafruit_NeoPixel(256, 2, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel ledstrip1 = Adafruit_NeoPixel(55, 3, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel ledstrip2 = Adafruit_NeoPixel(55, 4, NEO_GRB + NEO_KHZ800);
 
 // ===================== setup & loop =====================
 void setup() 
@@ -49,23 +44,22 @@ void setup()
 
 void loop() 
 {
-	/*
 	// LED 인스턴스 생성
-	iledpanel.begin();
-	iledstrip1.begin();
-	iledstrip2.begin();
+	ledpanel.begin();
+	ledstrip1.begin();
+	ledstrip2.begin();
 
-	iledpanel.clear();
-	iledpanel.setBrightness(20);
-	iledpanel.show();
+	ledpanel.clear();
+	ledpanel.setBrightness(20);
+	ledpanel.show();
 
-	iledstrip1.clear();
-	iledstrip1.setBrightness(50);
-	iledstrip1.show();
+	ledstrip1.clear();
+	ledstrip1.setBrightness(50);
+	ledstrip1.show();
 
-	iledstrip2.clear();
-	iledstrip2.setBrightness(50);
-	iledstrip2.show();*/
+	ledstrip2.clear();
+	ledstrip2.setBrightness(50);
+	ledstrip2.show();
 
 
 	int flag = 1;  // 1이면 명령 기다림, 0이면 명령 탈출
@@ -77,22 +71,23 @@ void loop()
 	delay(2000); 
 	oled.display_center("waiting");
 	
-	/*
+	
 	for (int i = 0; i < 256; i++) {
-		iledpanel.setPixelColor(i, 121, 0, 214);
+		ledpanel.setPixelColor(i, 121, 0, 214);
+		ledpanel.show();
 	}
-	iledpanel.show();
 		
 	for (int i = 0; i < 55; i++) {
-		iledstrip1.setPixelColor(i, 121, 0, 214);
+		ledstrip1.setPixelColor(i, 121, 0, 214);
+		ledstrip1.show();
 	}
-	iledstrip1.show();
+	
 
 	for (int i = 0; i < 55; i++) {
-		iledstrip2.setPixelColor(i, 121, 0, 214);
+		ledstrip2.setPixelColor(i, 121, 0, 214);
+		ledstrip2.show();
 	}
-	iledstrip2.show();*/
-
+	
 	while (flag) { // flag 1: 명령 기다림 | flag 0: 명령 받아 while 탈출
 	// LED 레인보우를 동시에 표현하기 위한 코드
 		int time_marker = millis();
@@ -113,17 +108,11 @@ void loop()
 
 	} // end of while
 
-	/*
-	// 칵테일 만들기
-	ctrl.make_cocktail(res_index);
-	delay(2000);
-	*/
 
 	//칵테일 만들기(new ver)
 	Cocktail ct = cocktail_arr[res_index];
 
 	// 컨트롤을 위한 인스턴스 생성;
-	Oled oled;
 	Plate plate;
 	Pump pump_instance;
 
@@ -141,19 +130,18 @@ void loop()
 
 	for (int i = 0; i < 256; i++) {
 		ledpanel.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
+		ledpanel.show();
 	}
-	ledpanel.show();
-
+	
 	for (int i = 0; i < 55; i++) {
 		ledstrip1.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
+		ledstrip1.show();
 	}
-	ledstrip1.show();
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip2.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
+		ledstrip2.show();
 	}
-	ledstrip2.show();
-
 
 	delay(3000);
 
@@ -190,19 +178,19 @@ void loop()
 
 			for (int i = 0; i < 256; i++) {
 				ledpanel.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+				ledpanel.show();
 			}
-			ledpanel.show();
 
 			for (int i = 0; i < 55; i++) {
 				ledstrip1.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+				ledstrip1.show();
 			}
-			ledstrip1.show();
-
+			
 			for (int i = 0; i < 55; i++) {
 				ledstrip2.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+				ledstrip2.show();
 			}
-			ledstrip2.show();
-
+			
 			// Led 색깔 재료 고유의 색으로 바꾸기
 
 			// 좌표 설정하고, plate 움직이기
@@ -236,18 +224,18 @@ void loop()
 
 			for (int i = 0; i < 256; i++) {
 				ledpanel.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+				ledpanel.show();
 			}
-			ledpanel.show();
-
+			
 			for (int i = 0; i < 55; i++) {
 				ledstrip1.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+				ledstrip1.show();
 			}
-			ledstrip1.show();
-
+			
 			for (int i = 0; i < 55; i++) {
 				ledstrip2.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
+				ledstrip2.show();
 			}
-			ledstrip2.show();
 
 			// Led 색깔 재료 고유의 색으로 바꾸기
 
@@ -266,19 +254,18 @@ void loop()
 
 	for (int i = 0; i < 256; i++) {
 		ledpanel.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
+		ledpanel.show();
 	}
-	ledpanel.show();
-
+		
 	for (int i = 0; i < 55; i++) {
 		ledstrip1.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
-	}
-	ledstrip1.show();
+		ledstrip1.show();
+	}	
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip2.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
+		ledstrip2.show();
 	}
-	ledstrip2.show();
-
 
 	// 테크닉 인스턴스에다가 위에서 선언해준 method를 전달해 그 명령 수행
 	t.f(ct);
@@ -286,12 +273,45 @@ void loop()
 	oled.display_complete();    // OLED에 완료했다고 표시
 	// ********* 무지개 빙글빙글 (스트립만)
 	rainbow(10);
-	rainbow(10);
-	rainbow(10);
 
-	return 1; // 리턴 코드 1: 칵테일 완성
+	// make_cocktail 끝!
 
-	
 
+} // end of loop
+
+
+
+//***** 사용자 정의 함수 ******//
+//********************** LED 빙글빙글을 위한 함수 ********************//
+//모든 LED를 출력가능한 모든색으로 한번씩 보여주는 동작을 한번하는 함수
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@ 문제: 스트립이랑 매트릭스 소자 개수가 안 맞아서 일단 스트립만 했음.
+void rainbow(int wait) 
+{
+	uint16_t i, j;
+
+	for (j = 0; j < 256; j++) {
+		for (i = 0; i < 55; i++) {
+			ledstrip1.setPixelColor(i, Wheel((i + j) & 255, ledstrip1));
+			ledstrip2.setPixelColor(i, Wheel((i + j) & 255, ledstrip2));
+			ledstrip1.show();
+			ledstrip2.show();
+		}
+		delay(wait);
+	}
 }
 
+
+//255가지의 색을 나타내는 함수
+uint32_t Wheel(byte WheelPos, Adafruit_NeoPixel strip) {
+	if (WheelPos < 85) {
+		return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+	}
+	else if (WheelPos < 170) {
+		WheelPos -= 85;
+		return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+	}
+	else {
+		WheelPos -= 170;
+		return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+	}
+}

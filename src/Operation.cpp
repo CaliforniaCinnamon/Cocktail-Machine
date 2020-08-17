@@ -13,11 +13,6 @@ PumpMaterial pump_mtrl_arr[9];
 Cocktail cocktail_arr[18];
 
 
-Adafruit_NeoPixel ledpanel = Adafruit_NeoPixel(256, 2, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel ledstrip1 = Adafruit_NeoPixel(55, 3, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel ledstrip2 = Adafruit_NeoPixel(55, 4, NEO_GRB + NEO_KHZ800);
-
-
 // *************************** 프리셋 함수들 *************************
 
     // 정보 셋업하기 (재료들의 위치, 칵테일 레시피)
@@ -194,23 +189,6 @@ void Operation::preset_cocktail_recipes()
 
 void Operation::initialize() 
 {
-	ledpanel.begin();
-	ledstrip1.begin();
-	ledstrip2.begin();
-
-	ledpanel.clear();
-	ledpanel.setBrightness(20);
-	ledpanel.show();
-
-	ledstrip1.clear();
-	ledstrip1.setBrightness(50);
-	ledstrip1.show();
-
-	ledstrip2.clear();
-	ledstrip2.setBrightness(50);
-	ledstrip2.show();
-
-
 	// oled 화면 전부 지우기
 	Oled o;
 	o.display_preparing();
@@ -242,8 +220,6 @@ void Operation::initialize()
 	// 플레이트 위치 (0,0)으로 초기화
 	Plate p;
 	p.move_to_initial_position();
-
-	Serial.println("end of initialize func");
 }
 
 
@@ -338,7 +314,7 @@ int Operation::bluetooth_connect()
 }
 
 
-
+/*
 // 칵테일을 만드는 함수
 int Operation::make_cocktail(int result_index)
 {
@@ -513,7 +489,8 @@ int Operation::make_cocktail(int result_index)
 	rainbow(10);
 
 	return 1; // 리턴 코드 1: 칵테일 완성
-}
+}*/ 
+// end of make_cocktail
 
 
 void Operation::emergency_stop()
@@ -525,37 +502,7 @@ void Operation::emergency_stop()
 }
 
 
-//********************** LED 빙글빙글을 위한 함수 ********************//
-//모든 LED를 출력가능한 모든색으로 한번씩 보여주는 동작을 한번하는 함수
-void Operation::rainbow(int wait) {
-	uint16_t i, j;
 
-	for (j = 0; j < 256; j++) {
-		for (i = 0; i < 55; i++) {
-			ledstrip1.setPixelColor(i, Wheel((i + j) & 255));
-			ledstrip2.setPixelColor(i, Wheel((i + j) & 255));
-		}
-		ledstrip1.show();
-		ledstrip2.show();
-		delay(wait);
-	}
-}
-
-
-//255가지의 색을 나타내는 함수
-uint32_t Operation::Wheel(byte WheelPos) {
-	if (WheelPos < 85) {
-		return ledstrip1.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
-	}
-	else if (WheelPos < 170) {
-		WheelPos -= 85;
-		return ledstrip1.Color(255 - WheelPos * 3, 0, WheelPos * 3);
-	}
-	else {
-		WheelPos -= 170;
-		return ledstrip1.Color(0, WheelPos * 3, 255 - WheelPos * 3);
-	}
-}
 
 
 #endif
