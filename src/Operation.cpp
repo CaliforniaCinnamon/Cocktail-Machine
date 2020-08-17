@@ -227,6 +227,8 @@ void Operation::initialize()
 
 int Operation::select_make_recipe(String message)
 {
+	Serial.println(message);
+
 	// 우선 message 양 끝에 & 가 있는지 검사, 없으면 18을 반환
 
 	 // 주어진 정보 -> 양 데이터 배열 선언
@@ -254,28 +256,37 @@ int Operation::select_make_recipe(String message)
 		int index_int = index.toInt();
 		int amount_int = amount.toInt();
 
-		// index가 0~11이면 disp mtrl, 12~20이면 pump mtrl
+		// index가 1~12이면 disp mtrl, 13~21이면 pump mtrl
 		if (0 <= index_int && index_int <= 11) {
-			disp_mtrl_amount[index_int] = amount_int;
+			disp_mtrl_amount[index_int - 1] = amount_int;
+			Serial.print("dispenser material; ");
+			Serial.print(index_int);
+			Serial.print(" : ");
+			Serial.println(amount_int);
 		}
 		else if (12 <= index_int && index_int <= 20) {
-			pump_mtrl_amount[index_int - 12] = amount_int;
+			pump_mtrl_amount[index_int - 13] = amount_int;
+			Serial.print("pump material; ");
+			Serial.print(index_int);
+			Serial.print(" : ");
+			Serial.println(amount_int);
 		}
 
-		// 참고: 지금의 인덱스는 '%' 또는 '&'를 가리키고 있다.
+		if (message[i] == '&') break;
+		i++;
+
 	} // end of while: disp_mtrl_amount 와 pump_mtrl_amount 배열 설정 완료
 
 	// 칵테일 인스턴스 생성
-	Cocktail my_cocktail("my_cocktail", disp_mtrl_amount, pump_mtrl_amount, 
+	Cocktail my_cocktail("my_cocktail", disp_mtrl_amount, pump_mtrl_amount,
 		TechniqueMethod::BUILD, 4, 121, 0, 214); // 나만의 레시피 테크닉과 @@@@@@@@@@@@@@@@@@@@@2
 
-	// 칵테일 배열 18번째 원소(index 17)에 할당
+	 // 칵테일 배열 18번째 원소(index 17)에 할당
 	cocktail_arr[17] = my_cocktail;
 
 	// 리턴
 	return 17;
 }
-
 
 int Operation::bluetooth_connect() 
 {
