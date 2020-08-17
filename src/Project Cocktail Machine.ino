@@ -1,7 +1,7 @@
 ﻿/*
- Name:		Project_Cocktail_Machine.ino
- Created:	2020-07-15 오전 2:20:54
- Author:	USER
+ Name:      Project_Cocktail_Machine.ino
+ Created:   2020-07-15 오전 2:20:54
+ Author:   USER
 */
 
 
@@ -26,14 +26,14 @@ Adafruit_NeoPixel ledstrip2 = Adafruit_NeoPixel(55, 4, NEO_GRB + NEO_KHZ800);
 Oled oled;
 
 // ===================== setup & loop =====================
-void setup() 
+void setup()
 {
 	//Oled oled_instance;
 	//oled_instance.display_preparing();
 
 	Serial.begin(9600);
 
-	  Serial.println("\n\n= start debugging...");
+	Serial.println("\n\n= start debugging...");
 
 	ctrl.preset_dispenser_materials();
 	ctrl.preset_pump_materials();
@@ -63,7 +63,7 @@ void setup()
 }
 
 
-void loop() 
+void loop()
 {
 	int flag = 1;  // 1이면 명령 기다림, 0이면 명령 탈출
 	int res_index = -1; // bluetooth_connect의 리턴 값
@@ -73,12 +73,12 @@ void loop()
 		ledpanel.setPixelColor(i, 121, 0, 214);
 		ledpanel.show();
 	}
-		
+
 	for (int i = 0; i < 55; i++) {
 		ledstrip1.setPixelColor(i, 121, 0, 214);
 		ledstrip1.show();
 	}
-	
+
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip2.setPixelColor(i, 121, 0, 214);
@@ -87,7 +87,7 @@ void loop()
 
 	// waiting 띄우고 밑에 while 진입해서 명령 기다림
 	oled.display_center("waiting");
-	
+
 	while (flag) { // flag 1: 명령 기다림 | flag 0: 명령 받아 while 탈출
 
 		res_index = ctrl.bluetooth_connect();
@@ -129,7 +129,7 @@ void loop()
 		ledpanel.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
 		ledpanel.show();
 	}
-	
+
 	for (int i = 0; i < 55; i++) {
 		ledstrip1.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
 		ledstrip1.show();
@@ -182,12 +182,12 @@ void loop()
 				ledstrip1.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
 				ledstrip1.show();
 			}
-			
+
 			for (int i = 0; i < 55; i++) {
 				ledstrip2.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
 				ledstrip2.show();
 			}
-			
+
 			// Led 색깔 재료 고유의 색으로 바꾸기
 
 			// 좌표 설정하고, plate 움직이기
@@ -215,12 +215,12 @@ void loop()
 				ledpanel.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
 				ledpanel.show();
 			}
-			
+
 			for (int i = 0; i < 55; i++) {
 				ledstrip1.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
 				ledstrip1.show();
 			}
-			
+
 			for (int i = 0; i < 55; i++) {
 				ledstrip2.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
 				ledstrip2.show();
@@ -248,11 +248,11 @@ void loop()
 		ledpanel.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
 		ledpanel.show();
 	}
-		
+
 	for (int i = 0; i < 55; i++) {
 		ledstrip1.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
 		ledstrip1.show();
-	}	
+	}
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip2.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);

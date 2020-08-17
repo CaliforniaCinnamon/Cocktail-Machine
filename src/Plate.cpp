@@ -156,11 +156,11 @@ void Plate::push_dispenser(int a_amount)
     const int FULL_WAIT_TIME = 0;
     const int HALF_WAIT_TIME = 0;
     /*
-    const int UP_TIME = 5500; //5500
-    const int HALF_UP_TIME = 4200;  //4200
-    const int DOWN_TIME = 6000; //6000
-    const int FULL_WAIT_TIME = 0; //0
-    const int HALF_WAIT_TIME = 400; // 400*/
+    const int UP_TIME = 5500;
+    const int HALF_UP_TIME = 4200;
+    const int DOWN_TIME = 6000;
+    const int FULL_WAIT_TIME = 0;
+	const int HALF_WAIT_TIME = 800; */
 
     int num_full_push = a_amount / 30;
     int num_half_push = (a_amount % 30) / 15;

@@ -21,40 +21,40 @@ void Operation::preset_dispenser_materials()
 	// dispenser_material_instance 생성
 	// DispenserMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
 	// 이후 전역공간의 pump_mtrl_arr 배열에 정보 저장
-	DispenserMaterial dispmaterial_instance1("Vodka", 1, 750, 250, 250, 250);
+	DispenserMaterial dispmaterial_instance1("Vodka", 1, 750, 150, 75, 0);
 	disp_mtrl_arr[0] = dispmaterial_instance1;
 
-	DispenserMaterial dispmaterial_instance2("Gin", 2, 750, 180, 220, 220);
+	DispenserMaterial dispmaterial_instance2("Gin", 2, 750, 80, 188, 223);
 	disp_mtrl_arr[1] = dispmaterial_instance2;
 
 	DispenserMaterial dispmaterial_instance3("WhiteRum", 3, 750, 250, 250, 250);
 	disp_mtrl_arr[2] = dispmaterial_instance3;
 
-	DispenserMaterial dispmaterial_instance4("Tequila", 4, 750, 240, 240, 95);
+	DispenserMaterial dispmaterial_instance4("Tequila", 4, 750, 150, 75, 0);
 	disp_mtrl_arr[3] = dispmaterial_instance4;
 
-	DispenserMaterial dispmaterial_instance5("Cointreau", 5, 750, 210, 145, 45);
+	DispenserMaterial dispmaterial_instance5("Cointreau", 5, 750, 150, 75, 0);
 	disp_mtrl_arr[4] = dispmaterial_instance5;
 
-	DispenserMaterial dispmaterial_instance6("Smirnoff Green Apple", 6, 750, 130, 225, 120);
+	DispenserMaterial dispmaterial_instance6("Smirnoff Green Apple", 6, 750, 129, 193, 71);
 	disp_mtrl_arr[5] = dispmaterial_instance6;
 
 	DispenserMaterial dispmaterial_instance7("Soju", 7, 360, 130, 225, 120);
 	disp_mtrl_arr[6] = dispmaterial_instance7;
 
-	DispenserMaterial dispmaterial_instance8("Peach", 8, 750, 250, 160, 205);
+	DispenserMaterial dispmaterial_instance8("Peach", 8, 750, 255, 102, 102);
 	disp_mtrl_arr[7] = dispmaterial_instance8;
 
 	DispenserMaterial dispmaterial_instance9("Blue Curacao", 9, 750, 60, 60, 210);
 	disp_mtrl_arr[8] = dispmaterial_instance9;
 
-	DispenserMaterial dispmaterial_instance10("Beer", 10, 500, 110, 65, 100);
+	DispenserMaterial dispmaterial_instance10("Beer", 10, 500, 150, 75, 0);
 	disp_mtrl_arr[9] = dispmaterial_instance10;
 
-	DispenserMaterial dispmaterial_instance11("Mojito", 11, 750, 130, 215, 125);
+	DispenserMaterial dispmaterial_instance11("Mojito", 11, 750, 129, 193, 71);
 	disp_mtrl_arr[10] = dispmaterial_instance11;
 
-	DispenserMaterial dispmaterial_instance12("Jack Daniel", 12, 750, 210, 140, 60);
+	DispenserMaterial dispmaterial_instance12("Jack Daniel", 12, 750, 150, 75, 0);
 	disp_mtrl_arr[11] = dispmaterial_instance12;
 
 }
@@ -64,22 +64,22 @@ void Operation::preset_pump_materials()
 	//pump_material_instance 생성
 	//PumpMaterial(String aname, int a_num, double a_remain, int ar, int ag, int ab)
 	// 이후 전역공간의 pump_mtrl_arr 배열에 정보 저장
-	PumpMaterial pumpmaterial_instance1("Raspberry", 13, 750, 200, 50, 40);
+	PumpMaterial pumpmaterial_instance1("Raspberry", 13, 750, 250, 20, 20);
 	pump_mtrl_arr[0] = pumpmaterial_instance1;
 
-	PumpMaterial pumpmaterial_instance2("Lemon", 14, 750, 255, 255, 10);
+	PumpMaterial pumpmaterial_instance2("Lemon", 14, 750, 255, 255, 0);
 	pump_mtrl_arr[1] = pumpmaterial_instance2;
 
-	PumpMaterial pumpmaterial_instance3("Lime", 15, 750, 120, 210, 100);
+	PumpMaterial pumpmaterial_instance3("Lime", 15, 750, 255, 255, 0);
 	pump_mtrl_arr[2] = pumpmaterial_instance3;
 
-	PumpMaterial pumpmaterial_instance4("Sweet Sour", 16, 750, 230, 230, 100);
+	PumpMaterial pumpmaterial_instance4("Sweet Sour", 16, 750, 255, 255, 0);
 	pump_mtrl_arr[3] = pumpmaterial_instance4;
 
-	PumpMaterial pumpmaterial_instance5("Orange", 17, 750, 255, 130, 0);
+	PumpMaterial pumpmaterial_instance5("Orange", 17, 750, 255, 204, 0);
 	pump_mtrl_arr[4] = pumpmaterial_instance5;
 
-	PumpMaterial pumpmaterial_instance6("Grapefruit juice", 18, 750, 255, 185, 115);
+	PumpMaterial pumpmaterial_instance6("Grapefruit juice", 18, 750, 255, 102, 102);
 	pump_mtrl_arr[5] = pumpmaterial_instance6;
 
 	PumpMaterial pumpmaterial_instance7("Tonic", 19, 750, 255, 255, 255);
@@ -278,16 +278,15 @@ int Operation::select_make_recipe(String message)
 	} // end of while: disp_mtrl_amount 와 pump_mtrl_amount 배열 설정 완료
 
 	// 칵테일 인스턴스 생성
-	Cocktail my_cocktail("my_cocktail", disp_mtrl_amount, pump_mtrl_amount, 
+	Cocktail my_cocktail("my_cocktail", disp_mtrl_amount, pump_mtrl_amount,
 		TechniqueMethod::BUILD, 4, 121, 0, 214); // 나만의 레시피 테크닉과 @@@@@@@@@@@@@@@@@@@@@2
 
-	// 칵테일 배열 18번째 원소(index 17)에 할당
+	 // 칵테일 배열 18번째 원소(index 17)에 할당
 	cocktail_arr[17] = my_cocktail;
 
 	// 리턴
 	return 17;
 }
-
 
 int Operation::bluetooth_connect() 
 {
