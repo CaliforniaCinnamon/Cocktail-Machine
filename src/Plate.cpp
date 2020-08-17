@@ -149,18 +149,19 @@ void Plate::push_dispenser(int a_amount)
 {
     // 선언 및 초기화, 딜레이 타임 & 4개 상수 측정 완료
     Actuator a(22, 23);
-    
+    /*
     const int UP_TIME = 1000;
     const int HALF_UP_TIME = 1000;
     const int DOWN_TIME = 1000;
     const int FULL_WAIT_TIME = 0;
-    const int HALF_WAIT_TIME = 0;
-    /*
+    const int HALF_WAIT_TIME = 0;*/
+    
     const int UP_TIME = 5500;
     const int HALF_UP_TIME = 4200;
-    const int DOWN_TIME = 6000;
+    const int HALF_DOWN_TIME = 4300;
+    const int DOWN_TIME = 5600;
     const int FULL_WAIT_TIME = 0;
-	const int HALF_WAIT_TIME = 800; */
+	const int HALF_WAIT_TIME = 800; 
 
     int num_full_push = a_amount / 30;
     int num_half_push = (a_amount % 30) / 15;
@@ -177,7 +178,6 @@ void Plate::push_dispenser(int a_amount)
         delay(DOWN_TIME);
 
         a.idle();
-        //delay(500); // 다시 누르기 전까지 기다리는 시간
     }
 
     if (num_half_push) {
@@ -188,10 +188,9 @@ void Plate::push_dispenser(int a_amount)
         delay(HALF_WAIT_TIME);
 
         a.down();
-        delay(DOWN_TIME);
+        delay(HALF_DOWN_TIME);
 
         a.idle();
-       // delay(500); // 다시 누르기 전까지 기다리는 시간
     }
 
 }

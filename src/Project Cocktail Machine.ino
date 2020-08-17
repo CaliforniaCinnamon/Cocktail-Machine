@@ -28,9 +28,9 @@ Adafruit_NeoPixel ledstrip2 = Adafruit_NeoPixel(55, 4, NEO_GRB + NEO_KHZ800);
 // ===================== setup & loop =====================
 void setup()
 {
-	//Oled oled;
+	Oled oled;
 	// oled 화면 전부 지우기
-	//oled.display_preparing();
+	oled.display_preparing();
 
 	Serial.begin(9600);
 
@@ -59,7 +59,7 @@ void setup()
 	ledstrip2.setBrightness(50);
 	ledstrip2.show();
 
-	//oled.display_center("Welcome!");
+	oled.display_center("Welcome!");
 	delay(2000);
 }
 
