@@ -1,7 +1,7 @@
 ﻿/*
- Name:		Project_Cocktail_Machine.ino
- Created:	2020-07-15 오전 2:20:54
- Author:	USER
+ Name:      Project_Cocktail_Machine.ino
+ Created:   2020-07-15 오전 2:20:54
+ Author:   USER
 */
 
 
@@ -25,14 +25,14 @@ Adafruit_NeoPixel ledstrip1 = Adafruit_NeoPixel(55, 3, NEO_GRB + NEO_KHZ800);
 Adafruit_NeoPixel ledstrip2 = Adafruit_NeoPixel(55, 4, NEO_GRB + NEO_KHZ800);
 
 // ===================== setup & loop =====================
-void setup() 
+void setup()
 {
 	//Oled oled_instance;
 	//oled_instance.display_preparing();
 
 	Serial.begin(9600);
 
-	  Serial.println("\n\n= start debugging...");
+	Serial.println("\n\n= start debugging...");
 
 	ctrl.preset_dispenser_materials();
 	ctrl.preset_pump_materials();
@@ -42,7 +42,7 @@ void setup()
 }
 
 
-void loop() 
+void loop()
 {
 	// LED 인스턴스 생성
 	ledpanel.begin();
@@ -68,26 +68,26 @@ void loop()
 	// 전원 연결이 되면, oled는 로고를 출력해 입력을 기다리고 있음을 나타냄
 	Oled oled;
 	oled.display_center("Welcome!");
-	delay(2000); 
+	delay(2000);
 	oled.display_center("waiting");
-	
-	
+
+
 	for (int i = 0; i < 256; i++) {
 		ledpanel.setPixelColor(i, 121, 0, 214);
 		ledpanel.show();
 	}
-		
+
 	for (int i = 0; i < 55; i++) {
 		ledstrip1.setPixelColor(i, 121, 0, 214);
 		ledstrip1.show();
 	}
-	
+
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip2.setPixelColor(i, 121, 0, 214);
 		ledstrip2.show();
 	}
-	
+
 	while (flag) { // flag 1: 명령 기다림 | flag 0: 명령 받아 while 탈출
 	// LED 레인보우를 동시에 표현하기 위한 코드
 		int time_marker = millis();
@@ -132,7 +132,7 @@ void loop()
 		ledpanel.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
 		ledpanel.show();
 	}
-	
+
 	for (int i = 0; i < 55; i++) {
 		ledstrip1.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
 		ledstrip1.show();
@@ -185,12 +185,12 @@ void loop()
 				ledstrip1.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
 				ledstrip1.show();
 			}
-			
+
 			for (int i = 0; i < 55; i++) {
 				ledstrip2.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
 				ledstrip2.show();
 			}
-			
+
 			// Led 색깔 재료 고유의 색으로 바꾸기
 
 			// 좌표 설정하고, plate 움직이기
@@ -226,12 +226,12 @@ void loop()
 				ledpanel.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
 				ledpanel.show();
 			}
-			
+
 			for (int i = 0; i < 55; i++) {
 				ledstrip1.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
 				ledstrip1.show();
 			}
-			
+
 			for (int i = 0; i < 55; i++) {
 				ledstrip2.setPixelColor(i, mtrl_color[0], mtrl_color[1], mtrl_color[2]);
 				ledstrip2.show();
@@ -256,11 +256,11 @@ void loop()
 		ledpanel.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
 		ledpanel.show();
 	}
-		
+
 	for (int i = 0; i < 55; i++) {
 		ledstrip1.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
 		ledstrip1.show();
-	}	
+	}
 
 	for (int i = 0; i < 55; i++) {
 		ledstrip2.setPixelColor(i, ct_color[0], ct_color[1], ct_color[2]);
@@ -285,33 +285,34 @@ void loop()
 //********************** LED 빙글빙글을 위한 함수 ********************//
 //모든 LED를 출력가능한 모든색으로 한번씩 보여주는 동작을 한번하는 함수
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@ 문제: 스트립이랑 매트릭스 소자 개수가 안 맞아서 일단 스트립만 했음.
-void rainbow(int wait) 
-{
+void rainbow(int wait) {
 	uint16_t i, j;
 
 	for (j = 0; j < 256; j++) {
-		for (i = 0; i < 55; i++) {
-			ledstrip1.setPixelColor(i, Wheel((i + j) & 255, ledstrip1));
-			ledstrip2.setPixelColor(i, Wheel((i + j) & 255, ledstrip2));
-			ledstrip1.show();
-			ledstrip2.show();
+		for (i = 0; i < 256; i++) {
+			ledstrip1.setPixelColor(i, Wheel((i + j) & 255));
+			ledstrip2.setPixelColor(i, Wheel((i + j) & 255));
+			ledpanel.setPixelColor(i, Wheel((i + j) & 255));
 		}
+		ledstrip1.show();
+		ledstrip2.show();
+		ledpanel.show();
 		delay(wait);
 	}
 }
 
 
 //255가지의 색을 나타내는 함수
-uint32_t Wheel(byte WheelPos, Adafruit_NeoPixel strip) {
+uint32_t Wheel(byte WheelPos) {
 	if (WheelPos < 85) {
-		return strip.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
+		return ledstrip1.Color(WheelPos * 3, 255 - WheelPos * 3, 0);
 	}
 	else if (WheelPos < 170) {
 		WheelPos -= 85;
-		return strip.Color(255 - WheelPos * 3, 0, WheelPos * 3);
+		return ledstrip1.Color(255 - WheelPos * 3, 0, WheelPos * 3);
 	}
 	else {
 		WheelPos -= 170;
-		return strip.Color(0, WheelPos * 3, 255 - WheelPos * 3);
+		return ledstrip1.Color(0, WheelPos * 3, 255 - WheelPos * 3);
 	}
 }
