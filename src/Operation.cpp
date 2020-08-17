@@ -227,6 +227,8 @@ void Operation::initialize()
 
 int Operation::select_make_recipe(String message)
 {
+	Serial.println(message);
+
 	// 우선 message 양 끝에 & 가 있는지 검사, 없으면 18을 반환
 
 	 // 주어진 정보 -> 양 데이터 배열 선언
@@ -254,15 +256,25 @@ int Operation::select_make_recipe(String message)
 		int index_int = index.toInt();
 		int amount_int = amount.toInt();
 
-		// index가 0~11이면 disp mtrl, 12~20이면 pump mtrl
+		// index가 1~12이면 disp mtrl, 13~21이면 pump mtrl
 		if (0 <= index_int && index_int <= 11) {
-			disp_mtrl_amount[index_int] = amount_int;
+			disp_mtrl_amount[index_int - 1] = amount_int;
+			Serial.print("dispenser material; ");
+			Serial.print(index_int);
+			Serial.print(" : ");
+			Serial.println(amount_int);
 		}
 		else if (12 <= index_int && index_int <= 20) {
-			pump_mtrl_amount[index_int - 12] = amount_int;
+			pump_mtrl_amount[index_int - 13] = amount_int;
+			Serial.print("pump material; ");
+			Serial.print(index_int);
+			Serial.print(" : ");
+			Serial.println(amount_int);
 		}
 
-		// 참고: 지금의 인덱스는 '%' 또는 '&'를 가리키고 있다.
+		if (message[i] == '&') break;
+		i++;
+
 	} // end of while: disp_mtrl_amount 와 pump_mtrl_amount 배열 설정 완료
 
 	// 칵테일 인스턴스 생성
@@ -285,7 +297,7 @@ int Operation::bluetooth_connect()
 		String str = "";
 		while (Serial1.available()) {
 			char ch = Serial1.read();
-			delay(50); // 버퍼에 쌓인 데이터를 가져오고 삭제하는 것을 기다리는 시간
+			delay(100); // 버퍼에 쌓인 데이터를 가져오고 삭제하는 것을 기다리는 시간
 			str.concat(ch);
 		}
 

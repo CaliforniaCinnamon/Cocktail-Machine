@@ -12,31 +12,27 @@ void Technique::stir(int a_glass)
 {
 	Oled oled;
 	oled.display_center("stirring");
+	Actuator a(42, 43); // 인스턴스 생성; 거품기 액츄에이터 핀 번호
 
 	// 이동: 여러번 해야함
 	Plate p;
 	p.moveto(3065, 1800);
-	p.move(-1050, 1);
-
-	Actuator a(42, 43); // 인스턴스 생성; 거품기 액츄에이터 핀 번호
+	a.down();
+	p.move(-1050, 1); // 2.1 ~ 2.2 초
 
 	int actuator_time = 0;
 	
 	//잔 종류에 따라 높이 다르게
 	//낮은것부터 1,2,3,4
 	switch (a_glass) {
-	case 1:
-		//안해준다
-		break;
 	case 2:
-		actuator_time = 10000;  break;
+		actuator_time = 8900;  break;
 	case 3:
-		actuator_time = 7000;  break;
+		actuator_time = 5900;  break;
 	case 4:
-		actuator_time = 4000;  break;
+		actuator_time = 2900;  break;
 	}
 
-	a.down();
 	delay(actuator_time);
 	a.idle();
 	
@@ -125,7 +121,6 @@ void Technique::add_ice(int a_glass)  // 서보로 해야함
 		// INIT_ANGLE -> des_angle 로 서보 각도를 제어하는 코드
 		for (int j = INIT_ANGLE; j >= des_angle; j--) {
 			servo.write(j);
-			Serial.println(j);
 			delay(30); // 올라갈 때 딜레이 속도
 		}
 
