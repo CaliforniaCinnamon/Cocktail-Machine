@@ -56,7 +56,7 @@ inline void Material::num_to_pos(int a_num) {
 	case 5:
 		pos_x = 2680;  pos_y = 0;  break;
 	case 6:
-		pos_x = 3160;  pos_y = 1800;  break;
+		pos_x = 3190;  pos_y = 1800;  break;
 	case 7:
 		pos_x = 3190;  pos_y = 0;  break;
 	case 8:

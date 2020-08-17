@@ -177,7 +177,7 @@ void Plate::push_dispenser(int a_amount)
         delay(DOWN_TIME);
 
         a.idle();
-        delay(500); // 다시 누르기 전까지 기다리는 시간
+        //delay(500); // 다시 누르기 전까지 기다리는 시간
     }
 
     if (num_half_push) {
@@ -191,7 +191,7 @@ void Plate::push_dispenser(int a_amount)
         delay(DOWN_TIME);
 
         a.idle();
-        delay(500); // 다시 누르기 전까지 기다리는 시간
+       // delay(500); // 다시 누르기 전까지 기다리는 시간
     }
 
 }
