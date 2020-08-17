@@ -66,22 +66,25 @@ void Led::rainbow(int t) {
     {
         for (int i = 0; i < numpixels; i++) {
             strip.setPixelColor(i, 255 - 255*K/1000, 255*K/1000,0);
-        }
-        strip.show();
+			strip.show();        
+		}
+        //strip.show();
     }
     else if (K < 2000)
     {
         for (int i = 0; i < numpixels; i++) {
             strip.setPixelColor(i,0, 255 - 255 * (K-1000) / 1000, 255 * (K-1000) / 1000);
-        }
-        strip.show();
+			strip.show();       
+		}
+        //strip.show();
     }
     else
     {
         for (int i = 0; i < numpixels; i++) {
             strip.setPixelColor(i, 255 * (K-2000) / 1000, 0, 255 - 255 * (K-2000) / 1000 );
+			strip.show();
         }
-        strip.show();
+        //strip.show();
     }   
 }
 
@@ -90,8 +93,9 @@ void Led::rainbowCycle(int t) {
     for (int j = 0; j < 256 * 5; j++) {
         for (int i = 0; i < numpixels; i++) {
             strip.setPixelColor(i, Wheel(((i * 256 / numpixels) + j) & 255));
+			strip.show();
         }
-        strip.show();
+        //strip.show();
         delay(user_delay);
     }
 }
@@ -100,8 +104,9 @@ void Led::colorWipe(uint32_t c, uint8_t wait) {
     for (uint16_t i = 0; i < numpixels; i++) {
         strip.setPixelColor(i, c);
         delay(wait);
+		strip.show();
     }
-    strip.show(); // ¾ê ¿ø·¡ for¹® ¹Û¿¡ ÀÖ¾ú´Âµ¥ ²¨³¿
+    //strip.show(); // ¾ê ¿ø·¡ for¹® ¹Û¿¡ ÀÖ¾ú´Âµ¥ ²¨³¿
 }
 
 uint32_t Led::Wheel(byte WheelPos) {
