@@ -97,8 +97,8 @@ void Technique::add_ice(int a_glass)  // 서보로 해야함
 {
 	Servo servo; // 서보 인스턴스 선언
 	servo.attach(10); // 핀 번호 설정
-	const int INIT_ANGLE = 150;
-	const int FULL_ANGLE = 100;
+	const int INIT_ANGLE = 140;
+	const int FULL_ANGLE = 40;
 
 	// 잔 종류에 따른 얼음 양 정보 미리 저장, 1.0 = full로 한 번
 	double ice_amount_arr[4] = { 1,1,1,1 };
