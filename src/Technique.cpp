@@ -101,7 +101,7 @@ void Technique::add_ice(int a_glass)  // 서보로 해야함
 	const int FULL_ANGLE = 40;
 
 	// 잔 종류에 따른 얼음 양 정보 미리 저장, 1.0 = full로 한 번
-	double ice_amount_arr[4] = { 1,1,1,1 };
+	double ice_amount_arr[4] = { 1,2,1,0.8 };
 	double ice_amount = ice_amount_arr[a_glass - 1];
 
 	// 얼음 양에서 얼마나 반복할지 계산 (ice_amount 올림)
@@ -120,7 +120,7 @@ void Technique::add_ice(int a_glass)  // 서보로 해야함
 		// INIT_ANGLE -> des_angle 로 서보 각도를 제어하는 코드
 		for (int j = INIT_ANGLE; j >= des_angle; j--) {
 			servo.write(j);
-			delay(30); // 올라갈 때 딜레이 속도
+			delay(10); // 올라갈 때 딜레이 속도
 		}
 
 		delay(1000); // 피스톤이 올라오고 (얼음을 밀어내고) 잠시 딜레이 시간
