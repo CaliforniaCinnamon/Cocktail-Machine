@@ -9,7 +9,7 @@
 	#include "WProgram.h"
 #endif
 
-
+#include <SoftwareSerial.h>
 #include "Oled.h"
 #include "Led.h"
 #include "Technique.h"

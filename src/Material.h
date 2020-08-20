@@ -46,29 +46,29 @@ inline void Material::num_to_pos(int a_num) {
 	{
 	//**************disp_material**************//
 	case 1:
-		pos_x = 2170;  pos_y = 0;  break;
+		pos_x = 2170;  pos_y = 20;  break;
 	case 2:
-		pos_x = 1660;  pos_y = 0;  break;
+		pos_x = 1660;  pos_y = 20;  break;
 	case 3:
-		pos_x = 1150;  pos_y = 0;  break;
+		pos_x = 1150;  pos_y = 20;  break;
 	case 4:
-		pos_x = 640;  pos_y = 0;  break;	
+		pos_x = 640;  pos_y = 20;  break;	
 	case 5:
-		pos_x = 2680;  pos_y = 0;  break;
+		pos_x = 2680;  pos_y = 20;  break;
 	case 6:
-		pos_x = 3190;  pos_y = 1800;  break;
+		pos_x = 3190;  pos_y = 1850;  break;
 	case 7:
-		pos_x = 3190;  pos_y = 0;  break;
+		pos_x = 3190;  pos_y = 20;  break;
 	case 8:
-		pos_x = 2654;  pos_y = 1800;  break;
+		pos_x = 2654;  pos_y = 1850;  break;
 	case 9:
-		pos_x = 2148;  pos_y = 1800;  break;
+		pos_x = 2148;  pos_y = 1850;  break;
 	case 10:
-		pos_x = 1642;  pos_y = 1800;  break;
+		pos_x = 1642;  pos_y = 1850;  break;
 	case 11:
-		pos_x = 1136;  pos_y = 1800;  break;
+		pos_x = 1136;  pos_y = 1850;  break;
 	case 12:
-		pos_x = 630;  pos_y = 1800;  break;
+		pos_x = 630;  pos_y = 1850;  break;
 	//************pump_material*************//
 	case 13:
 		pos_x = 790;  pos_y = 1000;  break;

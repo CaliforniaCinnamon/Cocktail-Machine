@@ -14,10 +14,10 @@ void Technique::stir(int a_glass)
 	oled.display_center("stirring");
 	Actuator a(42, 43); // 인스턴스 생성; 거품기 액츄에이터 핀 번호
 
+	a.down();//먼저 내려오게
 	// 이동: 여러번 해야함
 	Plate p;
 	p.moveto(3065, 1800);
-	a.down();
 	p.move(-1050, 1); // 2.1 ~ 2.2 초
 
 	int actuator_time = 0;
@@ -95,45 +95,22 @@ void Technique::f(Cocktail ct)
 
 void Technique::add_ice(int a_glass)  // 서보로 해야함
 {
-	Servo servo; // 서보 인스턴스 선언
-	servo.attach(10); // 핀 번호 설정
-	const int INIT_ANGLE = 140;
-	const int FULL_ANGLE = 40;
-
-	// 잔 종류에 따른 얼음 양 정보 미리 저장, 1.0 = full로 한 번
-	double ice_amount_arr[4] = { 1,2,1,0.8 };
-	double ice_amount = ice_amount_arr[a_glass - 1];
-
-	// 얼음 양에서 얼마나 반복할지 계산 (ice_amount 올림)
-	int num = (int)(ice_amount + 0.5);
-
-	servo.write(INIT_ANGLE); // 각도 초기화  
-
-	// ice_amount 에 따라 피스톤 왕복운동 반복
-	for (int i = 0; i < num; i++)
-	{
-		// 서보 목표 각도; ice_amount 에 따라 달라짐
-		int des_angle = 0;
-		if ((int)ice_amount / 1) des_angle = FULL_ANGLE;
-		else des_angle = (int)((FULL_ANGLE - INIT_ANGLE) * ice_amount + INIT_ANGLE);
-
-		// INIT_ANGLE -> des_angle 로 서보 각도를 제어하는 코드
-		for (int j = INIT_ANGLE; j >= des_angle; j--) {
-			servo.write(j);
-			delay(10); // 올라갈 때 딜레이 속도
-		}
-
-		delay(1000); // 피스톤이 올라오고 (얼음을 밀어내고) 잠시 딜레이 시간
-
-		// des_angle -> INIT_ANGLE 로 서보 각도를 제어하는 코드
-		for (int j = des_angle; j <= INIT_ANGLE; j++) {
-			servo.write(j);
-			delay(10); // 내려갈 때 딜레이 속도
-		}
-
-		delay(1500); // 피스톤이 내려가고 (얼음을 채우고) 잠시 딜레이 시간
-		ice_amount--;
+		char c = a_glass;
+		switch (c) {
+		case 1:
+			Serial2.write('0');
+			break;
+		case 2:
+			Serial2.write('1');
+			break;
+		case 3:
+			Serial2.write('2');
+			break;
+		case 4:
+			Serial2.write('3');
+			break;
 	}
+		delay(5000);
 
 } // end of for(num)
 

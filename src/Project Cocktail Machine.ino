@@ -28,19 +28,7 @@ Adafruit_NeoPixel ledstrip2 = Adafruit_NeoPixel(55, 4, NEO_GRB + NEO_KHZ800);
 // ===================== setup & loop =====================
 void setup()
 {
-	Oled oled;
-	// oled 화면 전부 지우기
-	oled.display_preparing();
-
-	Serial.begin(9600);
-
-	Serial.println("\n\n= start debugging...");
-
-	ctrl.preset_dispenser_materials();
-	ctrl.preset_pump_materials();
-	ctrl.preset_cocktail_recipes();
-
-	ctrl.initialize();
+	Serial2.begin(9600);
 
 	// LED 인스턴스 설정
 	ledpanel.begin();
@@ -58,9 +46,22 @@ void setup()
 	ledstrip2.clear();
 	ledstrip2.setBrightness(50);
 	ledstrip2.show();
+	Oled oled;
+	// oled 화면 전부 지우기
+	oled.display_preparing();
+	Serial.begin(9600);
+
+	Serial.println("\n\n= start debugging...");
+
+	ctrl.preset_dispenser_materials();
+	ctrl.preset_pump_materials();
+	ctrl.preset_cocktail_recipes();
+	ctrl.initialize();
+
+	
 
 	oled.display_center("Welcome!");
-	delay(2000);
+	delay(1000);
 }
 
 
@@ -158,7 +159,7 @@ void loop()
 	plate.moveto(190, 1200);
 	Technique t;
 	t.add_ice(ct.get_glass_info());
-
+	
 
 	// 잔량 체크 코드를 지우고 전체 양을 계산하는 코드를 넣음. OLED에 진행도를 표시하기 위함
 	// 디스펜서를 사용하는 재료부터 시작

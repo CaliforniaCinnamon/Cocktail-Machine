@@ -102,7 +102,7 @@ void Operation::preset_cocktail_recipes()
 	//glass는 작은 것부터 1,2,3,4
 	int disp_mtrl1[12] = { 0,0,45,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl1[9] = {0,0,20,0,0,0,0,0,0};
-	Cocktail cocktail_instance1("Daiquiri", disp_mtrl1, pump_mtrl1, TechniqueMethod::STIR, 4, 200, 255, 150);
+	Cocktail cocktail_instance1("Daiquiri", disp_mtrl1, pump_mtrl1, TechniqueMethod::STIR, 3, 200, 255, 150);
 	cocktail_arr[0] = cocktail_instance1;
 
 	int disp_mtrl2[12] = { 15,15,15,15,15,0,0,0,0,0,0,0 }; //@@@@@@@@@@@@@@@@@@@
@@ -112,52 +112,52 @@ void Operation::preset_cocktail_recipes()
 
 	int disp_mtrl3[12] = { 0,0,45,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl3[9] = { 15,0,15,0,0,0,0,0,0 };
-	Cocktail cocktail_instance3("Bacardi", disp_mtrl3, pump_mtrl3, TechniqueMethod::STIR, 4, 255, 255, 255);
+	Cocktail cocktail_instance3("Bacardi", disp_mtrl3, pump_mtrl3, TechniqueMethod::STIR, 3, 255, 255, 255);
 	cocktail_arr[2] = cocktail_instance3;
 
 	int disp_mtrl4[12] = { 30,0,0,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl4[9] = { 30,0,0,0,0,30,0,0,0 };
-	Cocktail cocktail_instance4("SeaBreeze", disp_mtrl4, pump_mtrl4, TechniqueMethod::BUILD, 2, 215, 60, 85);
+	Cocktail cocktail_instance4("SeaBreeze", disp_mtrl4, pump_mtrl4, TechniqueMethod::BUILD, 3, 215, 60, 85);
 	cocktail_arr[3] = cocktail_instance4;
 
 	int disp_mtrl5[12] = { 0,0,0,0,0,45,0,0,0,0,0,0 };
 	int pump_mtrl5[9] = { 0,0,0,60,0,0,0,0,0 };
-	Cocktail cocktail_instance5("AppleMartini", disp_mtrl5, pump_mtrl5, TechniqueMethod::STIR, 4, 145, 220, 145);
+	Cocktail cocktail_instance5("AppleMartini", disp_mtrl5, pump_mtrl5, TechniqueMethod::STIR, 3, 145, 220, 145);
 	cocktail_arr[4] = cocktail_instance5;
 
 	int disp_mtrl6[12] = { 30,0,0,0,15,0,0,0,0,0,0,0 };
 	int pump_mtrl6[9] = { 15,0,15,0,0,0,0,0,0 };
-	Cocktail cocktail_instance6("Cosmopolitan", disp_mtrl6, pump_mtrl6, TechniqueMethod::STIR, 4, 220, 145, 160);
+	Cocktail cocktail_instance6("Cosmopolitan", disp_mtrl6, pump_mtrl6, TechniqueMethod::STIR, 3, 220, 145, 160);
 	cocktail_arr[5] = cocktail_instance6;
 
 	int disp_mtrl7[12] = { 0,0,0,30,0,0,0,0,0,0,0,0 };
 	int pump_mtrl7[9] = { 15,0,0,0,90,0,0,0,0 };
-	Cocktail cocktail_instance7("TequilaSunrise", disp_mtrl7, pump_mtrl7, TechniqueMethod::BUILD, 2, 255, 155, 55);
+	Cocktail cocktail_instance7("TequilaSunrise", disp_mtrl7, pump_mtrl7, TechniqueMethod::BUILD, 3, 255, 155, 55);
 	cocktail_arr[6] = cocktail_instance7;
 
 	int disp_mtrl8[12] = { 0,45,0,0,0,0,0,0,0,0,0,0 };
 	int pump_mtrl8[9] = { 0,15,0,0,0,0,15,0,0 };
-	Cocktail cocktail_instance8("TomCollins", disp_mtrl8, pump_mtrl8, TechniqueMethod::STIR, 2, 210, 240, 200);
+	Cocktail cocktail_instance8("TomCollins", disp_mtrl8, pump_mtrl8, TechniqueMethod::STIR, 3, 210, 240, 200);
 	cocktail_arr[7] = cocktail_instance8;
 
 	int disp_mtrl9[12] = {0,0,15,0,0,0,0,0,0,0,45,0};
-	int pump_mtrl9[9] = {0,0,0,0,0,0,30,0,0 };
+	int pump_mtrl9[9] = {0,0,30,0,0,0,30,0,0 };
 	Cocktail cocktail_instance9("Mojito", disp_mtrl9, pump_mtrl9, TechniqueMethod::BUILD, 3, 185, 230, 170);
 	cocktail_arr[8] = cocktail_instance9;
 
 	int disp_mtrl10[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl10[9] = {0,0,0,0,0,120,0,0,0 };
-	Cocktail cocktail_instance10("Salty Dog", disp_mtrl10, pump_mtrl10, TechniqueMethod::BUILD, 1, 230, 200, 170);
+	Cocktail cocktail_instance10("Salty Dog", disp_mtrl10, pump_mtrl10, TechniqueMethod::BUILD, 3, 230, 200, 170);
 	cocktail_arr[9] = cocktail_instance10;
 
 	int disp_mtrl11[12] = {30,0,0,0,0,0,0,0,0,0,0,0};
 	int pump_mtrl11[9] = {0,0,0,0,120,0,0,0,0 };
-	Cocktail cocktail_instance11("ScrewDriver", disp_mtrl11, pump_mtrl11, TechniqueMethod::BUILD, 2, 255, 210, 1);
+	Cocktail cocktail_instance11("ScrewDriver", disp_mtrl11, pump_mtrl11, TechniqueMethod::BUILD, 3, 255, 210, 1);
 	cocktail_arr[10] = cocktail_instance11;
 
 	int disp_mtrl12[12] = { 0,0,0,30,15,0,0,0,0,0,0,0 };
 	int pump_mtrl12[9] = { 0,0,15,0,0,0,0,0,0 };
-	Cocktail cocktail_instance12("Margarita", disp_mtrl12, pump_mtrl12, TechniqueMethod::STIR, 4, 205, 245, 200);
+	Cocktail cocktail_instance12("Margarita", disp_mtrl12, pump_mtrl12, TechniqueMethod::STIR, 3, 205, 245, 200);
 	cocktail_arr[11] = cocktail_instance12;
 
 	int disp_mtrl13[12] = {0,0,0,0,0,0,0,30,0,0,0,0};
@@ -172,12 +172,12 @@ void Operation::preset_cocktail_recipes()
 
 	int disp_mtrl15[12] = {0,0,0,0,0,0,0,0,0,0,0,15};
 	int pump_mtrl15[9] = {0,0,0,0,0,45,45,0,0 };
-	Cocktail cocktail_instance15("Jack Honey Mong", disp_mtrl15, pump_mtrl15, TechniqueMethod::BUILD, 1, 175, 95, 95);
+	Cocktail cocktail_instance15("Jack Honey Mong", disp_mtrl15, pump_mtrl15, TechniqueMethod::BUILD, 3, 175, 95, 95);
 	cocktail_arr[14] = cocktail_instance15;
 
 	int disp_mtrl16[12] = { 0,0,0,0,0,0,15,0,0,60,0,0 };
 	int pump_mtrl16[9] = { 0,0,0,0,0,0,0,0,0 };
-	Cocktail cocktail_instance16("K-Cocktail", disp_mtrl16, pump_mtrl16, TechniqueMethod::BUILD, 2, 230, 210, 140);
+	Cocktail cocktail_instance16("K-Cocktail", disp_mtrl16, pump_mtrl16, TechniqueMethod::BUILD, 3, 230, 210, 140);
 	cocktail_arr[15] = cocktail_instance16;
 
 	// 여기에 메그니쳐 칵테일 레시피 추가(17번째)
